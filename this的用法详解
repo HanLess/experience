@@ -1,0 +1,51 @@
+var number = 10;
+
+this.number == window.number    // true
+
+二：在函数内部被调用。
+
+1）“use strict” 模式下返回 undefined;
+
+2）非 "use strict" 模式下 返回 window 对象，无论是被嵌套多少层，在function内部的this，都指向window对象。
+
+三：在实例对象中被调用，指向离它最近的那个对象。
+
+var obj = {
+
+  name : "obj",
+
+  say : function(){
+
+    console.log(this.name);
+
+  }
+
+}
+
+上面例子中，离this最近的对象实例是obj，所以this指向obj。
+
+var obj = {
+
+  name : "obj",
+
+  kid : {
+
+    name : "kid",
+
+    say : function(){
+
+      console.log(this.name);
+
+    }
+
+  }
+
+}
+
+上面的this指向obj.kid。
+
+四：构造函数中的this指向new出来的实例对象。
+
+五：DOM中的事件绑定，this指向绑定的DOM元素。
+
+DOM对象绑定是一个具体情况，普遍情况可以解释为：在回调函数中的this，指向调用这个回调函数的对象，比如window.setTimeout中的this指向window。
