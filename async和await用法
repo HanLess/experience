@@ -1,0 +1,32 @@
+async函数是generator函数的语法糖，但对generator进行了改进，其中最方便的一点就是async返回一个promise对象，在实际项目中，await后面要跟一个promise对象，
+而async函数又返回一个promise对象，所以可以很方便地划分模块，个人认为async是目前回调函数最好的解决办法
+
+普通函数转换为promise：
+
+var changeToPromise = function(){
+	var argument = arguments , _this = this
+	return new Promise(function(resolve,reject){
+		var fun = Array.prototype.shift.call(argument)
+		Array.prototype.push.call(argument,function(err,data){
+			if(err){
+				reject(err)
+			}else{
+				var d = data || undefined
+				resolve(d)
+			}
+		})
+		fun.apply(_this,argument)
+	})
+}
+
+在用的时候可以通过call来指定外部的this（因为需要转换的方法内部调用了this）
+
+var parent = async function(){
+  var obj = {
+      someProperty,
+      someFunction      // 某个异步方法，返回一个值data
+  }
+  var re = await changeToPromise.call(obj,obj.someFunction)
+}
+
+一般情况可以直接使用 changeToPromise，无需call
