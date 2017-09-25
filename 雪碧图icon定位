@@ -1,0 +1,23 @@
+使用webpack-spritesmith生成雪碧图以及对应的css文件
+
+在实际使用的过程中需要把对应的icon缩放
+
+可以通过
+{
+  transform:scale()
+  transform-origin
+}
+来进行缩放与定位，但是当横向布局时会有一些问题，因为 transfrom-origin是根据原图的位置来移动原点，比如：原图较大时，left top 距离比较远，
+这时找基准点不好找，所以可以在外层再套一层父元素
+
+div{
+  width:15px;
+	height:15px;
+	display: inline-block;
+}
+定义好宽高，原图的基准点就在此父元素的 left top，容易定位，此时绑定
+{
+  transform:scale()
+  transform-origin:0 0
+}
+可以准确定位在父元素的left top。
