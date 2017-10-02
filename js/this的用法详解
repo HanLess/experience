@@ -1,3 +1,7 @@
+js中this的用法比较杂乱，这里总结一下。
+
+一：全局作用域中this指向window对象。
+
 var number = 10;
 
 this.number == window.number    // true
