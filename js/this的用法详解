@@ -52,4 +52,10 @@ var obj = {
 
 五：DOM中的事件绑定，this指向绑定的DOM元素。
 
-DOM对象绑定是一个具体情况，普遍情况可以解释为：在回调函数中的this，指向调用这个回调函数的对象，比如window.setTimeout中的this指向window。
+DOM对象绑定类似情况三，dom为具体的对象，绑定事件方法是对象中的一个方法。
+普遍情况可以解释为：在回调函数中的this，指向调用这个回调函数的对象，比如window.setTimeout中的this指向window。
+
+
+改变this的方法：
+call，apply，bind为常规方法
+在es6中箭头函数也可以改变this的指向，具体为：箭头函数中的this，指向外一层的上下文的this。
