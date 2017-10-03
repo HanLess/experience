@@ -1,0 +1,7 @@
+在dom中，node对象有12种type类型，element是其中之一
+
+element继承node对象，type值为1
+
+someEle.childNodes 返回node对象，someEle.children返回element对象
+
+element的childNode列表中，首尾node节点都是text类型，而children中则是html中展示的dom结构
