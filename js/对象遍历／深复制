@@ -6,3 +6,27 @@ typeof null /   undefined /    "abc" /    123 /      [] /        {} /     functi
      
      
 在遍历的过程中，遇到数组和对象（ {} ）才需递归，其他对象（如Date,RegExp等）不需要，因为日期，正则的实例对象非引用类型，赋值后独立。
+
+var copyObj = function(obj){
+     var typeOfObj = Object.prototype.toString.call(obj)
+     var copy;
+
+     if(typeOfObj == '[object Array]'){
+          copy = []
+          obj.forEach((val,index) => {
+               var value = processObj(val)
+               copy[index] = value
+          })
+          return copy
+     }else if(typeOfObj == '[object Object]'){
+          copy = {}
+          for(let key in obj){
+               var val = processObj(obj[key])
+               copy[key] = val
+          }
+          return copy
+     }else{
+          copy = obj;
+          return copy
+     }
+}
