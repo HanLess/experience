@@ -1,0 +1,5 @@
+在ios中无法让input自动获取焦点，无论 autofocus="autofocus" 还是通过js控制都不行，具体原因不明
+
+android上正常
+
+网上给出的解决办法是在webview中，与native配合去触发focus，没有尝试。
