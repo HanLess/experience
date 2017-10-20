@@ -1,0 +1,18 @@
+思路：
+从第一位起，找到未排序中的最小值，替换到最前面
+
+var my = function(arr){
+    for(let i = 0;i < arr.length - 1;i ++){
+        var value = arr[i] , index = i
+        for(let j = i + 1;j < arr.length;j ++){
+            if(arr[j] <= value){
+                value = arr[j]
+                index = j
+            }
+        }
+        arr[index] = arr[i]
+        arr[i] = value
+    }
+
+    return arr
+}
