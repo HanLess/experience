@@ -1,0 +1,52 @@
+思路：
+分割，排序，合并
+
+分割：若长度大于2则分割，否则直接排序返回
+排序：自选排序方法
+合并：排序后的数组块合并成有序数组
+
+
+
+
+var mysort = function(arr){
+	if(arr.length > 2){
+		// 分割
+		var middle = Math.floor(arr.length / 2)
+		var front = arr.slice(0,middle)
+		var after = arr.slice(middle)
+
+		var sort_front = mysort(front)
+		var sort_after = mysort(after)
+		// 合并
+		sort_front.push(null)
+		sort_after.push(null)
+		var m = 0 , n = 0 , re_arr = []
+		while(sort_front[m] !== null && sort_after[n] !== null){
+			if(sort_front[m] <= sort_after[n]){
+				re_arr.push(sort_front[m])
+				++m
+			}else{
+				re_arr.push(sort_after[n])
+				++n
+			}
+		}
+
+		if(sort_front[m] === null){
+			Array.prototype.push.apply(re_arr , sort_after.slice(n,sort_after.length-1))
+		}else{
+			Array.prototype.push.apply(re_arr , sort_front.slice(m,sort_front.length-1))
+		}
+
+		return re_arr
+	}else{
+		// 排序
+		if(arr.length === 1){
+			return arr
+		}else if(arr.length === 2){
+			let max = Math.max(arr[0],arr[1])
+			let min = Math.min(arr[0],arr[1])
+			arr[0] = min , arr[1] = max
+			return arr
+		}
+	}
+}
