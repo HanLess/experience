@@ -16,14 +16,14 @@ var copyObj = function(obj){
      if(typeOfObj == '[object Array]'){
           copy = []
           obj.forEach((val,index) => {
-               var value = processObj(val)
+               var value = copyObj(val)
                copy[index] = value
           })
           return copy
      }else if(typeOfObj == '[object Object]'){
           copy = {}
           for(let key in obj){
-               var val = processObj(obj[key])
+               var val = copyObj(obj[key])
                copy[key] = val
           }
           return copy
