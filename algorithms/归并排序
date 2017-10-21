@@ -17,11 +17,15 @@ var mysort = function(arr){
 		var front = arr.slice(0,middle)
 		var after = arr.slice(middle)
 
+		// 合并
 		var sort_front = mysort(front)
 		var sort_after = mysort(after)
-		// 合并
+		
+		// 在每个子块尾插入标识，代表已经遍历结束
 		sort_front.push(null)
 		sort_after.push(null)
+		
+		// 循环比较两个有序子块，将合适的推入 re_arr 中，直到有一个子块出现 null，将另一个子块剩余的部分推入 re_arr
 		var m = 0 , n = 0 , re_arr = []
 		while(sort_front[m] !== null && sort_after[n] !== null){
 			if(sort_front[m] <= sort_after[n]){
@@ -41,7 +45,7 @@ var mysort = function(arr){
 
 		return re_arr
 	}else{
-		// 排序
+		// 排序，因为分割到最小单位，排序方式自选
 		if(arr.length === 1){
 			return arr
 		}else if(arr.length === 2){
