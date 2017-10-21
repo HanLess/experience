@@ -1,6 +1,8 @@
 思路：
 从1位起，将后面的数插入到前面排好序的数列中合适的位置
 
+复杂度：O(n^2)
+
 var my = function(arr){
     for(let i = 1;i < arr.length;i ++){
     
