@@ -1,0 +1,20 @@
+思路：
+从0位开始，前后两两相比，按规则换位，每次循环都找出最大的，排到最高位
+
+复杂度：O(n^2)
+
+var my = function(arr){
+    // 第一层循环是需要冒泡的长度
+    for(let i = arr.length-1;i > 0;i--){
+        // 在此长度下，从头开始冒泡
+        for(let j = 0;j < i;j++){
+            if(arr[j] > arr[j+1]){
+                var t = arr[j]
+                arr[j] = arr[j+1]
+                arr[j+1] = t
+            }
+        }
+    }
+
+    return arr
+}
