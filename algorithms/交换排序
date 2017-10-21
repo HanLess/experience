@@ -7,6 +7,8 @@
 var my = function(arr){
     for(let i = 0;i < arr.length - 1;i ++){
         var value = arr[i] , index = i
+        
+        // i 位，跟后面所有的数比较，比 i 小的就换位
         for(let j = i + 1;j < arr.length;j ++){
             if(arr[j] <= value){
                 value = arr[j]
