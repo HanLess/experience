@@ -1,0 +1,11 @@
+生成 len 个 0 ～ len 的整数数组
+
+var generateRandomArray = function(len){
+    var arr = new Array(len)
+
+    for(let i = 0;i < len;i ++){
+        arr[i] = parseInt(Math.random() * len)
+    }
+
+    return arr
+}
