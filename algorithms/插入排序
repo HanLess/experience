@@ -18,3 +18,26 @@ var my = function(arr){
 
     return arr
 }
+
+插入排序改进：
+
+var my = function(arr){
+    for(let i = 1;i < arr.length;i ++){
+        
+        // 记录当前需要插入的数字，逐个向前比较，找出需要插入的位置，即 j 并赋值，这里减少了数组换位，继而提升速度
+        var value = arr[i]
+        var j
+        
+        for(j = i;j > 0;j--){
+            if(arr[j-1] > value){
+                arr[j] = arr[j-1]
+            }else{
+                break;
+            }
+        }
+        arr[j] = value
+
+    }
+
+    return arr
+}
