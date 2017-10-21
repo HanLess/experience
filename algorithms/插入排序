@@ -2,12 +2,16 @@
 从0位起，将后面的数插入到前面排好序的数列中合适的位置
 
 var my = function(arr){
-    for(let i = 0;i < arr.length;i ++){
-        for(let j = 0;j < i;j ++){   // 遍历 i 前面的一段数列，查到合适的位置
-            if(arr[j] >= arr[i]){
-                let t = arr[i]
-                arr[i] = arr[j]
+    for(let i = 1;i < arr.length;i ++){
+    
+        // 将 i 位的数字，插入到前面的有序数列中
+        for(let j = i;j > 0;j--){
+            if(arr[j] < arr[j-1]){
+                let t = arr[j-1]
+                arr[j-1] = arr[j]
                 arr[j] = t
+            }else{
+                break;
             }
         }
     }
