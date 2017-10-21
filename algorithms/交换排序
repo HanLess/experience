@@ -5,10 +5,12 @@
 
 
 var my = function(arr){
+    // 第一层循环是需要排序的位置
     for(let i = 0;i < arr.length - 1;i ++){
         var value = arr[i] , index = i
         
         // i 位，跟后面所有的数比较，比 i 小的就换位
+        // 第二层循环，跟此位置后所有的数比较
         for(let j = i + 1;j < arr.length;j ++){
             if(arr[j] <= value){
                 value = arr[j]
