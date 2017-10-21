@@ -1,6 +1,9 @@
 思路：
 从第一位起，找到未排序中的最小值，替换到最前面
 
+复杂度：O(n^2)
+
+
 var my = function(arr){
     for(let i = 0;i < arr.length - 1;i ++){
         var value = arr[i] , index = i
