@@ -46,6 +46,8 @@ var mysort = function(arr){
 }
 
 优化：
+在给一个近似有序数组排序时，避免不必要的排序
+
 var mysort = function(arr){
 	if(arr.length > 1){
 		// 分割
