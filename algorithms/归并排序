@@ -44,3 +44,54 @@ var mysort = function(arr){
 		return arr
 	}
 }
+
+优化：
+var mysort = function(arr){
+	if(arr.length > 1){
+		// 分割
+		var middle = Math.floor(arr.length / 2)
+		var front = arr.slice(0,middle)
+		var after = arr.slice(middle)
+
+		// 合并
+		var sort_front = mysort(front)
+		var sort_after = mysort(after)
+        
+		var m = 0 , n = 0 , re_arr = []
+
+		// 在两部分排序前，先判断a的最后一个数字与b的第一个数字位置是否正确，若正确则直接concat返回，否则将ab合并成一个有序数组返回
+
+		if(sort_front[sort_front.length-1] > sort_after[0]){
+		    // 在每个子块尾插入标识，代表已经遍历结束
+		    sort_front.push(null)
+		    sort_after.push(null)
+
+		    // 循环比较两个有序子块，将合适的推入 re_arr 中，直到有一个子块出现 null，将另一个子块剩余的部分推入 re_arr
+
+		    while(sort_front[m] !== null && sort_after[n] !== null){
+			if(sort_front[m] <= sort_after[n]){
+			    re_arr.push(sort_front[m])
+			    ++m
+			}else{
+			    re_arr.push(sort_after[n])
+			    ++n
+			}
+		    }
+
+		    if(sort_front[m] === null){
+			Array.prototype.push.apply(re_arr , sort_after.slice(n,sort_after.length-1))
+		    }else{
+			Array.prototype.push.apply(re_arr , sort_front.slice(m,sort_front.length-1))
+		    }
+
+		    return re_arr
+		}else{
+		    re_arr = sort_front.concat(sort_after)
+
+		    return re_arr
+		}
+	}else{
+		return arr
+	}
+}
+
