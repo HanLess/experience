@@ -1,0 +1,27 @@
+思路：
+在数组中随便取一个数（通常是第一个）为界，大于它的放在右边，小于等于它的放在左边，递归执行
+
+
+var mysort = function(arr){
+	if(arr.length > 1){
+        var mid = arr.shift()
+        var left = [] , right = []
+        for(let i = 0;i < arr.length;i ++){
+            if(arr[i] < mid){
+                left.push(arr[i])
+            }else{
+                right.push(arr[i])
+            }
+        }
+        var s_left = mysort(left)
+        var s_right = mysort(right)
+
+        var re = []
+        re = re.concat(s_left)
+        re.push(mid)
+        re = re.concat(s_right)
+        return re
+    }else{
+        return arr
+    }
+}
