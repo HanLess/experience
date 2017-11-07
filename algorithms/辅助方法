@@ -9,3 +9,26 @@ var generateRandomArray = function(len){
 
     return arr
 }
+
+生成 len 个 0 ～ len 的近乎有序整数数组
+
+var nearly_sort_generateRandomArray = function(len){
+    var arr = new Array(len)
+
+    for(let i = 0;i < len;i ++){
+        arr[i] = i
+    }
+
+    if(len > 1000){
+        for(let j = 0;j < 50;j ++){
+            let max_index = Math.floor(Math.random() * len)
+            let min_index = Math.floor(Math.random() * len)
+            let temp;
+            temp = arr[max_index]
+            arr[max_index] = arr[min_index]
+            arr[min_index] = temp
+        }
+    }
+
+    return arr
+}
