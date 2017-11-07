@@ -25,3 +25,6 @@ var mysort = function(arr){
         return arr
     }
 }
+
+优化：
+不再把第一个元素当成 界，取范围内的随机位为界
