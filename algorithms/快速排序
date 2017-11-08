@@ -28,3 +28,7 @@ var mysort = function(arr){
 
 优化：
 不再把第一个元素当成 界，取范围内的随机位为界
+
+var mid_index = Math.floor(Math.random() * arr.length)
+var mid = arr[mid_index]
+arr.splice(mid_index,1)
