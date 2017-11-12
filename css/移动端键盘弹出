@@ -1,0 +1,8 @@
+在目前版本的Ios与Android中，键盘弹出情况如下：
+
+Android：
+键盘弹出后触发resize事件，window变小，所有内容上移，如果有固定高度元素，有可能会被遮挡，需要看情况处理
+
+ios：
+键盘弹出后触发scroll事件，屏变小，但是window的scrollHeight不变，内容区域出现滚动条，样式不会变乱，但是键盘会遮挡p屏幕下部的元素。
+早期ios中的处理类似Android

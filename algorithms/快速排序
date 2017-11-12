@@ -1,0 +1,32 @@
+思路：
+在数组中随便取一个数（通常是第一个）为界，大于它的放在右边，小于等于它的放在左边，递归执行
+
+半开半闭区间 [...)
+var mysort = function(arr,start,end){
+    if(start < end){
+    // 取第一位当元数据，临界位置 i
+        var i = start , mid = arr[start]
+        for(let j = start + 1;j < end;j ++){
+		// 遍历到比元小的数据，i加一(加一后，此时arr[i]比元大，将arr[j](比元小)，与arr[i]交换)
+            if(arr[j] < mid){
+                i ++
+                var temp = arr[i]
+                arr[i] = arr[j]
+                arr[j] = temp
+            }
+        }
+	// 遍历后，将元与临界位置的数据交换
+        var _temp = arr[i]
+        arr[i] = mid
+        arr[start] = _temp
+	
+	// 注意for循环是半开半闭区间，所以这么写i不会被比较，要根据for循环的写法来决定start和end值
+        mysort(arr,start,i)
+        mysort(arr,i+1,end)
+    }
+}
+mysort(arr,0,arr.length)
+
+
+优化：
+不再把第一个元素当成 界，取范围内的随机位为界

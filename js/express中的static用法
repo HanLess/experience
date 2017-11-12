@@ -1,0 +1,17 @@
+在express中存储静态文件使用static
+
+app.use(express.static('public'));
+
+有后缀：
+
+http://localhost:3000/images/kitten.jpg
+http://localhost:3000/css/style.css
+http://localhost:3000/js/app.js
+http://localhost:3000/images/bg.png
+http://localhost:3000/hello.html
+
+无后缀：
+
+但是若url为
+http://localhost:3000/hello
+则会去public下寻找hello文件夹中的index.html文件并展示
