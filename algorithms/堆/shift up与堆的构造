@@ -1,0 +1,24 @@
+var arr = [undefined]
+
+var dui = function(num){
+    // 先将新元素推入最末位
+    arr.push(num)
+    // 记录新元素位置
+    var k = arr.length - 1
+    if(k > 1){
+        // 跟父节点比较，如果比父节点大就换位，注意k大于1，即在2或3位时跟1位（顶位）比较
+        while(arr[k] > arr[Math.floor(k / 2)] && k > 1){
+            var temp = arr[k]
+            arr[k] = arr[Math.floor(k / 2)]
+            arr[Math.floor(k / 2)] = temp
+            // 换位之后新元素位置（k值）改变，成为之前父元素的位置
+            k = Math.floor(k / 2)
+        }
+    }
+}
+
+for(let i = 0;i < 5;i++){
+    var num = parseInt(Math.random() * 100)
+
+    dui(num)
+}
