@@ -1,0 +1,51 @@
+var dui = function(arr){
+    // 判断数组长度大于1
+    if(arr.length > 1){
+        // 去掉堆顶，将最后一位移上去，arr长度减1
+        var top = arr[1]
+        arr[1] = arr[arr.length-1]
+        arr.pop()
+    
+        // 新堆顶下移，shift down
+        var k = 1     // k 是此新堆顶的位置
+        
+        // 判断是否有左节点
+        while(2 * k <= arr.length - 1){
+            // 判断是否有右节点
+            if(2 * k + 1 <= arr.length - 1){
+                var max_index = arr[2 * k] > arr[2 * k + 1] ? 2 * k : 2 * k + 1
+                
+                // 将新堆顶与子节点中大的换位，同时 k 值改变，变为与之换位的子节点的位置
+                if(arr[k] < arr[max_index]){
+                    let _temp = arr[k]
+                    arr[k] = arr[max_index]
+                    arr[max_index] = _temp
+                    k = max_index
+                // 如果两个子节点都不大于新堆顶，则停止    
+                }else{
+                    break
+                }
+            }else{
+            // 只有左节点的情况
+                if(arr[k] < arr[2 * k]){
+                    let temp = arr[k]
+                    arr[k] = arr[2 * k]
+                    arr[2 * k] = temp
+                    k = 2 * k
+                }else{
+                    break
+                }
+            }
+        }
+        // 返回老堆顶，即此堆的最大值
+        return top
+    }
+}
+
+// 利用堆shift down 排序
+var sort_arr = []
+while(arr.length > 1){
+    sort_arr.push(dui(arr))
+}
+
+console.log(sort_arr,arr)
