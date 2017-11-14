@@ -16,9 +16,19 @@ var dui = function(num){
         }
     }
 }
-
+// 构造一个大顶堆
 for(let i = 0;i < 5;i++){
     var num = parseInt(Math.random() * 100)
 
     dui(num)
+}
+
+// 对一个已有数组进行大顶堆排序
+
+var to_sort_arr = [0, 6, 0, 0, 9]
+
+for(let i = 0;i < to_sort_arr.length;i ++){
+	let num = to_sort_arr[i]
+
+	dui(num)
 }
