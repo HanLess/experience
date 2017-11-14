@@ -1,3 +1,5 @@
+js继承参考文章：http://www.jianshu.com/p/dee9f8b14771
+
 class parent{
 
   constructor(){
