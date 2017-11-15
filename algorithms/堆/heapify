@@ -1,1 +1,51 @@
+将一个普通数组排成最大堆，数组最后一位为 k = arr.length - 1，k/2 位处的节点开始有子节点，所以可以认为 k/2 至 k的一半节点已经是排好序的最大堆
+（没有子节点，自己是堆顶），则从 k/2 处开始 shift down，循环到堆顶，形成一个最大堆
 
+
+var arr = [undefined]
+
+for(let i = 0;i < 10;i ++){
+    var num = parseInt(Math.floor(Math.random() * 100))
+
+    arr.push(num)
+}
+
+// 从 k 处的节点shift down
+
+var shift_down = function(arr,k){
+    var bor = arr.length - 1
+    while(k * 2 <= bor){
+        if(k * 2 + 1 <= bor){
+            var max_index = arr[k*2] > arr[k*2+1] ? k*2 : k*2+1
+            if(arr[k] < arr[max_index]){
+                var temp = arr[k]
+                arr[k] = arr[max_index]
+                arr[max_index] = temp
+                k = max_index
+            }else{
+                break
+            }
+        }else{
+            if(arr[k] < arr[2*k]){
+                var temp = arr[k]
+                arr[k] = arr[2*k]
+                arr[2*k] = temp
+                k = 2*k
+            }else{
+                break
+            }
+        }
+    }
+}
+
+var heapify = function(arr){
+
+    // 从中间位置开始执行shift down
+    
+    var k = Math.floor((arr.length - 1) / 2);
+    for(let i = k;i >= 1;i --){
+        shift_down(arr,i)
+    }
+}
+
+heapify(arr)
