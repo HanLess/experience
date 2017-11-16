@@ -1,0 +1,54 @@
+var arr = [undefined]
+
+for(let i = 0;i < 10;i ++){
+    var num = parseInt(Math.floor(Math.random() * 100))
+
+    arr.push(num)
+}
+// 动态传入堆的边界 bord
+var shift_down = function(arr,k,bord){
+    var bor = bord ? bord : arr.length - 1
+    while(k * 2 <= bor){
+        if(k * 2 + 1 <= bor){
+            var max_index = arr[k*2] > arr[k*2+1] ? k*2 : k*2+1
+            if(arr[k] < arr[max_index]){
+                var temp = arr[k]
+                arr[k] = arr[max_index]
+                arr[max_index] = temp
+                k = max_index
+            }else{
+                break
+            }
+        }else{
+            if(arr[k] < arr[2*k]){
+                var temp = arr[k]
+                arr[k] = arr[2*k]
+                arr[2*k] = temp
+                k = 2*k
+            }else{
+                break
+            }
+        }
+    }
+}
+
+var heapify = function(arr){
+    var k = Math.floor((arr.length - 1) / 2);
+    for(let i = k;i >= 1;i --){
+        shift_down(arr,i)
+    }
+}
+// 将一个普通数组排成最大堆
+heapify(arr)
+
+var heap_sort = function(arr){
+    // 先将堆顶（最大值）与最后一位交换，然后将新堆顶进行shift down排序，堆的边界减1（即最后一位不参与shift down）
+    // 循环 i 表示堆尾，即堆顶需要交换的位置，i - 1是需要shift down的堆的长度
+    for(let i = arr.length - 1;i > 1;i --){
+        let temp = arr[1]
+        arr[1] = arr[i]
+        arr[i] = temp
+        shift_down(arr,1,i-1)
+    }
+}
+heap_sort(arr)
