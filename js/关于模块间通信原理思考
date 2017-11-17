@@ -1,0 +1,52 @@
+以vue为例，模块间通信有两种办法：
+    1）使用数据流，vuex
+    2）使用监听者模式，自定义事件监听
+    
+关于监听者模式的原理思考如下：
+
+var M = function(){
+    this.id = 1
+    /*
+      {
+        name : "",
+        handleList : [{
+            cb : callback,
+            once : true / false
+        }]
+      }
+    */
+    this.eventList = []
+}
+
+M.prototype = {
+    on : function(event,callback){
+        // 伪代码
+        if(this.eventList.has(event)){
+            this.eventList[event].handleList.push({
+                cb : callback,
+                once : true / false
+            })
+        }else{
+            this.eventList.push({
+                name : event,
+                handleList : [{
+                    cb : callback,
+                    once : true / false
+                }]
+            })
+        }
+    },
+    emit : function(event,moduleId){
+        // 伪代码
+        var _this = moduleId ? module[moduleId] : this
+        if(_this.eventList.has(event)){
+            var handleList = _this.eventList[name = event].handleList
+            
+            handleList.forEach((val,index) => {
+                val.cb()
+            })
+        }
+    }
+}
+
+本质就是把 on 的事件存起来，当emit的时候去执行
