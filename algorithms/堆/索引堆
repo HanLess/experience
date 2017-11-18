@@ -1,0 +1,121 @@
+普通数组通过heapify可以排成堆，但是在heapify的过程中，数组中各个项交换位置：
+1）如果每项体积很大，或数据结构复杂，会造成性能浪费
+2）如果在构造堆后，需要针对某项做处理，则只需维护索引堆，索引堆是一个正整数堆，复杂度小
+
+// 堆
+var arr = [undefined]
+// 索引堆，里面每一项是arr的索引，指向具体的数据
+var heap_index = [undefined]
+
+for(let i = 0;i < 10;i ++){
+    var num = parseInt(Math.floor(Math.random() * 100))
+
+    arr.push(num)
+    heap_index.push(i+1)
+}
+
+console.log(arr)
+
+// 整体思路与构造普通堆一样，只是在比较大小后，是索引堆交换元素
+
+var shift_down = function(heap_index,k){
+    var bor = heap_index.length - 1;
+
+    while(2*k <= bor){
+        if(2*k+1 <= bor){
+          
+            // 比较大小，拿到索引堆中的索引，找到arr中的数据进行比较
+            var max_index = arr[heap_index[2*k]] > arr[heap_index[2*k+1]] ? 2*k : 2*k+1
+            if(arr[heap_index[k]] < arr[heap_index[max_index]]){
+                // 索引位置交换
+                let temp = heap_index[k]
+                heap_index[k] = heap_index[max_index]
+                heap_index[max_index] = temp
+                k = max_index
+            }else{
+                break
+            }
+        }else{
+            if(arr[heap_index[k]] < arr[heap_index[2*k]]){
+                let temp = heap_index[k]
+                heap_index[k] = heap_index[2*k]
+                heap_index[2*k] = temp
+                k = 2 * k
+            }else{
+                break
+            }
+        }
+    }
+}
+
+// 因为是操作索引堆，所以一半位置也取的索引堆，下面的循环每一项也是索引堆
+var half = Math.floor((heap_index.length - 1) / 2)
+
+for(let i = half;i >= 1;i --){
+    shift_down(heap_index,i)
+
+}
+console.log(arr)
+console.log(heap_index)
+
+优化：
+首先引入反向索引的概念
+                       0  1   2  3  4  4  5  7  8  9  10
+var index   = [undefined, 10, 9, 7, 8, 5, 6, 3, 1, 4, 2]
+var reverse = [undefined, 8, 10, 7, 9, 5, 6, 3, 4, 2, 1]
+
+index[i] = j
+reverse[j] = i
+即 index[reverse[j]] = j
+   reverse[index[i]] = i
+   
+有了反向索引的概念，在arr中的某项发生改变之后，可以以O(1)的复杂度找到索引堆中相应的值，进行维护
+
+// 上面的shift_down进行以下修改
+
+var shift_down = function(heap_index,k){
+    var bor = heap_index.length - 1;
+
+    while(2*k <= bor){
+        if(2*k+1 <= bor){
+            var max_index = arr[heap_index[2*k]] > arr[heap_index[2*k+1]] ? 2*k : 2*k+1
+            if(arr[heap_index[k]] < arr[heap_index[max_index]]){
+                // swap(heap_index[k] , heap_index[max_index])
+                let temp = heap_index[k]
+                heap_index[k] = heap_index[max_index]
+                heap_index[max_index] = temp
+                
+                // 根据公式维护reverse数组
+                reverse[heap_index[k]] = k
+                reverse[heap_index[max_index]] = max_index
+
+                k = max_index
+            }else{
+                break
+            }
+        }else{
+            if(arr[heap_index[k]] < arr[heap_index[2*k]]){
+                let temp = heap_index[k]
+                heap_index[k] = heap_index[2*k]
+                heap_index[2*k] = temp
+
+                reverse[heap_index[k]] = k
+                reverse[heap_index[2*k]] = 2*k
+
+                k = 2 * k
+            }else{
+                break
+            }
+        }
+    }
+}
+
+// 当arr中 i 位发生变化时
+var change = function(i,value){
+    arr[i] = value
+    // 直接找到索引堆中的相应索引
+    var _index = reverse[i]
+    // 在shift方法中reverse会相应维护
+    shift_down(heap_index,_index)    
+    shift_up(heap_index,_index)    
+}
