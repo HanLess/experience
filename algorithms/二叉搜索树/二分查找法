@@ -1,0 +1,23 @@
+var search = function(arr,start,end,val){
+  if(start < end){
+    var mid_index = Math.floor((start + end) / 2),
+      mid = arr[mid_index]
+
+    if(val === mid){
+      return mid_index
+    }
+
+    var re_left = search(arr,start,mid_index - 1,val)
+    var re_right = search(arr,mid_index + 1,end,val)
+
+    return re_left === -1 ? re_right : re_left
+  }else{
+    if(val !== arr[start])
+      return -1
+    else
+      return start
+  }
+}
+var arr = [1,2,3,4,5,6,7,8,9,45,89,100]
+var index = search(arr,0,arr.length-1,9)
+console.log(index)
