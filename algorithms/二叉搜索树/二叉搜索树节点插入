@@ -20,7 +20,8 @@ var insert = function(obj,number){
     }else{
         // 如果是空节点则设置key值
         obj = {}
-        obj['key'] = number 
+        obj['key'] = number
+        obj['value'] = Math.floor(Math.random() * 100 )
         return obj
     }
 }
