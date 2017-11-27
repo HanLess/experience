@@ -1,0 +1,15 @@
+obj是要搜索的二叉树，key是要找的键值，注意此key可以是字符串形式，比大小不受影响，最终返回要找的value
+
+var search = function(obj,key){
+    if(obj['key'] === undefined){
+        return undefined
+    }
+
+    if(obj['key'] == key){
+        return obj['value']
+    }else if(obj['key'] < key){
+        return search(obj['right'],key)
+    }else if(obj['key'] > key){
+        return search(obj['left'],key)
+    }
+}
