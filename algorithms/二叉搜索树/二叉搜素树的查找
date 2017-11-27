@@ -1,4 +1,6 @@
 obj是要搜索的二叉树，key是要找的键值，注意此key可以是字符串形式，比大小不受影响，最终返回要找的value
+具体应用如在一段文本中统计一个词（如'god'）的出现次数，就可以以god为key，配合insert构建二叉搜索树，边插入边查找，在每次循环中
+若能search到'god'则value加1，循环后可以返回key为'god'的value值
 
 var search = function(obj,key){
     if(obj['key'] === undefined){
