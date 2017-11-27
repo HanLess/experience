@@ -1,13 +1,14 @@
-从树的定点开始比较大小，利用二叉搜索树的性质进行递归，返回最后完成insert的二叉树
+从树的顶点开始比较key的大小，利用二叉搜索树的性质进行递归，返回最后完成insert的二叉树
 
 var obj = {
-    key : undefined
+    key : undefined,        // key 值用来排序、查找，可以是任意唯一字符串或数字，用作唯一标识，在c／c++中可以是指针
+    value : undefined       // value 是存的数据
 }
 
 var insert = function(obj,number){
     
     // 判断obj节点是否是空节点
-    
+
     if(obj !== undefined && obj['key'] !== undefined){
         // 若不是空节点，则按二叉搜索树规则比较递归，直到遇到空节点
         if(obj['key'] > number){
@@ -18,10 +19,10 @@ var insert = function(obj,number){
 
         return obj
     }else{
-        // 如果是空节点则设置key值
+        // 如果是空节点则设置key，value值
         obj = {}
         obj['key'] = number
-        obj['value'] = Math.floor(Math.random() * 100 )
+        obj['value'] = Math.random()
         return obj
     }
 }
@@ -29,5 +30,6 @@ var insert = function(obj,number){
 for(let i = 0;i < arr.length;i ++){
     obj = insert(obj,arr[i])
 }
+
 console.log(arr)
 console.log(JSON.stringify(obj))
