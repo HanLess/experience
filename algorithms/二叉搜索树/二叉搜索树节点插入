@@ -1,2 +1,32 @@
 从树的定点开始比较大小，利用二叉搜索树的性质进行递归，返回最后完成insert的二叉树
 
+var obj = {
+    key : undefined
+}
+
+var insert = function(obj,number){
+    
+    // 判断obj节点是否是空节点
+    
+    if(obj !== undefined && obj['key'] !== undefined){
+        // 若不是空节点，则按二叉搜索树规则比较递归，直到遇到空节点
+        if(obj['key'] > number){
+            obj['left'] = insert(obj['left'],number)
+        }else if(obj !== undefined && obj['key'] < number){
+            obj['right'] = insert(obj['right'],number)
+        }
+
+        return obj
+    }else{
+        // 如果是空节点则设置key值
+        obj = {}
+        obj['key'] = number 
+        return obj
+    }
+}
+
+for(let i = 0;i < arr.length;i ++){
+    obj = insert(obj,arr[i])
+}
+console.log(arr)
+console.log(JSON.stringify(obj))
