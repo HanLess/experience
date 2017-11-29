@@ -1,0 +1,18 @@
+var trans = function(obj){
+	if(!obj['left'] && !obj['right']){
+		return obj
+	}else{
+		if(obj['left']){
+			obj['left'] = trans(obj['left'])
+		}
+		if(obj['right']){
+			obj['right'] = trans(obj['right'])
+		}
+
+		let _obj = obj['left']
+		obj['left'] = obj['right']
+		obj['right'] = _obj
+
+		return obj
+	}
+}	
