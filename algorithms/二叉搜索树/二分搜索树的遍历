@@ -29,3 +29,5 @@ var after = function(obj){
         arr.push(obj['key'])
     }
 }
+
+逐层遍历：需要一个数据结构（队列，先进先出，后进后出）辅助
