@@ -1,3 +1,5 @@
+左右子树互换，交换由底向上
+
 var trans = function(obj){
 	if(!obj['left'] && !obj['right']){
 		return obj
