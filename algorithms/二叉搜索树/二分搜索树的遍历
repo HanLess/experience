@@ -31,3 +31,27 @@ var after = function(obj){
 }
 
 逐层遍历：需要一个数据结构（队列，先进先出，后进后出）辅助
+广度遍历只能用循环实现，深度遍历用递归
+思路：在将mid中第一个节点推出的同时，将此节点的左右子树节点push进mid数组，每个循环只操作mid的第一个元素（节点）
+
+var mid = []
+var final = []
+var traverse = function(root){
+    // 现象root节点push到中间数组中
+	mid.push(root)
+    // mid中有元素（即树节点），进行循环
+	while(mid.length > 0){
+        // 将第一个节点推出
+		var _obj = mid.shift()
+		final.push(_obj.key)
+        // 同时将推出来的节点的左右子树推入mid数组，进行循环
+		if(_obj['left']){
+			mid.push(_obj['left'])
+		}
+		if(_obj['right']){
+			mid.push(_obj['right'])
+		}
+	}
+}
+traverse(obj)
+console.log(final)
