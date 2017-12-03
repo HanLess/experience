@@ -1,1 +1,27 @@
+找到搜索二叉树的最大值：从根节点开始，向下递归找右子树的key，若没有右子树，则返回此节点的key值，就是最大的key值
 
+var Max = function(obj){
+    if(obj){
+        if(obj['right']){
+            return Max(obj['right'])
+        }else{
+            return obj['key']
+        }
+    }else{
+        return 'the root is null'
+    }
+}
+
+找到搜索二叉树的最小值：从根节点开始，向下递归找左子树的key，若没有左子树，则返回此节点的key值，就是最小的key值
+
+var Min = function(obj){
+    if(obj){
+        if(obj['left']){
+            return Min(obj['left'])
+        }else{
+            return obj['key']
+        }
+    }else{
+        return 'the root is null'
+    }
+}
