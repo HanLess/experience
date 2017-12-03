@@ -1,0 +1,29 @@
+1、删除只有单子树的节点
+
+删除二叉搜索树的最大值，向右子树递归寻找最大值
+
+var delMax = function(obj){
+    if(obj){
+        if(obj['right']){
+            // 有右子树，递归
+            obj['right'] = delMax(obj['right'])
+            return obj
+        }else{
+            // 没有右子树
+            if(obj['left']){
+                // 有左子树，此节点引用左子树对象
+                obj = obj['left']
+                return obj
+            }else{
+                // 没有左子树，删除此节点（最大），即设为undefined
+                return undefined
+            }
+        }
+    }
+}
+
+删除二叉搜索树最小节点与删除最大节点类似
+
+2、删除有双子树的节点
+思路：找到此节点的代替节点，可以从右子树中找，即右子树中key值最小的节点，也可以从左子树中找到key值最大的节点
+都满足搜索二叉树的特性，即右子树的key值都比本节点大，左子树的key值都比本节点小
