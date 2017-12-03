@@ -1,0 +1,17 @@
+delete可以删除一个对象的属性
+
+var a = {
+  name : {
+    text : 'haha'
+  }
+}
+
+delete a['name']
+
+这时a的name属性（对象{text : "haha"}）会被删除，并被垃圾回收，因为没有被引用
+
+var b = a['name']
+
+delete a['name']
+
+这时只是删除a的name属性，但对象{text : "haha"}并没有被垃圾回收，因为还在被b引用
