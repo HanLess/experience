@@ -25,3 +25,27 @@ var Min = function(obj){
         return 'the root is null'
     }
 }
+
+删除二叉搜索树的最大值，向右子树递归寻找最大值
+
+var delMax = function(obj){
+    if(obj){
+        if(obj['right']){
+            // 有右子树，递归
+            obj['right'] = delMax(obj['right'])
+            return obj
+        }else{
+            // 没有右子树
+            if(obj['left']){
+                // 有左子树，此节点引用左子树对象
+                obj = obj['left']
+                return obj
+            }else{
+                // 没有左子树，删除此节点（最大），即设为undefined
+                return undefined
+            }
+        }
+    }
+}
+
+删除二叉搜索树最小节点与删除最大节点类似
