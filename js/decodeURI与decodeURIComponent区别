@@ -24,8 +24,6 @@ alert( encodaURIComponent (uri));
 
 可以采用JS的解码方法：
 
-1．        unescape - 不会被此方法解码的字符： @ * / +
+decodeURI - 不会被此方法解码的字符：! @ # $& * ( ) = : / ; ? + '
 
-2．        decodeURI - 不会被此方法解码的字符：! @ # $& * ( ) = : / ; ? + '
-
-3．        decodeURIComponent - 不会被此方法解码的字符：! * ( ) '
+decodeURIComponent - 不会被此方法解码的字符：! * ( ) '
