@@ -27,3 +27,51 @@ var delMax = function(obj){
 2、删除有双子树的节点
 思路：找到此节点的代替节点，可以从右子树中找，即右子树中key值最小的节点，也可以从左子树中找到key值最大的节点
 都满足搜索二叉树的特性，即右子树的key值都比本节点大，左子树的key值都比本节点小
+
+var Min = function(obj){
+    if(obj){
+        if(obj['left']){
+            obj['left'] = Min(obj['left'])
+        }else{
+            minnum = {
+                key : obj.key,
+                value : obj.value
+            }
+            obj = undefined
+            return obj
+        }
+        return obj
+    }else{
+        return 'the root is null'
+    }
+}
+var minnum = {}
+var remove = function(obj,key){
+    if(obj){
+        if(obj['key'] == key){
+            if(!obj['left'] && !obj['right']){
+                obj = undefined
+                return obj
+            }else if(obj['left'] && !obj['right']){
+                obj = obj['left']
+                return obj
+            }else if(!obj['left'] && obj['right']){
+                obj = obj['right']
+                return obj
+            }else{
+                obj['right'] = Min(obj['right'])
+                obj['key'] = minnum['key']
+                obj['value'] = minnum['value']
+                return obj
+            }
+        }else if(obj['key'] > key){
+            obj['left'] = remove(obj['left'],key)
+        }else{
+            obj['right'] = remove(obj['right'],key)
+        }
+    }else{
+        return undefined
+    }
+    return obj
+}
+obj = remove(obj,5)
