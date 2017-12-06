@@ -1,8 +1,12 @@
-以数组来表示并查集，若value相等则两个节点为连接状态
+quick find（是否连接的标准为：两个节点的value值是否相等）:
 
-查：复杂度为O(1)，即通过index找到数组中的value，arr[index]
+在这里用数组模拟并查集，数组元素的index为各个节点的唯一表示，value为各个节点的值
 
-并：
+value相等则两个节点为连接状态
+
+查（p节点）：复杂度为O(1)，即通过p找到数组中的value，arr[p]
+
+并（p，q）：
 value1 = arr[q] , value2 = arr[p]
 
 若要将p与q两处节点并操作，代码如下
@@ -14,3 +18,24 @@ for(var i = 0;i < arr.length;i ++){
 
 即：
 将所有与q相连的节点，与p相连（即将value统一）
+
+quick union（是否连接的标准为：两个节点的根节点是否值相等）:
+
+以数组parent表示并查集，index为各个节点的唯一标识，value表示父节点的index（这里简化模型，实际问题中需要有value值与指向父节点的指针，这里省略了value）
+
+初始化：parent中各个节点都指向自己，即自己是自己的父节点
+
+查（p节点）：
+找到此节点的父节点
+
+while(parent[p] != p){
+  p = parent[p]
+}
+return p
+
+并（p，q）：
+找到两个节点的根节点，并连接，即将p的指针指向q
+
+if(parent[p] != parent[q]){
+  parent[find(p)] = find(q)
+}
