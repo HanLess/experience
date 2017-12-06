@@ -1,0 +1,16 @@
+以数组来表示并查集，若value相等则两个节点为连接状态
+
+查：复杂度为O(1)，即通过index找到数组中的value，arr[index]
+
+并：
+value1 = arr[q] , value2 = arr[p]
+
+若要将p与q两处节点并操作，代码如下
+for(var i = 0;i < arr.length;i ++){
+  if(arr[i] == value1){
+    arr[i] = value2
+  }
+}
+
+即：
+将所有与q相连的节点，与p相连（即将value统一）
