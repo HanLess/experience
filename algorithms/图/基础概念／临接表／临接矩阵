@@ -1,1 +1,50 @@
-基础概念／临接表／临接矩阵
+图：
+由节点和边构成，分为有向图和无向图，有权图和无权图
+
+这里简化数据结构来模拟图（通过数组），index为节点的id，数组中的每一项为一个节点
+
+邻接矩阵(在此只考虑无向图)：
+二维数组，行为每个节点，列为此节点与其他节点的连接情况（为boolean值，true为有边，false为无边），用在稠密图中，且以对角线为轴对称
+[
+[0,1,1,0],
+[1,0,1,1],
+[1,1,0,1],
+[0,1,1,0]
+]
+
+// m为节点数
+
+var init = function(m){
+    var arr = []
+    for(let i = 0;i < m;i ++){
+      let temp = []
+      for(let j = 0;j < m;j ++){
+        temp.push(false)
+      }
+      arr.push(temp)
+    }
+    
+    return arr
+}
+
+var connect = function(arr,i,j){
+  arr[i][j] = true
+  arr[j][i] = true
+  return arr
+}
+
+邻接表：
+二维数组，行为每个节点，列为与此节点连接的节点（这里简化数据结构，存的是index），用于稀疏图
+
+var init = function(m){
+  var arr = []
+  for(let i = 0;i < m;i ++){
+    arr.push([])
+  }
+}
+
+var connect = function(arr,i,j){
+  arr[i].push(j)
+  arr[j].push(i)
+  return arr
+}
