@@ -1,0 +1,54 @@
+// 表的初始化数据结构
+var obj = {
+    node_number : 10,
+    line_number : 8,
+    arr : [
+        [0,1],
+        [3,8],
+        [9,1],
+        [2,3],
+        [4,6],
+        [7,1],
+        [8,9],
+        [2,5]
+    ]
+}
+// 邻接表
+var init = function(obj){
+    var arr = []
+    for(let i = 0;i < obj.node_number;i ++){
+      arr.push([])
+    }
+
+    for(let j = 0;j < obj.line_number;j ++){
+        let temp = obj.arr[j]
+        arr[temp[0]].push(temp[1])
+        arr[temp[1]].push(temp[0])
+    }
+
+    return arr
+}
+
+var arr = init(obj)
+console.log(arr)
+
+
+// 邻接矩阵
+var init = function(obj){
+    var arr = []
+    for(let i = 0;i < obj.node_number;i ++){
+      let temp = []
+      for(let j = 0;j < obj.node_number;j ++){
+        temp.push(0)
+      }
+      arr.push(temp)
+    }
+    
+    for(let m = 0;m < obj.line_number;m ++){
+        let temp = obj.arr[m]
+        arr[temp[0]][temp[1]] = 1
+        arr[temp[1]][temp[0]] = 1
+    }
+
+    return arr
+}
