@@ -1,0 +1,41 @@
+联通分量：
+图中相互隔绝部分的数量
+
+// 通过初始化得到邻接表
+
+var arr = init(obj)
+
+// visited记录节点是否被访问过，count为联通分量
+var visited = [] , count = 0
+
+// 深度优先遍历
+var dfs = function(j){
+    // 先将此节点的visited设为true
+    visited[j] = true
+    // 遍历此节点的相连节点，进行递归
+    for(let m = 0;m < arr[j].length;m++){
+        if(!visited[arr[j][m]]){
+            dfs(arr[j][m])
+        }
+    }
+}
+
+var object = function(arr){
+   // 初始化visited，所有节点都没有被访问过
+    for(let i = 0;i < arr.length;i ++){
+        visited.push(false)
+    }
+    
+    // 开始遍历邻接表
+    for(let j = 0;j < arr.length;j ++){
+        // 如果此节点没有被访问过，则进行一次深度遍历，且count加一
+        if(!visited[j]){
+            dfs(j)
+            count++
+        }
+    }
+}
+
+object(arr)
+// 最后得到的count值为联通分量
+console.log(count)
