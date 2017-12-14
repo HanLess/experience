@@ -16,10 +16,12 @@ var obj = {
 // 邻接表
 var init = function(obj){
     var arr = []
+    // 初始化表，所有节点没有连接
     for(let i = 0;i < obj.node_number;i ++){
       arr.push([])
     }
-
+    
+    // 根据数据设置连接
     for(let j = 0;j < obj.line_number;j ++){
         let temp = obj.arr[j]
         arr[temp[0]].push(temp[1])
@@ -36,6 +38,7 @@ console.log(arr)
 // 邻接矩阵
 var init = function(obj){
     var arr = []
+    // 初始化矩阵，所有节点与其他节点的连接都为0
     for(let i = 0;i < obj.node_number;i ++){
       let temp = []
       for(let j = 0;j < obj.node_number;j ++){
@@ -43,7 +46,7 @@ var init = function(obj){
       }
       arr.push(temp)
     }
-    
+    // 根据数据设置连接
     for(let m = 0;m < obj.line_number;m ++){
         let temp = obj.arr[m]
         arr[temp[0]][temp[1]] = 1
