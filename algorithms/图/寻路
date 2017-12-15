@@ -1,0 +1,46 @@
+在进行深度遍历的时候可以进行寻路，找到aim节点则停止递归
+
+
+
+var visited = [] , path = []
+
+var dfs = function(j,aim){
+
+    // re值是找到aim值停止递归的开关，当re为true时，递归停止
+    
+    var re = false
+    visited[j] = true
+    path.push(j)
+    if(j == aim){
+        return true
+    }
+
+    for(let m = 0;m < arr[j].length;m++){
+        if(!visited[arr[j][m]]){
+            re = dfs(arr[j][m],aim)
+            
+            if(re){
+                break
+            }
+        }
+    }
+    return re
+}
+
+var object = function(arr,aim){
+    for(let i = 0;i < arr.length;i ++){
+        visited.push(false)
+    }
+
+    for(let j = 0;j < arr.length;j ++){
+        if(!visited[j]){
+            var re = dfs(j,aim)
+            if(re){
+                break
+            }
+        }
+    }
+}
+
+object(arr,9)
+console.log(path)
