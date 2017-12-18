@@ -1,0 +1,41 @@
+类似于二叉树的广度优先遍历，path中的值与起点的距离 <= 后面的值与起点的距离
+
+
+var arr = init(obj)
+var visited = [] , path = [] , distance = [] , temp = [] , count = 1
+var dos = function(j){
+    var on = false
+    visited[j] = true
+    path.push(j)
+    
+    for(let m = 0;m < arr[j].length;m ++){
+        on = true
+        if(!visited[arr[j][m]]){
+            visited[arr[j][m]] = true
+            temp.push(arr[j][m])
+        }
+    }
+
+
+    var key = temp.shift()
+
+    if(key){
+        dos(key)
+    }
+    
+}
+
+var object = function(arr){
+    for(let i = 0;i < arr.length;i ++){
+        visited.push(false)
+    }
+
+    for(let j = 0;j < arr.length;j ++){
+        if(!visited[j]){
+            dos(j)
+        }
+    }
+}
+
+object(arr)
+console.log(path)
