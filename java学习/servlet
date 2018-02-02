@@ -1,3 +1,9 @@
 生命周期：
 客户端请求 -> 服务端在web.xml文件中找对应的servlet类 -> 有servlet类的实例 -> 直接调用（get或post方法）。
 否则加载并创建实例，并调用init方法初始化servlet -> 返回给客户端结果后，执行destroy()，销毁servlet实例
+
+servlet 开发总结：
+https://www.cnblogs.com/xdp-gacl/p/3760336.html
+http://www.cnblogs.com/xdp-gacl/p/3763559.html
+http://www.cnblogs.com/xdp-gacl/p/3789624.html
+http://www.cnblogs.com/xdp-gacl/p/3791993.html
