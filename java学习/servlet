@@ -7,3 +7,10 @@ https://www.cnblogs.com/xdp-gacl/p/3760336.html
 http://www.cnblogs.com/xdp-gacl/p/3763559.html
 http://www.cnblogs.com/xdp-gacl/p/3789624.html
 http://www.cnblogs.com/xdp-gacl/p/3791993.html
+
+tomcat加载servlet的三种情况：
+1）在web.xml中设置了<load-on-startup>1</load-on-startup>标签，数字越小，越先加载
+2）客户端第一次请求的时候
+3）servlet类被修改的时候
+
+servlet被加载的执行顺讯：构造函数 -> init方法 -> 具体的do，get方法
