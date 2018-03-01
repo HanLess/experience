@@ -1,0 +1,614 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.4.2
+    site: https://github.com/ksky521/nodePPT
+    date: 
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>cross-domain - By speaker</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.moon.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>前端跨域总结</h1>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h3>1.同源策略</h3>
+<p>所谓同源是指，<code>协议，域名，端口</code>相同。<br/>
+简单的来说，浏览器允许包含在页面A的脚本访问第二个页面B的数据资源，这一切是建立在A和B页面是同源的基础上。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h3>2.跨域</h3>
+<p>出于安全问题的考虑，防止恶意用户获取非法的数据，浏览器采用了<code>同源策略</code>，对JS做了限制。不同源的客户端脚本在读取对方的资源时，这时候就产生了跨域。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>例如网址：<code>http://test1.daojia.com/a.html</code>，协议是<code>http://</code>，域名是<code>test1.daojia.com</code>，端口是<code>80</code>（默认端口可以省略）。它的同源情况如下：</p>
+<pre><code>http://test1.daojia.com/b.html 同源
+http://daojia.com/a.html 不同源（域名不同）
+http://v2.test1.daojia.com/a.html 不同源（域名不同）
+http://test1.daojia.com:81/a.html 不同源（端口不同）
+https://test1.daojia.com/a.html 不同源（协议不同）
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h3>3.同源策略限制范围</h3>
+<p>随着互联网的发展，&quot;同源政策&quot;越来越严格。目前，如果非同源，共有三种行为受到限制。</p>
+<ul>
+<li>Cookie、LocalStorage、SessionStorage 无法读取。</li>
+<li>Iframe 无法操作。</li>
+<li>AJAX 请求不能发送。</li>
+</ul>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h3>3.1 Cookie</h3>
+<p>Cookie 是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置<code>domain</code>共享 Cookie。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p><code>注</code>：Cookie中的同源只关注域名，忽略协议和端口。所以<code>https://test.daojia.com:8080/</code>和<code>http://test.daojia.com:8081/</code>的Cookie是共享的。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>A网页<code>http://test1.daojia.com/a.html</code>设置一个Cookie</p>
+<pre><code>&lt;script&gt;
+    document.cookie = &quot;test1=hello&quot;;
+&lt;/script&gt;
+</code></pre><p>B网页<code>http://test2.daojia.com/b.html</code>读取Cookie</p>
+<pre><code>&lt;script&gt;
+    console.log(document.cookie);
+    // &quot; &quot;
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>A网页<code>http://test1.daojia.com/a.html</code>设置一个Cookie</p>
+<pre><code>&lt;script&gt;
+    document.cookie = &quot;test1=hello;domain=daojia.com&quot;;
+&lt;/script&gt;
+</code></pre><p>B网页<code>http://test2.daojia.com/b.html</code>读取Cookie</p>
+<pre><code>&lt;script&gt;
+    console.log(document.cookie);
+    // &quot;test1=hello&quot;
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>局限：主域名必须相同<br/>
+如何解决不同源下Cookie、LocalStorage的跨域问题呢？</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h3>3.2 Iframe</h3>
+<ul>
+<li>document.domain</li>
+<li>hash</li>
+<li>window.name</li>
+<li>postMessage</li>
+</ul>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>3.2.1 document.domain</p>
+<p>浏览器的同源策略，其限制之一是不能通过ajax的方法去请求不同源中的文档。 第二个限制是浏览器中不同域的框架之间是不能进行js的交互操作的。不同的框架之间是可以获取window对象的，但却无法获取相应的属性和方法。比如，有一个页面，它的地址是<code>http://test1.daojia.com/a.html</code>， 在这个页面里面有一个iframe，它的src是<code>http://test2.daojia.com/b.html</code>， 很显然，这个页面与它里面的iframe框架是不同域的，所以我们是无法通过在页面中书写js代码来获取iframe中的东西的。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p><a href="http://test1.daojia.com/a.html" target="_blank">http://test1.daojia.com/a.html</a></p>
+<pre><code>&lt;iframe src=&quot;http://test2.daojia.com/b.html&quot; id=&quot;MyIframe&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+    var oIframe = document.getElementById(&#39;MyIframe&#39;);
+    console.log(oIframe.contentWindow);
+    // blur、close、focus、location、parent、postMessage...
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p><a href="http://test1.daojia.com/a.html" target="_blank">http://test1.daojia.com/a.html</a></p>
+<pre><code>&lt;iframe src=&quot;http://test2.daojia.com/b.html&quot; id=&quot;MyIframe&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+    document.domain = &#39;daojia.com&#39;;
+    var oIframe = document.getElementById(&#39;MyIframe&#39;);
+    console.log(oIframe.contentWindow);
+&lt;/script&gt;
+</code></pre><p><a href="http://test2.daojia.com/b.html" target="_blank">http://test2.daojia.com/b.html</a></p>
+<pre><code>&lt;script&gt;
+    document.domain = &#39;daojia.com&#39;;
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>优点：简单<br>
+缺点：主域必须相同，且必须把document.domain设置成主域</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>3.2.2 hash</p>
+<p> 因为父窗口可以对iframe进行URL读写，iframe也可以读写父窗口的URL，URL有一部分被称为hash，就是#号及其后面的字符，它一般用于浏览器锚点定位，Server端并不关心这部分，应该说HTTP请求过程中不会携带hash，所以这部分的修改不会产生HTTP请求，但是会产生浏览器历史记录。此方法的原理就是改变URL的hash部分来进行双向通信。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>父窗口可以把信息，写入子窗口hash<br/>
+<a href="http://test1.daojia.com:8000/a.html" target="_blank">http://test1.daojia.com:8000/a.html</a></p>
+<pre><code>&lt;iframe src=&quot;http://test2.daojia.com:8000/b.html&quot; id=&quot;myIframe&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;input type=&quot;button&quot; value=&quot;修改hash&quot; onclick=&quot;changeHash()&quot;&gt;
+&lt;script&gt;
+    var src = &#39;http://test2.daojia.com:8000/b.html#test_hash&#39;;
+
+    var oIframe = document.getElementById(&#39;myIframe&#39;);
+    function changeHash(){
+        oIframe.src = src;
+    }    
+
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>子窗口通过监听<code>hashchange</code>事件得到通知<br/>
+<a href="http://test2.daojia.com:8000/b.html" target="_blank">http://test2.daojia.com:8000/b.html</a></p>
+<pre><code>&lt;script&gt;
+    window.addEventListener(&quot;hashchange&quot;, checkMessage);
+    function checkMessage() {
+        var message = window.location.hash;
+        console.log(message); // #test_hash
+    }
+
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>实现双向通信<br/>
+<a href="http://test2.daojia.com:8000/b.html" target="_blank">http://test2.daojia.com:8000/b.html</a></p>
+<pre><code>&lt;iframe src=&quot;http://test1.daojia.com:8000/proxy.html&quot; id=&quot;myIframe&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+    window.addEventListener(&quot;hashchange&quot;, checkMessage);
+    function checkMessage() {
+        var message = window.location.hash;
+        console.log(message); // #test_hash
+        // 子窗口向父窗口传递hash
+        var oIframe = document.getElementById(&#39;myIframe&#39;);
+        oIframe.src = &#39;http://test1.daojia.com:8000/proxy.html#test_a&#39;;
+    }
+
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p><a href="http://test1.daojia.com:8000/proxy.html" target="_blank">http://test1.daojia.com:8000/proxy.html</a></p>
+<pre><code>&lt;script&gt;
+    window.addEventListener(&quot;hashchange&quot;, checkMessage);
+    function checkMessage() {
+        console.log(window.location.href); // http://test1.daojia.com:8000/proxy.html#test_a
+        console.log(parent.parent.location.href); // http://test1.daojia.com:8000/a.html
+        parent.parent.location.hash = window.location.hash.substring(1);
+    }
+
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>优点：可以解决域名完全不同的跨域，实现双向通讯。<br/>
+缺点：location.hash会直接暴露在URL里，并且在一些浏览器里会产生历史记录，数据安全性不高也影响用户体验；另外由于URL大小的限制，支持传递的数据量也不大；而且有些浏览器不支持onhashchange事件，需要轮询来获知URL的改变。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>3.2.3 window.name</p>
+<p>浏览器窗口有<code>window.name</code>属性。这个属性的最大特点是，无论是否同源，只要在同一个窗口里，前一个网页设置了这个属性，后一个网页可以读取它。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>比如：我们在任意一个页面输入</p>
+<pre><code>&lt;script&gt;
+    window.name = &quot;test_name&quot;;
+    setTimeout(function(){
+        window.location.href = &quot;http://test1.daojia.com/&quot;;
+    },1000)
+&lt;/script&gt;
+</code></pre><p>进入test1.daojia.com页面后我们再检测再检测 window.name :</p>
+<pre><code>&lt;script&gt;
+    window.name; // test_name
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p><a href="http://test1.daojia.com:8000/a.html" target="_blank">http://test1.daojia.com:8000/a.html</a></p>
+<pre><code>&lt;iframe src=&quot;http://test2.daojia.com:8000/b.html&quot; id=&quot;myIframe&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+    var iframe = document.getElementById(&#39;myIframe&#39;);
+    var data = &#39;&#39;;
+
+    iframe.onload = function() {
+        data = iframe.contentWindow.name;
+        //Uncaught DOMException: Blocked a frame with origin &quot;http://test1.daojia.com:8000&quot; from accessing a cross-origin frame.
+    };
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p><a href="http://test1.daojia.com:8000/a.html" target="_blank">http://test1.daojia.com:8000/a.html</a></p>
+<pre><code>&lt;iframe src=&quot;http://test2.daojia.com:8000/b.html&quot; id=&quot;myIframe&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+    var iframe = document.getElementById(&#39;myIframe&#39;);
+    var data = &#39;&#39;;
+
+    iframe.onload = function() {
+
+        iframe.src = &#39;http://test1.daojia.com:8000/a.html&#39;;
+        iframe.onload = function(){
+            data = iframe.contentWindow.name;
+            console.log(data); // test_name
+
+        }
+    };
+&lt;/script&gt;
+</code></pre><p><a href="http://test2.daojia.com:8000/b.html" target="_blank">http://test2.daojia.com:8000/b.html</a></p>
+<pre><code>&lt;script&gt;
+    window.name=&#39;test_name&#39;;
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>优点：window.name容量很大，可以放置非常长的字符串。<br/>
+缺点：必须监听子窗口window.name属性的变化，影响网页性能。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>3.2.4 postMessage</p>
+<p>上面三种方法都属于破解，HTML5为了解决这个问题，引入了一个全新的API：跨文档通信 API（Cross-document messaging）。
+这个API为<code>window</code>对象新增了一个<code>window.postMessage</code>方法，允许跨窗口通信，不论这两个窗口是否同源。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>举例来说，父窗口<code>http://test1.daojia.com</code>向子窗口<code>http://test2.daojia.com</code>发消息，调用<code>postMessage</code>方法就可以了。</p>
+<p><a href="http://test1.daojia.com/a.html" target="_blank">http://test1.daojia.com/a.html</a></p>
+<pre><code>&lt;iframe src=&quot;http://test2.daojia.com/b.html&quot; id=&quot;myIframe&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+    var oIframe = document.getElementById(&#39;myIframe&#39;);
+    oIframe.onload=function (){
+        oIframe.contentWindow.postMessage(&#39;hello, postMessage&#39;, &#39;http://test2.daojia.com/&#39;)
+    }
+
+&lt;/script&gt;
+</code></pre><p><code>postMessage</code>方法的第一个参数是具体的信息内容，第二个参数是接收消息的窗口的源（origin），即&quot;协议 + 域名 + 端口&quot;。也可以设为*，表示不限制域名，向所有窗口发送。
+子窗口向父窗口发送消息的写法类似。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>父窗口和子窗口都可以通过<code>message</code>事件，监听对方的消息。</p>
+<p><a href="http://test2.daojia.com/b.html" target="_blank">http://test2.daojia.com/b.html</a></p>
+<pre><code>&lt;script&gt;
+    window.addEventListener(&#39;message&#39;, function (event){
+        console.log(event.data); // 消息内容
+        console.log(event.source); // 发送消息的窗口
+        console.log(event.origin); // 发送消息的网址
+        console.log(event.source.postMessage); // 可以往父窗口发送消息
+        if (event.origin != &#39;http://test1.daojia.com&#39;) return;
+    }, false);
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>通过<code>window.postMessage</code>，读写其他窗口的 <code>LocalStorage</code> 也成为了可能。<br/>
+父窗口向子窗口发送信息</p>
+<pre><code>&lt;iframe src=&quot;http://test2.daojia.com/b.html&quot; id=&quot;myIframe&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+&lt;script&gt;
+    var oIframe = document.getElementById(&#39;myIframe&#39;);
+    var data = {
+        &#39;key&#39;: &#39;storage&#39;,
+        &#39;value&#39;: &#39;test&#39;
+    }
+    oIframe.onload=function (){
+        oIframe.contentWindow.postMessage(data, &#39;http://test2.daojia.com/&#39;)
+    }
+
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>子窗口将父窗口发来的消息，写入自己的LocalStorage。</p>
+<pre><code>&lt;script&gt;
+    window.addEventListener(&#39;message&#39;, function (event){
+        if (event.origin != &#39;http://test1.daojia.com&#39;) return;
+        var data = event.data;
+        localStorage.setItem(data.key, data.value);
+        localStorage.getItem(data.key);
+        localStorage.removeItem(data.key);
+
+    }, false);
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h3>3.3 AJAX</h3>
+<ul>
+<li>JSONP</li>
+<li>CORS</li>
+</ul>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>3.3.1 JSONP</p>
+<p><code>JSONP</code>是服务器与客户端跨源通信的常用方法。先看一个例子</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<pre><code>&lt;script&gt;
+    var a = 12;
+&lt;/script&gt;
+&lt;script&gt;
+    alert(a);
+    // 12
+&lt;/script&gt;
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p><a href="http://test1.daojia.com:8000/jsonp/a.html" target="_blank">http://test1.daojia.com:8000/jsonp/a.html</a></p>
+<pre><code>&lt;script&gt;
+    var a = 12;
+&lt;/script&gt;
+&lt;script src=&#39;http://test2.daojia.com:8000/jsonp/a.js&#39;&gt;&lt;/script&gt;
+</code></pre><p><a href="http://test2.daojia.com:8000/jsonp/a.js" target="_blank">http://test2.daojia.com:8000/jsonp/a.js</a></p>
+<pre><code>alert(a); // 12
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<h2>原理</h2>
+<p>网页通过添加一个<code>&lt;script&gt;</code>元素，向服务器请求<code>JSON</code>数据，这种做法不受同源策略限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p><a href="http://test1.daojia.com:8000/jsonp/a.html" target="_blank">http://test1.daojia.com:8000/jsonp/a.html</a></p>
+<pre><code>&lt;script&gt;
+    function insertScript(src) {
+      var script = document.createElement(&#39;script&#39;);
+      script.setAttribute(&quot;type&quot;,&quot;text/javascript&quot;);
+      script.src = src;
+      document.body.appendChild(script);
+    }
+
+    function foo(res) {
+      console.log(res.data);
+    };
+
+    window.onload = function () {
+      insertScript(&#39;http://test2.daojia.com:8000/api?callback=foo&#39;);
+    }
+
+
+&lt;/script&gt;
+</code></pre><p><a href="http://test2.daojia.com:8000/api" target="_blank">http://test2.daojia.com:8000/api</a></p>
+<pre><code>foo({
+    &quot;code&quot;: 0,
+    &quot;data&quot;: &quot;test&quot;
+})
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>优点：简单适用，老式浏览器全部支持，服务器改造非常小。<br/>
+缺点：只支持GET请求</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>3.3.2 CORS</p>
+<p>CORS是一个W3C标准，全称是&quot;跨域资源共享&quot;<code>（Cross-origin resource sharing）</code>。<br/>
+它允许浏览器向跨源服务器，发出<code>XMLHttpRequest</code>请求，从而克服了AJAX只能同源使用的限制。</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>http请求头</p>
+<ul>
+<li><p><code>Origin</code>: 普通的HTTP请求也会带有，在CORS中专门作为Origin信息供后端比对,表明来源域。</p>
+</li>
+<li><p><code>Access-Control-Request-Method</code>: 接下来请求的方法，例如GET, POST等等。</p>
+</li>
+<li><p><code>Access-Control-Request-Headers</code>: 自定义的头部，所有用setRequestHeader方法设置的头部都将会以逗号隔开的形式包含在这个头中。</p>
+</li>
+</ul>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>http响应头</p>
+<ul>
+<li><p><code>Access-Control-Allow-Origin</code>: 允许跨域访问的域，可以是一个域，也可以是通配符&quot;*&quot;。这里要注意Origin规则只对域名有效，并不会对子目录有效。即<a href="http://daojia.com/ajax/" target="_blank">http://daojia.com/ajax/</a> 是无效的。</p>
+</li>
+<li><p><code>Access-Control-Allow-Methods</code>: 允许使用的请求方法，以逗号隔开。</p>
+</li>
+<li><p><code>Access-Control-Allow-Headers</code>: 允许自定义的头部，以逗号隔开，大小写不敏感。</p>
+</li>
+</ul>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>前端<a href="http://test1.daojia.com" target="_blank">http://test1.daojia.com</a></p>
+<pre><code>$.ajax({
+    url: &#39;http://test2.daojia.com/api/queryActivityInfo/&#39;,
+    type:&#39;GET&#39;,
+    success: function (res){
+        console.log(res)
+    },
+    error: function (){
+
+    }
+});
+</code></pre><p>后端<a href="http://test2.daojia.com" target="_blank">http://test2.daojia.com</a></p>
+<pre><code>&quot;GET /api/queryActivityInfo/&quot;: function (req, res, next){
+    var json = require(&#39;./queryActivityInfo.json&#39;);
+    var retStr = &#39;&#39;+callbackName+&#39;(&#39;+JSON.stringify(json)+&#39;);&#39;
+     res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;http://test1.daojia.com&quot;);
+    //res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);
+    res.type(&#39;text/javascript;charset=utf-8&#39;);
+    res.send(retStr);
+  }
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>请求不同源接口的同时，要发送Cookie</p>
+<pre><code>&lt;script&gt;
+    var url = &#39;http://test2.daojia.com/api&#39;;
+    var xhr = new XMLHttpRequest();
+    xhr.open(&quot;POST&quot;, url ,true);
+    // 将withCredentials 标志设置为 true，向服务器发送 Cookies。
+    xhr.withCredentials = true;
+    xhr.send();
+&lt;/script&gt;
+</code></pre><p>响应头</p>
+<pre><code>response.addHeader(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;);
+response.addHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;http://test1.daojia.com&quot;);
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>jquery</p>
+<pre><code>$.ajax({
+   url: cross_domain_url,
+   // 将XHR对象的withCredentials设为true
+   xhrFields: {
+      withCredentials: true
+   }
+});
+</code></pre><p>vue</p>
+<pre><code>this.$http.get(cross_domain_url, {
+    credentials: true
+}).then((res) =&gt; {
+  console.log(res)
+}, (res) =&gt; {
+
+})
+</code></pre>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vleft">
+<p>优点：支持所有类型的HTTP请求<br/>
+缺点：浏览器兼容问题，浏览器版本不能低于IE10</p>
+
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>谢谢</h1>
+
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodePPT v1.4.2</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'cards',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+<script src="./js/demo.js"></script>
+<link rel="stylesheet" href="./css/demo.css">
+
+<!--placeholder-->
+</body>
+</html>
