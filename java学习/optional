@@ -1,0 +1,4 @@
+optional是一个工具类，用来避免空指针异常，与传统java中用if判断是否为null相比，optional最大的优点是可以避免if嵌套（逐层判断是否为null），
+可以链式调用，语义化非常好，简洁，易懂。
+
+http://www.importnew.com/26066.html
