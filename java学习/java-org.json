@@ -1,0 +1,4 @@
+使用 JSONObject 对象创建json
+文档 https://stleary.github.io/JSON-java/
+
+新建 JSONObject 对象后可以通过put设置json，可以传入map对象，可以通过java bean创建（常用）
