@@ -1,0 +1,12 @@
+new Vue({
+  el: '#app',
+  router,
+  store,
+  template : `<div id='_app'>
+  				<keep-alive include="index">
+					<router-view></router-view>
+  				</keep-alive>
+			  </div>`
+})
+
+按上面配置，index页面保持keep-alive，在切换页面的时候，index的created钩子不会被重复触发，只在第一次触发一次，使用vue2版本
