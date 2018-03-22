@@ -9,6 +9,9 @@ CallableStatement	callablestatement = con.prepareCall("call procedure string")
 callablestatement.execute()
 ResultSet rs = callablestatement.getResultSet()
 
+设计：
+一个表对应一个操作类，一个存储类（bean）
+
 
 事物：
 1、要取消掉JDBC的自动提交：void con.setAutoCommit(boolean autoCommit)  // false
