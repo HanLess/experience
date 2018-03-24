@@ -2,3 +2,7 @@
 sleep不会改变锁的状态，即当前线程不会释放锁，其他线程执行，只能执行非锁的部分
 
 wait会释放锁，并使当前线程进入等待状态，直到被notify/notifyAll唤醒
+
+而yield和sleep类似，都是只能让当前线程让出cpu资源，而不能改变锁的状态
+
+wait是Object的方法，而yield和sleep都是Thread的方法，可以认为，Thread的方法不能改变锁的状态，只有Object的方法才可以
