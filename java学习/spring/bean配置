@@ -1,0 +1,9 @@
+bean配置项（常用）：
+Id:唯一标识
+Class：实现类
+Scope：作用域
+Constructor arguments:构造注入
+Properties：设值注入
+Autowiring mode：自动装配模式
+lazy-initialization mode:懒加载模式
+initialization/destruction method:初始化，销毁方法
