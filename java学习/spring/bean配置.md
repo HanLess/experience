@@ -1,4 +1,4 @@
-bean配置项（常用）：
+## bean配置项（常用）：
 Id:唯一标识
 Class：实现类
 Scope：作用域
@@ -8,7 +8,7 @@ Autowiring mode：自动装配模式
 lazy-initialization mode:懒加载模式
 initialization/destruction method:初始化，销毁方法
 
-bean中scope用法：
+## bean中scope用法：
 来自：https://blog.csdn.net/u012420654/article/details/52760999
 
 分基础作用域、web作用域
