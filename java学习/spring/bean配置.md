@@ -8,6 +8,22 @@
 #### lazy-initialization mode:懒加载模式
 #### initialization/destruction method:初始化，销毁方法
 
+## bean的生命周期
+#### 定义
+#### 初始化
+#### 使用
+#### 销毁
+
+
+#### 初始化（钩子）
+1）实现org.springframe.beans.factory.InitializingBean接口，覆盖afterPropertiesSet方法
+2）定义init-method方法
+#### 销毁（钩子）
+1）实现org.springframe.beans.factory.DisposableBean接口，覆盖destory方法
+2）定义destory-method方法
+#### 全局定义初始化、销毁（钩子）
+在xml文件中最外层设置<beans default-init-method="init" default-destory-method="destory"></beans>
+
 ## bean中scope用法：
 来自：https://blog.csdn.net/u012420654/article/details/52760999
 
