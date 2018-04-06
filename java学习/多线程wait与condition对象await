@@ -1,0 +1,5 @@
+线程进入等待状态之前，必须获取锁
+
+即若使用对象锁，必须在synchronized语句块内部wait
+
+若使用reentrantlock对象，必须lock之后才能使用condition对象的await方法
