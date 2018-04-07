@@ -4,4 +4,4 @@
 
 若使用reentrantlock对象，必须lock之后才能使用condition对象的await方法
 
-在notify与signal时同样也必须获取锁
+在notify与signal时同样也必须获取锁。
