@@ -1,0 +1,10 @@
+bean的属性autowire的值，byName与byType是根据setter来判断，而不是类中的属性来判断
+
+即：
+1）byName
+setOne(kind o){},会去找id=one的bean类，然后执行setOne，传入的实参是id=one这个bean类的对象
+
+2）byType
+setOne(kind o){},会去找class=kind的bean类，然后执行setOne，传入实参是class=kind这个bean类的对象
+
+注意：byName与byType的判断根据是setter，而不是属性。
