@@ -8,3 +8,29 @@ setOne(kind o){},会去找id=one的bean类，然后执行setOne，传入的实�
 setOne(kind o){},会去找class=kind的bean类，然后执行setOne，传入实参是class=kind这个bean类的对象
 
 注意：byName与byType的判断根据是setter，而不是属性。
+
+对于数组，集合，map注入，会自动将指定的 所有 bean类注入，示例代码如下：
+
+interface BeanInterface {
+
+}
+
+@Component
+class BeanImpOne implements BeanInterface {
+
+}
+
+@Component
+class BeanimpTwo implements BeanInterface {
+
+}
+
+@Component
+public class test {
+    @Autowired
+    private List<BeanInterface> list;
+    @Autowired
+    private Map<String, BeanInterface> map;
+}
+
+一共有两个 BeanInterface 类，所以list中有BeanImpOne和BeanimpTwo，同样的，map中也有BeanImpOne和BeanimpTwo
