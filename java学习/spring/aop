@@ -1,0 +1,27 @@
+主要概念：
+切面类 切入点 通知（时间钩子）
+
+很多时候需要用到工具方法，如日志记录，验证等，需要在业务方法前或后执行，在保证与业务代码解耦的前提下，使用切面类
+
+@Aspect定义切面类
+
+@Pointcut定义切入点：定义切入点的作用就是指明哪些业务方法需要用到此切入方法
+
+@Pointcut("execution(* webapp.com.language..*(..))")
+private void anyPointCut(){
+    System.out.println("any point cut");
+}
+
+
+@Before、@After等通知：可以理解为时间钩子，即在业务方法执行的前或后，来执行这些钩子方法，是aop思想的实施方法，工具方法的逻辑定义在这里面
+可以自己定义表达式，也可以用@Pointcut定义的切入方法
+
+@Before("anyPointCut()")
+private void beforeMethod(){
+    System.out.println("this is before");
+}
+
+@Before("execution(* webapp.com.language..*(..))")
+private void beforeMethod(){
+    System.out.println("this is before");
+}
