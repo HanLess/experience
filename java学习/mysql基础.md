@@ -7,8 +7,13 @@
 
 创建存储过程：
 delimiter //
+<br />
 create procedure procedure_name
+<br />
 begin
+<br />
 select * from table_name;
+<br />
 end //
+<br />
 delimiter ;
