@@ -58,7 +58,23 @@ ELSE
 END IF;
 ```
 
+case when语句(switch case)：
+```
+ CASE customerCountry
+ WHEN  'USA' THEN
+    SET p_shiping = '2-day Shipping';
+ WHEN 'Canada' THEN
+    SET p_shiping = '3-day Shipping';
+ ELSE
+    SET p_shiping = '5-day Shipping';
+ END CASE;
+```
 
-
+循环：
+```
+WHILE expression DO
+   statements
+END WHILE
+```
 
 
