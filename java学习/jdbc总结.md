@@ -20,6 +20,12 @@ ResultSet rs = callablestatement.getResultSet()
 
 3、如果所有语句执行成功，则提交事务 commit()；如果出现了错误，则回滚：rollback()
 
+
+
+
+
+
+
 连接池：
 dbcp
 c3p0
