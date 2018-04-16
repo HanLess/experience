@@ -36,3 +36,26 @@ table_expr：SELECT语句中的其余部分，包括可选的FROM子句和WHERE�
 <br />
 需要注意的是，在使用SELECT …INTO语句时，变量名不能和数据表中的字段名不能相同，否则会出错
 <br />
+
+存储过程入参（in,out）：
+in比较容易理解
+out如何接受输出的参数，在java中使用CallableStatement时，示例代码：
+<br />
+CallableStatement cstmt = conn.prepareCall("{call add_pro(?,?,?)}")
+<br />
+cstmt.setInt(1,4);
+<br />
+cstmt.setInt(2,5);
+<br />
+cstmt.registerOutParameter(3,Types.INTEGER);
+<br />
+cstmt.execute();
+<br />
+System.out.println("执行结果是:"+cstmt.getInt(3));
+<br />
+
+
+
+
+
+
