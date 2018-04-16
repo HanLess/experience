@@ -7,17 +7,14 @@
 https://www.yiibai.com/mysql/stored-procedure.html
 
 创建存储过程：
+```
 delimiter //
-<br />
 create procedure procedure_name
-<br />
 begin
-<br />
 select * from table_name;
-<br />
 end //
-<br />
 delimiter ;
+```
 
 声明、赋值变量：
 声明：declare one int default 0;
@@ -40,19 +37,14 @@ table_expr：SELECT语句中的其余部分，包括可选的FROM子句和WHERE�
 存储过程入参（in,out）：
 in比较容易理解
 out如何接受输出的参数，在java中使用CallableStatement时，示例代码：
-<br />
+```
 CallableStatement cstmt = conn.prepareCall("{call add_pro(?,?,?)}")
-<br />
 cstmt.setInt(1,4);
-<br />
 cstmt.setInt(2,5);
-<br />
 cstmt.registerOutParameter(3,Types.INTEGER);
-<br />
 cstmt.execute();
-<br />
 System.out.println("执行结果是:"+cstmt.getInt(3));
-<br />
+```
 
 判断语句（if）:
 ```
