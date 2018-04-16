@@ -54,6 +54,17 @@ cstmt.execute();
 System.out.println("执行结果是:"+cstmt.getInt(3));
 <br />
 
+判断语句（if）:
+```
+IF expression THEN
+   statements;
+ELSEIF elseif-expression THEN
+   elseif-statements;
+...
+ELSE
+   else-statements;
+END IF;
+```
 
 
 
