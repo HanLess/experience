@@ -1,4 +1,5 @@
 事务特性
+<br />
 原子性：
 <br />
 事务不可分割
@@ -14,3 +15,11 @@
 一致性：
 <br />
 事务的前后，数据的完整性保持一致
+
+spring中操作事务的三个常用接口：
+<div>PlatformTransactionManager、TransactionDefinition、</div>
+
+
+
+<div>脏读:</div>
+不可重复读、幻读
