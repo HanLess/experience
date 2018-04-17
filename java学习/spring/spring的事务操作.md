@@ -43,3 +43,6 @@ PROPAGATION_REQUIRES_NEW:如果事务存在，挂起当前事务，并新建一�
 <div>
 PROPAGATION_NESTED:如果事务存在，则嵌套事务执行
 </div>
+<div>spring的事务管理</div>
+<div>1）transactionTemplate类来实现事务管理（编程式）</div>
+<div>2）通过xml来管理（声明式）</div>
