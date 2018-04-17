@@ -2,13 +2,18 @@
 Class.forName("com.mysql.jdbc.Driver")
 2）获取连接
 3）获得PreparedStatement对象 ，或者获得 callableStatement（调用存储过程，分为有入参，有出参，有inout）
+```
 PreparedStatement preparedstatement = con.prepareStatement(String sql)
 ResultSet rs = preparedstatement.execute()
 
 CallableStatement	callablestatement = con.prepareCall("call procedure string")
 callablestatement.execute()
 ResultSet rs = callablestatement.getResultSet()
+// ResultSet中的getxxx方法，可以有两种参数，
+// 数据表中的列名
+// 数据表中列的索引（从1开始）
 
+```
 设计：
 一个表对应一个操作类，一个存储类（bean）
 
