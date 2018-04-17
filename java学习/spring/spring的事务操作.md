@@ -17,10 +17,10 @@
 事务的前后，数据的完整性保持一致
 
 spring中操作事务的三个常用接口：
-<div>PlatformTransactionManager、TransactionDefinition、</div>
+<div>PlatformTransactionManager、TransactionDefinition、TransactionStatus（事务状态管理）</div>
 
 
-
+<div>TransactionDefinition定义的事务属性</div>
 <div>
   脏读:一个事务读取时，另一个事务已经修改但还未提交，导致读取的数据无效
 </div>
