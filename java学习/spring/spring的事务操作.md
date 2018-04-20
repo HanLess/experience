@@ -46,3 +46,5 @@ PROPAGATION_NESTED:如果事务存在，则嵌套事务执行
 <div>spring的事务管理</div>
 <div>1）transactionTemplate类来实现事务管理（编程式）</div>
 <div>2）通过xml来管理（声明式）</div>
+
+https://www.cnblogs.com/zhaozihan/p/6219776.html
