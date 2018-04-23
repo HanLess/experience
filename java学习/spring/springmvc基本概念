@@ -1,0 +1,8 @@
+dispatcherServlet(前端控制器，用于分发请求)
+handlerAdapter(处理请求，将请求转给合适的controller)
+handlerInterceptor(拦截器)
+handlerMapping(帮助dispatcherServlet获取正确的controller，以及帮助controller匹配拦截器)
+handlerExecutionChain(执行链：preHandler -> contrller -> postHandler -> afterCompletion)
+modelAndView(model的具体表现，可以使用model，map，但最后都会被转换成modelAndView)
+viewResolver(视图解析器，告诉dispatcherServlet需要用哪个视图呈现)
+view(呈现页面)
