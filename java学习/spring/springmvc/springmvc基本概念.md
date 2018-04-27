@@ -28,7 +28,7 @@ dispatcherServlet 职责：
 
 dispatcher-servlet.xml 配置中 prefix 与 suffix
 
-prefix suffix是spring MVC试图解析器的一个属性，
+prefix suffix是spring MVC视图解析器的一个属性，
 
 prefix ： 是指访问页面的前缀，指定页面存放的文件夹
 
