@@ -26,3 +26,10 @@ dispatcherServlet 职责：
 <li>如果执行过程中遇到异常将交给HandlerExceptionResolver来解析。</li>
 </ul>
 
+dispatcher-servlet.xml 配置中 prefix 与 suffix
+
+prefix suffix是spring MVC试图解析器的一个属性，
+
+prefix ： 是指访问页面的前缀，指定页面存放的文件夹
+
+suffix ： 是指文件的后缀名，常见的后缀名有html,jsp,php,txt,mp3
