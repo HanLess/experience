@@ -1,0 +1,30 @@
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!--声明了类的别名-->
+    <typeAliases>
+        <typeAlias alias="Student" type="mybatisTest.Student"/>
+    </typeAliases>
+
+    <!--mybatis使用的数据库驱动和数据源配置-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="jdbc"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/han"/>
+                <property name="username" value="root"/>
+                <property name="password" value="111111"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--指定映射文件的路径-->
+    <mappers>
+        <mapper resource="mappers/StudentMapper.xml"/>
+    </mappers>
+
+</configuration>
