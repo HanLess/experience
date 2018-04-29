@@ -34,7 +34,7 @@ sqlSession.commit();
 
 但是最好还是不要让其一直存在以保证所有的 XML 解析资源开放给更重要的事情。
 
-SqlSessionFactory
+<h2>SqlSessionFactory</h2>
 
 SqlSessionFactory 一旦被创建就应该在应用的运行期间一直存在，没有任何理由对它进行清除或重建。
 
@@ -44,7 +44,7 @@ SqlSessionFactory 一旦被创建就应该在应用的运行期间一直存在�
 
 因此 SqlSessionFactory 的最佳范围是应用范围。有很多方法可以做到，最简单的就是使用单例模式或者静态单例模式。
 
-SqlSession
+<h2>SqlSession</h2>
 
 每个线程都应该有它自己的 SqlSession 实例。
 
@@ -70,7 +70,7 @@ try {
 // 在你的所有的代码中一致性地使用这种模式来保证所有数据库资源都能被正确地关闭。
 ```
 
-映射器实例（Mapper Instances）
+<h2>映射器实例（Mapper Instances）</h2>
 
 映射器是创建用来绑定映射语句的接口。映射器接口的实例是从 SqlSession 中获得的。
 
