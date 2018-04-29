@@ -24,7 +24,8 @@ studentDAO.insertStudent(student);
 sqlSession.commit();
 ```
 
-SqlSessionFactoryBuilder
+<h2>SqlSessionFactoryBuilder</h2>
+
 这个类可以被实例化、使用和丢弃，一旦创建了 SqlSessionFactory，就不再需要它了。
 
 因此 SqlSessionFactoryBuilder 实例的最佳范围是方法范围（也就是局部方法变量）。
