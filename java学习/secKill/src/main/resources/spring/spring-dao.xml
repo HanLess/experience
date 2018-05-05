@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--在这个文件中配置整合mybatis-->
+
+
+    <!--1 配置数据库相关参数-->
+    <context:property-placeholder location="classpath:jdbc.properties" />
+    <!--2 连接池-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="${username}" />
+        <property name="jdbcUrl" value="${url}" />
+        <property name="password" value="${password}" />
+        <property name="driverClass" value="${driver}" />
+        <!--连接池的私有属性-->
+        <property name="maxPoolSize" value="30" />
+        <property name="minPoolSize" value="10" />
+        <property name="autoCommitOnClose" value="false" />
+        <property name="checkoutTimeout" value="1000" />
+        <property name="acquireRetryAttempts" value="2" />
+    </bean>
+    <!--在实际项目中，约定大于配置，即优先使用扫描，自动扫描包下面的相关文件，而不是一个一个配置到xml中-->
+    <!--3 配置sqlSessionFactory-->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入数据库连接池-->
+        <property name="dataSource" ref="dataSource" />
+        <!--引入mybatis全局配置文件，mybatis-config.xml-->
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <!--设置实体类的默认包-->
+        <property name="typeAliasesPackage" value="org.seckill.entry" />
+        <!--扫描sql配置文件：mapper下的xml文件-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml" />
+    </bean>
+    <!--配置扫描dao接口包，自动实现dao接口，注入到spring中-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入 sqlSessionFactory-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean" />
+        <!--给出扫描dao接口包-->
+        <property name="basePackage" value="org.seckill.dao" />
+    </bean>
+</beans>
