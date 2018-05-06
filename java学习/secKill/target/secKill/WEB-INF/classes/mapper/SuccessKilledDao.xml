@@ -12,7 +12,7 @@
         );
     </insert>
 
-    <select id="queryByIdWithSecKill" resultType="SuccessKilled">
+    <select id="queryByIdWithSecKill">
         <!--根据id查询seckill_success，并把seckill实体返回-->
         <!--告诉mybatis把实体映射到SuccessKilled同时映射到seckill属性-->
         <!--通过别名的方式-->

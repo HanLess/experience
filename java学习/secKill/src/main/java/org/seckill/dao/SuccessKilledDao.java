@@ -1,10 +1,11 @@
 package org.seckill.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.seckill.entry.SuccessKilled;
 
 public interface SuccessKilledDao {
 
-    int insetSuccessKilled(long seckillId,long userPhone);
+    int insetSuccessKilled(@Param("seckillId") long seckillId,@Param("userPhone") long userPhone);
 
     SuccessKilled queryByIdWithSecKill(long seckillId);
 }
