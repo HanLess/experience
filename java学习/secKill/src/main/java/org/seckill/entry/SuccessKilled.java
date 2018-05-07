@@ -6,7 +6,7 @@ public class SuccessKilled {
     private long seckillId;
     private long userPhone;
     private int state;
-    private Date crateTime;
+    private Date createTime;
 
     private Seckill seckill;
 
@@ -42,12 +42,12 @@ public class SuccessKilled {
         this.state = state;
     }
 
-    public Date getCrateTime() {
-        return crateTime;
+    public Date getcreateTime() {
+        return createTime;
     }
 
-    public void setCrateTime(Date crateTime) {
-        this.crateTime = crateTime;
+    public void setcreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class SuccessKilled {
                 "seckillId=" + seckillId +
                 ", userPhone=" + userPhone +
                 ", state=" + state +
-                ", crateTime=" + crateTime +
+                ", createTime=" + createTime +
                 ", seckill=" + seckill +
                 '}';
     }

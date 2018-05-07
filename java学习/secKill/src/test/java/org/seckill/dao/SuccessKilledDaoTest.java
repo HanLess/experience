@@ -30,7 +30,8 @@ public class SuccessKilledDaoTest {
     @Test
     public void queryByIdWithSecKill() {
         long seckillId = 4;
-        SuccessKilled successKilled = successKilledDao.queryByIdWithSecKill(seckillId);
+        long userPhone = 13000000000L;
+        SuccessKilled successKilled = successKilledDao.queryByIdWithSecKill(seckillId,userPhone);
         System.out.println(successKilled);
     }
 }

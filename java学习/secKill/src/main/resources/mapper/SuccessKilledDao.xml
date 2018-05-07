@@ -17,16 +17,19 @@
         <!--告诉mybatis把实体映射到SuccessKilled同时映射到seckill属性-->
         <!--通过别名的方式-->
         select
-            sk.seckill_id,sk.user_phone,sk.state,sk.create_time,
-            s.seckill_id as "seckill.seckill_id",
+            sk.seckill_id as seckillId,
+            sk.user_phone as userPhone,
+            sk.state,
+            sk.create_time as createTime,
+            s.seckill_id as "seckill.seckillId",
             s.name as "seckill.name",
             s.number as "seckill.number",
-            s.create_time as "seckill.create_time",
-            s.start_time as "seckill.start_time",
-            s.end_time as "seckill.end_time"
+            s.create_time as "seckill.createTime",
+            s.start_time as "seckill.startTime",
+            s.end_time as "seckill.endTime"
         from
             seckill_success sk inner join seckill s
         on sk.seckill_id = s.seckill_id
-        where sk.seckill_id = #{seckillId}
+        where sk.seckill_id = #{seckillId} and sk.user_phone = #{userPhone}
     </select>
 </mapper>

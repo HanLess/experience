@@ -7,5 +7,5 @@ public interface SuccessKilledDao {
 
     int insetSuccessKilled(@Param("seckillId") long seckillId,@Param("userPhone") long userPhone);
 
-    SuccessKilled queryByIdWithSecKill(long seckillId);
+    SuccessKilled queryByIdWithSecKill(@Param("seckillId") long seckillId,@Param("userPhone") long userPhone);
 }
