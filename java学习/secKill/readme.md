@@ -1,0 +1,3 @@
+dao层的工作：接口设计和sql语句开发，逻辑代码和sql分离，所有业务逻辑在service层开发
+
+service层：dto包，类似entity包，但entity存放的是业务的数据类实体（一个张表对应一个类），dto主要存放的是web与service之间的数据传递类
