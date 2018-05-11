@@ -12,21 +12,6 @@
         -->
         <setting name="useColumnLabel" value="true" />
         <!--开启驼峰列名转换 table(create_time) -> entity(createTime)-->
-        <setting name="mapUnderscopeCamelCase" value="true " />
+        <!--<setting name="mapUnderscoreToCamelCase" value="true " />-->
     </settings>
-    
-    <!--<environments default="development">-->
-        <!--<environment id="development">-->
-            <!--<transactionManager type="JDBC"/>-->
-            <!--<dataSource type="POOLED">-->
-                <!--<property name="driver" value="${driver}"/>-->
-                <!--<property name="url" value="${url}"/>-->
-                <!--<property name="username" value="${username}"/>-->
-                <!--<property name="password" value="${password}"/>-->
-            <!--</dataSource>-->
-        <!--</environment>-->
-    <!--</environments>-->
-    <!--<mappers>-->
-        <!--<mapper resource="org/mybatis/example/BlogMapper.xml"/>-->
-    <!--</mappers>-->
 </configuration>

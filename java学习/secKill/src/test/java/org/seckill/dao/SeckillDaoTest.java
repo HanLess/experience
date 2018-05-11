@@ -22,7 +22,9 @@ import static org.junit.Assert.*;
 * */
 @RunWith(SpringJUnit4ClassRunner.class)
 //告诉junit spring配置文件
-@ContextConfiguration({"classpath:spring/spring-dao.xml"})
+@ContextConfiguration({"classpath:spring/spring-dao.xml",
+        "classpath:spring/spring-service.xml"
+})
 public class SeckillDaoTest {
 
     @Autowired
@@ -30,7 +32,7 @@ public class SeckillDaoTest {
 
     @Test
     public void queryById() {
-        long id = 4;
+        long id = 1001;
         Seckill seckill = seckillDao.queryById(id);
         System.out.println(seckill.getName());
         System.out.println(seckill);

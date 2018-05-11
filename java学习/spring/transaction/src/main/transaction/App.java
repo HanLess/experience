@@ -12,6 +12,6 @@ public class App
     {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         service serv = (service)ctx.getBean("service");
-        serv.transactionTransfer("hanhx","yangnf",200);
+        serv.transfer("hanhx","yangnf",200);
     }
 }

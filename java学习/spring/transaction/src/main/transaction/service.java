@@ -3,6 +3,7 @@ package transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -28,18 +29,20 @@ public class service {
         dao.inMoney(name,money);
     }
 
-    public void transfer(String out,String in,double money){
-        dao.outMoney(out,money);
-        dao.inMoney(in,money);
+    @Transactional
+    public void transfer(String out,String in,double money) throws RuntimeException{
+            dao.outMoney(out,money);
+            int re = 1 / 0;
+            dao.inMoney(in,money);
     }
 
-    public void transactionTransfer(final String out,final String in,final double money){
-        template.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
-                dao.outMoney(out,money);
-                dao.inMoney(in,money);
-            }
-        });
-    }
+//    public void transactionTransfer(final String out,final String in,final double money){
+//        template.execute(new TransactionCallbackWithoutResult() {
+//            @Override
+//            protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
+//                dao.outMoney(out,money);
+//                dao.inMoney(in,money);
+//            }
+//        });
+//    }
 }
