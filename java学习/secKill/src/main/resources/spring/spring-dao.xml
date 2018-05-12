@@ -13,10 +13,10 @@
     <context:property-placeholder location="classpath:jdbc.properties" />
     <!--2 连接池-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="user" value="${username}" />
-        <property name="jdbcUrl" value="${url}" />
-        <property name="password" value="${password}" />
-        <property name="driverClass" value="${driver}" />
+        <property name="user" value="${jdbc.username}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="driverClass" value="${jdbc.driver}" />
         <!--连接池的私有属性-->
         <property name="maxPoolSize" value="30" />
         <property name="minPoolSize" value="10" />

@@ -30,10 +30,6 @@ public class db {
 //        }
 //    }
 
-    public ComboPooledDataSource getDataSource(){
-        return ds;
-    }
-
     public Connection getConnect(){
         Connection con = null;
 
