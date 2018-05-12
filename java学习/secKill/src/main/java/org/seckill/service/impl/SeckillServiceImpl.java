@@ -2,8 +2,8 @@ package org.seckill.service.impl;
 
 import org.seckill.dao.SeckillDao;
 import org.seckill.dao.SuccessKilledDao;
+import org.seckill.dto.Exposer;
 import org.seckill.dto.SeckillExecution;
-import org.seckill.dto.exposer;
 import org.seckill.entry.Seckill;
 import org.seckill.entry.SuccessKilled;
 import org.seckill.enums.SeckillState;
@@ -46,21 +46,21 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     @Override
-    public exposer exportSeckillUrl(long seckillId) {
+    public Exposer exportSeckillUrl(long seckillId) {
         Seckill seckill = seckillDao.queryById(seckillId);
         if(seckill == null){
-            return new exposer(false,seckillId);
+            return new Exposer(false,seckillId);
         }
         long now = (new Date()).getTime();
         long startTime = seckill.getStartTime().getTime();
         long endTime = seckill.getEndTime().getTime();
 
         if(now < startTime || now > endTime){
-            return new exposer(false,seckillId,now,startTime,endTime);
+            return new Exposer(false,seckillId,now,startTime,endTime);
         }
 
         String md5 = this.getMd5(seckillId);
-        return new exposer(true,md5,seckillId);
+        return new Exposer(true,md5,seckillId);
     }
 
     private String getMd5(long seckillId){

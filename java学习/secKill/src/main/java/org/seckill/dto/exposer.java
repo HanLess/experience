@@ -1,6 +1,6 @@
 package org.seckill.dto;
 
-public class exposer {
+public class Exposer {
     private Boolean exposed;
 
     private String md5;
@@ -14,13 +14,13 @@ public class exposer {
 //    结束时间
     private long end;
 
-    public exposer(Boolean exposed, String md5, long seckillId) {
+    public Exposer(Boolean exposed, String md5, long seckillId) {
         this.exposed = exposed;
         this.md5 = md5;
         this.seckillId = seckillId;
     }
 
-    public exposer(Boolean exposed,long seckillId, long now, long start, long end) {
+    public Exposer(Boolean exposed, long seckillId, long now, long start, long end) {
         this.seckillId = seckillId;
         this.exposed = exposed;
         this.now = now;
@@ -28,7 +28,7 @@ public class exposer {
         this.end = end;
     }
 
-    public exposer(Boolean exposed, long seckillId) {
+    public Exposer(Boolean exposed, long seckillId) {
         this.exposed = exposed;
         this.seckillId = seckillId;
     }
@@ -83,7 +83,7 @@ public class exposer {
 
     @Override
     public String toString() {
-        return "exposer{" +
+        return "Exposer{" +
                 "exposed=" + exposed +
                 ", md5='" + md5 + '\'' +
                 ", seckillId=" + seckillId +

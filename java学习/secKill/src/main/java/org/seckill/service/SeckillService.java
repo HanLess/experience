@@ -1,7 +1,7 @@
 package org.seckill.service;
 
 import org.seckill.dto.SeckillExecution;
-import org.seckill.dto.exposer;
+import org.seckill.dto.Exposer;
 import org.seckill.entry.Seckill;
 import org.seckill.exception.RepeatKillException;
 import org.seckill.exception.SeckillCloseException;
@@ -23,7 +23,7 @@ public interface SeckillService {
     Seckill getById(long seckillId);
 
 //    查看是否开启秒杀
-    exposer exportSeckillUrl(long seckillId);
+    Exposer exportSeckillUrl(long seckillId);
 
     SeckillExecution executeSeckill(long seckillId, long userPhone, String md5)
             throws SeckillException,RepeatKillException,SeckillCloseException;
