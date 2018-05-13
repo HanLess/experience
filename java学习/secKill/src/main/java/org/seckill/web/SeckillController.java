@@ -44,13 +44,13 @@ public class SeckillController {
         if(seckill == null){
             return "redirect:seckill/list";
         }
-        model.addAttribute("detail",seckill);
+        model.addAttribute("seckill",seckill);
 
         return "detail";
     }
 
     @RequestMapping(value = "/{seckillId}/exposer",method = RequestMethod.POST,produces = {
-            "application/json;charset=utf-8"
+            "application/json"
     })
     @ResponseBody
     public SeckillResult<Exposer> exposer(@PathVariable("seckillId") Long seckillId){
@@ -66,7 +66,7 @@ public class SeckillController {
     }
 
     @RequestMapping(value = "/{seckillId}/{md5}/excution",method = RequestMethod.POST,produces = {
-            "application/json;charset=urt-8"
+            "application/json"
     })
     @ResponseBody
     public SeckillResult<SeckillExecution> excute(@PathVariable("seckillId") Long seckillId,

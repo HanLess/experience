@@ -36,29 +36,17 @@
     <script>
         var start_time = new Date($("#startTime").val()).getTime()
         var end_time = new Date($("#endTime").val()).getTime()
-        var interval
-
-        var getExposer = function () {
-            $.ajax
-        }
-
         var countFun = function (_time) {
             var time = _time
-            interval = setInterval(function () {
+            setInterval(function () {
                 var second = (parseInt(time/1000) % 3600) % 60
                 var minute = parseInt((parseInt(time/1000) % 3600) / 60)
                 var hour = parseInt(parseInt(time/1000) / 3600)
 
                 var result = hour + " : " + minute + " : " + second;
                 $("#countDown").text(result)
-                if(time <= 0){
-                    clearInterval(interval)
-                    getExposer()
-                }else{
-                    time -= 1000
-                }
+                time -= 1000
             },1000)
-
         }
 
 

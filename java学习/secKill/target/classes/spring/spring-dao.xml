@@ -21,7 +21,7 @@
         <property name="maxPoolSize" value="30" />
         <property name="minPoolSize" value="10" />
         <property name="autoCommitOnClose" value="false" />
-        <property name="checkoutTimeout" value="500" />
+        <property name="checkoutTimeout" value="1000" />
         <property name="acquireRetryAttempts" value="2" />
     </bean>
     <!--在实际项目中，约定大于配置，即优先使用扫描，自动扫描包下面的相关文件，而不是一个一个配置到xml中-->
