@@ -1,5 +1,6 @@
 package org.seckill.web;
 
+
 import org.seckill.dto.Exposer;
 import org.seckill.dto.SeckillExecution;
 import org.seckill.dto.SeckillResult;
@@ -15,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -27,26 +30,37 @@ public class SeckillController {
     @Autowired
     private SeckillService seckillService;
 
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public String list(Model model){
-        List<Seckill> list = seckillService.getSeckillList();
-        model.addAttribute("list",list);
-
-        return "list";
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    public String test(RedirectAttributes attr){
+        attr.addAttribute("name","哈哈");
+        attr.addAttribute("age",10);
+        return "redirect:/page/index.html";
     }
 
-    @RequestMapping(value = "/{seckillId}/detail",method = RequestMethod.GET)
-    public String detail(@PathVariable("seckillId") Long seckillId, Model model){
+
+
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Seckill> list(){
+        List<Seckill> list = seckillService.getSeckillList();
+        return list;
+    }
+
+    @RequestMapping(value = "/detail",method = RequestMethod.GET)
+    @ResponseBody
+    public Seckill detail(
+            Long seckillId
+    )
+    {
+
         if(seckillId == null){
-            return "redirect:seckill/list";
+            return null;
         }
         Seckill seckill = seckillService.getById(seckillId);
         if(seckill == null){
-            return "redirect:seckill/list";
+            return null;
         }
-        model.addAttribute("seckill",seckill);
-
-        return "detail";
+        return seckill;
     }
 
     @RequestMapping(value = "/{seckillId}/exposer",method = RequestMethod.POST,produces = {
