@@ -1,6 +1,7 @@
 package org.seckill.web;
 
 
+import com.mysql.cj.api.Session;
 import org.seckill.dto.Exposer;
 import org.seckill.dto.SeckillExecution;
 import org.seckill.dto.SeckillResult;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +33,8 @@ public class SeckillController {
     private SeckillService seckillService;
 
     @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public String test(RedirectAttributes attr){
+    public String test(RedirectAttributes attr,HttpServletRequest request){
+        HttpSession ss = request.getSession();
         attr.addAttribute("name","哈哈");
         attr.addAttribute("age",10);
         return "redirect:/page/index.html";
