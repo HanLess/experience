@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $.ajax({
+        url : "/seckill/detail",
+        data : {
+            seckillId : 1001
+        },
+        dataType : 'json',
+        type : "get",
+        success : function (data) {
+            console.log(data)
+        }
+    })
+
+    $.ajax({
+        url : "/seckill/list",
+        type : "get",
+        success : function (data) {
+            console.log(data)
+        }
+    })
+</script>
+</body>
+</html>

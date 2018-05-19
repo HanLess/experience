@@ -37,13 +37,10 @@
     <script>
         var start_time = new Date($("#startTime").val()).getTime()
         var end_time = new Date($("#endTime").val()).getTime()
-        var
         var interval
 
         var getExposer = function () {
-            $.ajax({
-                url : "/seckill/time/now"
-            })
+            $.ajax
         }
 
         var countFun = function (_time) {
