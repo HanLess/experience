@@ -10,12 +10,12 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $.ajax({
-        url : "/seckill/detail",
+        url : "/seckill/exposer",
         data : {
-            seckillId : 1001
+            seckillId : 4
         },
         dataType : 'json',
-        type : "get",
+        type : "post",
         success : function (data) {
             console.log(data)
         }

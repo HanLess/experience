@@ -66,11 +66,9 @@ public class SeckillController {
         return seckill;
     }
 
-    @RequestMapping(value = "/{seckillId}/exposer",method = RequestMethod.POST,produces = {
-            "application/json"
-    })
+    @RequestMapping(value = "/exposer",method = RequestMethod.POST)
     @ResponseBody
-    public SeckillResult<Exposer> exposer(@PathVariable("seckillId") Long seckillId){
+    public SeckillResult<Exposer> exposer(Long seckillId){
         SeckillResult<Exposer> result;
         try {
             Exposer exposer = seckillService.exportSeckillUrl(seckillId);
