@@ -1,7 +1,9 @@
 https://www.cnblogs.com/lonelydreamer/p/6169469.html
 
-1、session在何时被创建 
 
+
+    1、session在何时被创建 
+    
     一个常见的误解是以为session在有客户端访问时就被创建，然而事实是直到某server端程序调用HttpServletRequest.getSession(true)这样的语句时才被创建，注意如果JSP没有显示的使用 <%@page session="false"%> 关闭session，则JSP文件在编译成Servlet时将会自动加上这样一条语句HttpSession session = HttpServletRequest.getSession(true);这也是JSP中隐含的session对象的来历。 
 
     由于session会消耗内存资源，因此，如果不打算使用session，应该在所有的JSP中关闭它。 
@@ -24,8 +26,7 @@ https://www.cnblogs.com/lonelydreamer/p/6169469.html
 
     6、如何才能正确的应付客户端禁止cookie的可能性 
 
-    对所有的URL使用URL重写，包括超链接，form的action，和重定向的URL，具体做法参见[6] 
-http://e-docs.bea.com/wls/docs70/webapp/sessions.html#100770 
+    对所有的URL使用URL重写，包括超链接，form的action，和重定向的URL，具体做法参见[6] http://e-docs.bea.com/wls/docs70/webapp/sessions.html#100770 
 
     7、开两个浏览器窗口访问应用程序会使用同一个session还是不同的session 
 
