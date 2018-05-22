@@ -42,3 +42,31 @@ String的key和String的value的map容器（键值对）
 增加数字：hincrby (hashName) (key) number
 
 自学命令
+
+list : 
+
+链表，与数据结构中的链表一样，可以在表头，表尾插入元素，时间复杂度是 1，如果插入的链表不存在，会先创建；如果将表中的所有元素删除，则表也会被删除（自动创建，自动删除）
+
+两端添加：lpush (listName) (value1,value2,value3 ...) / rpush / lpushx (listName) (value...) 当 listName 存在时才插入       （lpush 左侧添加 rpush 右侧添加）
+
+查看：lrange (listName) (start,end)        （如果start,end是负数，表示从‘倒数’第几个开始，或‘倒数’第几个结束）
+
+两端弹出：lpop (listName) 左端弹出 ／ rpop (listName) 右端弹出
+
+获取表中元素数量：llen (listName)
+
+扩展命令：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
