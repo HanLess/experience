@@ -57,10 +57,29 @@ list :
 
 扩展命令
 
+Set : 
 
+无序集合，与java中的set一样，不允许重复
 
+添加：sadd (setName) (value...)
 
+删除：srem (setName) (value...)
 
+获得元素：smembers (setName) / 判断元素是否存在 sismember (setName) (value)
+
+集合差集：sdiff (setName1) (setName2)
+
+交集：sinter (setName1) (setName2)
+
+并集：sunion (setName1) (setName2)
+
+使用场景：存储唯一性的数据、需要操作两个集合的交并集等
+
+sortedSet :
+
+有序集合，与java中的sortedSet一样
+
+在redis中，是根据 score 来排序，所以在添加等操作中，需要指定元素的分数，如添加：zadd (sortName) (score) (value)
 
 
 
