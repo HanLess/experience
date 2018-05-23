@@ -82,8 +82,13 @@ sortedSet :
 在redis中，是根据 score 来排序，所以在添加等操作中，需要指定元素的分数，如添加：zadd (sortName) (score) (value)
 
 
+redis特性：
 
+1 多数据库：redis可以创建16个数据库，通过下标可以切换（select (index) 默认是0）
+          
+          可以通过move将key从一个数据库转移到另一个数据库
 
+2 redis事务 ： 所有命令串行执行
 
 
 
