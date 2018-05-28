@@ -7,7 +7,7 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
     <!--在这个文件中配置整合mybatis-->
-
+    <context:component-scan base-package="org.seckill.dao" />
 
     <!--1 配置数据库相关参数-->
     <context:property-placeholder location="classpath:jdbc.properties" />
@@ -43,4 +43,6 @@
         <!--给出扫描dao接口包-->
         <property name="basePackage" value="org.seckill.dao" />
     </bean>
+
+
 </beans>
