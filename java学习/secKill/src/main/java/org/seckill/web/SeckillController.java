@@ -66,11 +66,11 @@ public class SeckillController {
         return seckill;
     }
 
-    @RequestMapping(value = "/{seckillId}/exposer",method = RequestMethod.POST,produces = {
+    @RequestMapping(value = "/exposer",method = RequestMethod.POST,produces = {
             "application/json"
     })
     @ResponseBody
-    public SeckillResult<Exposer> exposer(@PathVariable("seckillId") Long seckillId){
+    public SeckillResult<Exposer> exposer(Long seckillId){
         SeckillResult<Exposer> result;
         try {
             Exposer exposer = seckillService.exportSeckillUrl(seckillId);
@@ -82,12 +82,12 @@ public class SeckillController {
         return result;
     }
 
-    @RequestMapping(value = "/{seckillId}/{md5}/excution",method = RequestMethod.POST,produces = {
+    @RequestMapping(value = "/excution",method = RequestMethod.POST,produces = {
             "application/json"
     })
     @ResponseBody
-    public SeckillResult<SeckillExecution> excute(@PathVariable("seckillId") Long seckillId,
-                                                  @PathVariable("md5") String md5,
+    public SeckillResult<SeckillExecution> excute(Long seckillId,
+                                                  String md5,
                                                   @CookieValue(value = "killPhone",required = false) Long phone){
 //        可以采用springMVC的验证信息 springmvc valid
         if(phone == null){
@@ -105,6 +105,7 @@ public class SeckillController {
             result = new SeckillResult<>(false,seckillExecution);
         }catch (Exception e){
             logger.error(e.getMessage(),e);
+            e.printStackTrace();
             SeckillExecution seckillExecution = new SeckillExecution(seckillId, SeckillState.INNER_ERROR);
             result = new SeckillResult<>(false,seckillExecution);
         }
