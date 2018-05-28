@@ -11,8 +11,21 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
+<<<<<<< HEAD
     $("#login").click(function () {
         document.cookie = "killPhone=13000000000;path=/"
+=======
+    $.ajax({
+        url : "/seckill/exposer",
+        data : {
+            seckillId : 4
+        },
+        dataType : 'json',
+        type : "post",
+        success : function (data) {
+            console.log(data)
+        }
+>>>>>>> 7f37a61fa01b491812aab2eb3f5b5c2f9c5fb335
     })
     $("#seckill").click(function () {
         $.ajax({

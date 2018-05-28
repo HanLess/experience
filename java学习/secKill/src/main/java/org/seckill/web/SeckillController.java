@@ -66,9 +66,13 @@ public class SeckillController {
         return seckill;
     }
 
+<<<<<<< HEAD
     @RequestMapping(value = "/exposer",method = RequestMethod.POST,produces = {
             "application/json"
     })
+=======
+    @RequestMapping(value = "/exposer",method = RequestMethod.POST)
+>>>>>>> 7f37a61fa01b491812aab2eb3f5b5c2f9c5fb335
     @ResponseBody
     public SeckillResult<Exposer> exposer(Long seckillId){
         SeckillResult<Exposer> result;

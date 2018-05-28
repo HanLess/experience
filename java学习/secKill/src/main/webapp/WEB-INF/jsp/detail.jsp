@@ -31,15 +31,19 @@
 
     <input id="startTime" type="hidden" value="${seckill.startTime}" />
     <input id="endTime" type="hidden" value="${seckill.endTime}" />
+    <input id="endTime" type="hidden" value="${seckill.seckillId}" />
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
         var start_time = new Date($("#startTime").val()).getTime()
         var end_time = new Date($("#endTime").val()).getTime()
+        // var
         var interval
 
         var getExposer = function () {
-            $.ajax
+            $.ajax({
+                url : "/seckill/time/now"
+            })
         }
 
         var countFun = function (_time) {
