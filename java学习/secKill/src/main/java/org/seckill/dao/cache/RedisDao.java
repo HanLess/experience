@@ -19,7 +19,7 @@ public class RedisDao {
             Jedis jedis = jedisPool.getResource();
             try {
                 String key = "seckill:" + seckillId;
-                
+
             }finally {
                 jedis.close();
             }
