@@ -66,6 +66,7 @@ public class RedisDao {
                 jedis.close();
             }
         }catch (Exception e){
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             e.printStackTrace();
         }
 

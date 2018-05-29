@@ -2,6 +2,7 @@ package org.seckill.service.impl;
 
 import org.seckill.dao.SeckillDao;
 import org.seckill.dao.SuccessKilledDao;
+import org.seckill.dao.cache.RedisDao;
 import org.seckill.dto.Exposer;
 import org.seckill.dto.SeckillExecution;
 import org.seckill.entry.Seckill;
@@ -29,6 +30,8 @@ public class SeckillServiceImpl implements SeckillService {
     private SeckillDao seckillDao;
     @Autowired
     private SuccessKilledDao successKilledDao;
+    @Autowired
+    private RedisDao redisDao;
 
 //    md5盐字符串
     private final String slat = "test_slat";
@@ -48,9 +51,12 @@ public class SeckillServiceImpl implements SeckillService {
     @Override
     public Exposer exportSeckillUrl(long seckillId) {
 //        优化点：缓存优化
-        Seckill seckill = seckillDao.queryById(seckillId);
+//        Seckill seckill = seckillDao.queryById(seckillId);
+        Seckill seckill = redisDao.getSeckill(seckillId);
         if(seckill == null){
-            return new Exposer(false,seckillId);
+            seckill = seckillDao.queryById(seckillId);
+            redisDao.putSeckill(seckill);
+//            return new Exposer(false,seckillId);
         }
         long now = (new Date()).getTime();
         long startTime = seckill.getStartTime().getTime();
