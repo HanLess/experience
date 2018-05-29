@@ -31,3 +31,5 @@ service层：dto包，类似entity包，但entity存放的是业务的数据类�
 方案：存储过程（整个事务在mysql完成）
 
 三、服务端缓存redis，进行高并发优化
+
+redis中存储java对象，存的是二进制字符串，所以在jedis中的存、取操作，需要对java对象进行序列化，这里用了 protostuff 进行序列化操作
