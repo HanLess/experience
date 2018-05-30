@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/seckill")      // 模块
@@ -35,17 +36,18 @@ public class SeckillController {
     @Autowired
     private SeckillService seckillService;
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public void test(@RequestParam(value = "list[]") Integer[] list,
-                     person one,
+    @RequestMapping(value = "/test",method = RequestMethod.POST)
+    public void test(
+                     @RequestBody person one,
                      HttpServletRequest request
                      ){
-        System.out.println(list);
-        for(Integer o:list){
-            System.out.println(o);
-        }
+//        System.out.println(list);
+//        for(Integer o:list){
+//            System.out.println(o);
+//        }
 
-        System.out.println(one);
+        System.out.println(one.getAge());
+        System.out.println(one.getName());
         Enumeration a = request.getParameterNames();
         System.out.println(a);
     }

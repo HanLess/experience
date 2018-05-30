@@ -12,7 +12,7 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
     $("#login").click(function () {
-        document.cookie = "killPhone=13000000001;path=/"
+        document.cookie = "killPhone=13000000002;path=/"
     })
     $("#seckill").click(function () {
         $.ajax({
@@ -40,16 +40,16 @@
             }
         })
     })
+
+    var dataString = JSON.stringify({
+            name : "hello world",
+            age : 18
+    })
     $.ajax({
-        type : "get",
+        type : "post",
         url : "/seckill/test",
-        data : {
-            list : [1,2,3],
-            one : {
-                name : "hello world",
-                age : 18
-            }
-        },
+        data : dataString,
+        contentType:"application/json",
         dataType : "json"
     })
 </script>
