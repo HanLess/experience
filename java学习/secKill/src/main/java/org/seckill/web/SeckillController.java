@@ -34,11 +34,11 @@ public class SeckillController {
     private SeckillService seckillService;
 
     @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public String test(RedirectAttributes attr,HttpServletRequest request){
-        HttpSession ss = request.getSession();
-        attr.addAttribute("name","哈哈");
-        attr.addAttribute("age",10);
-        return "redirect:/page/index.html";
+    public void test(@RequestParam(required = false,value="list") List<String> list){
+        System.out.println(list);
+        for(String o:list){
+            System.out.println(o);
+        }
     }
 
 
