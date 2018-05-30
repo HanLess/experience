@@ -39,6 +39,8 @@ public class RedisDao {
 //                    被反序列化
                     return seckill;
                 }
+
+
             }finally {
                 jedis.close();
             }

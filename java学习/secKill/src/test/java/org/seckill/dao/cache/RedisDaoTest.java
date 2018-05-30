@@ -19,7 +19,7 @@ public class RedisDaoTest {
     @Autowired
     private RedisDao redisDao;
     @Autowired
-    private SeckillServiceImpl seckillService;
+    private SeckillService seckillService;
 
 
     @Test
