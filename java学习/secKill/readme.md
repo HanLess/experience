@@ -17,7 +17,7 @@ service层：dto包，类似entity包，但entity存放的是业务的数据类�
 瓶颈分析：如果不用事务，mysql的性能并不差，但事务处理会造成大量阻塞，以秒杀事务举例（减库存，保存成功信息）
 
 ```
-一个秒杀请求进来，先执行update操作，线程获取mysql行级锁，其他线程等待，执行完update，再执行insert，再commit/rollback，当前线程才能释放锁，
+一个秒杀请求进来，先执行update操作，线程获取mysql行级锁（写操作获取锁，读操作与mysql的隔离级别有关），其他线程等待，执行完update，再执行insert，再commit/rollback，当前线程才能释放锁，
 后面的线程才能继续执行。这之间有两个sql操作（造成两次网络与gc延迟）
 ```
 
