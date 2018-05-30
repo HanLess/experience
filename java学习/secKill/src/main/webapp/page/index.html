@@ -25,7 +25,8 @@
             success : function (data) {
                 var md5 = data.data.md5
                 $.ajax({
-                    url : "/seckill/excution",
+//                    url : "/seckill/excution",
+                    url : "/seckill/excutionWithProcedure",
                     data : {
                         seckillId : 1001,
                         md5 : md5
@@ -39,7 +40,18 @@
             }
         })
     })
-
+    $.ajax({
+        type : "get",
+        url : "/seckill/test",
+        data : {
+            list : [1,2,3],
+            one : {
+                name : "hello world",
+                age : 18
+            }
+        },
+        dataType : "json"
+    })
 </script>
 </body>
 </html>

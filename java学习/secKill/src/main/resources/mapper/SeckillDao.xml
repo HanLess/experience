@@ -24,4 +24,8 @@
         order by create_time desc
         limit #{limit} offset #{offset};
     </select>
+
+    <select id="execute" statementType="CALLABLE">
+        call execute(#{seckillId},#{killTime},#{userPhone})
+    </select>
 </mapper>

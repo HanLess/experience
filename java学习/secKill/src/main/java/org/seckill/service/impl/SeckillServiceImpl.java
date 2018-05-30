@@ -113,4 +113,29 @@ public class SeckillServiceImpl implements SeckillService {
         }
 
     }
+    @Override
+    @Transactional
+    public SeckillExecution executeWithProcedure(long seckillId, long userPhone, String md5)throws SeckillException, RepeatKillException, SeckillCloseException{
+        try{
+            if(md5 == null || !md5.equals(this.getMd5(seckillId))){
+                throw new SeckillException("seckill data rewrite");
+            }
+            int result = seckillDao.execute(seckillId,new Date(),userPhone);
+            if(result == 1){
+                throw new RepeatKillException("seckill repeated");
+            }else if(result == 2){
+                throw new SeckillCloseException("seckill is closed");
+            }else{
+                SuccessKilled successKilled = successKilledDao.queryByIdWithSecKill(seckillId,userPhone);
+                return new SeckillExecution(seckillId, SeckillState.SUCCESS,successKilled);
+            }
+        } catch (SeckillCloseException e1){
+            throw e1;
+        } catch (RepeatKillException e2){
+            throw e2;
+        }catch (Exception e){
+            logger.error(e.getMessage(),e);
+            throw new SeckillException("seckill inner error : " + e.getMessage());
+        }
+    }
 }
