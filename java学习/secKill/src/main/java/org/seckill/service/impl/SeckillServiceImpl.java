@@ -20,7 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SeckillServiceImpl implements SeckillService {
@@ -120,7 +122,13 @@ public class SeckillServiceImpl implements SeckillService {
             if(md5 == null || !md5.equals(this.getMd5(seckillId))){
                 throw new SeckillException("seckill data rewrite");
             }
-            int result = seckillDao.execute(seckillId,new Date(),userPhone);
+            Map<String,Object> paramMap = new HashMap<>();
+            paramMap.put("seckillId",seckillId);
+            paramMap.put("killTime",new Date());
+            paramMap.put("userPhone",userPhone);
+            paramMap.put("result",null);
+            seckillDao.killByProcedure(paramMap);
+            int result = (Integer) paramMap.get("result");
             if(result == 1){
                 throw new RepeatKillException("seckill repeated");
             }else if(result == 2){

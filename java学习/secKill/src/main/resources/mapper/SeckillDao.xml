@@ -25,7 +25,12 @@
         limit #{limit} offset #{offset};
     </select>
 
-    <select id="execute" statementType="CALLABLE">
-        call execute(#{seckillId},#{killTime},#{userPhone})
+    <select id="killByProcedure" statementType="CALLABLE">
+        call execute(
+            #{seckillId,jdbcType=BIGINT,mode=IN},
+            #{killTime,jdbcType=TIMESTAMP,mode=IN},
+            #{userPhone,jdbcType=BIGINT,mode=IN},
+            #{result,jdbcType=INTEGER,mode=OUT}
+        )
     </select>
 </mapper>
