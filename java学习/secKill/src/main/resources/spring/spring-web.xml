@@ -34,4 +34,5 @@
 
     <!--4 扫描 web的包-->
     <context:component-scan base-package="org.seckill.web" />
+
 </beans>

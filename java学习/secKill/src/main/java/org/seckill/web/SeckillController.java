@@ -2,10 +2,7 @@ package org.seckill.web;
 
 
 import com.mysql.cj.api.Session;
-import org.seckill.dto.Exposer;
-import org.seckill.dto.SeckillExecution;
-import org.seckill.dto.SeckillResult;
-import org.seckill.dto.person;
+import org.seckill.dto.*;
 import org.seckill.entry.Seckill;
 import org.seckill.enums.SeckillState;
 import org.seckill.exception.RepeatKillException;
@@ -35,17 +32,19 @@ public class SeckillController {
     @Autowired
     private SeckillService seckillService;
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public void test(@RequestParam(value = "list[]") Integer[] list,
-                     person one,
+    @RequestMapping(value = "/test",method = RequestMethod.POST)
+    public void test(
+            Link link,
+            School school,
                      HttpServletRequest request
                      ){
-        System.out.println(list);
-        for(Integer o:list){
-            System.out.println(o);
-        }
+//        System.out.println(list);
+//        for(People o:list){
+//            System.out.println(o);
+//        }
 
-        System.out.println(one);
+        System.out.println(link);
+        System.out.println(school);
         Enumeration a = request.getParameterNames();
         System.out.println(a);
     }

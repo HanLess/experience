@@ -40,18 +40,41 @@
             }
         })
     })
+
     $.ajax({
-        type : "get",
+        type : "post",
         url : "/seckill/test",
         data : {
-            list : [1,2,3],
-            one : {
-                name : "hello world",
-                age : 18
-            }
+            address : [
+                {
+                    address : "beijing",
+                    code : 1
+                },
+                {
+                    address : "shanghai",
+                    code : 2
+                }
+            ],
+            xiaoxue:"a",
+            zhongxue:"b",
+            daxue:"c"
         },
         dataType : "json"
     })
+
+
+//    school : {
+//        xiaoxue : "xiaoxue",
+//            zhongxue : "zhongxue",
+//            daxue : "daxue"
+//    },
+//    name : "hello world",
+//        age : 18,
+//        relationShip : [{
+//        friend : "tom"
+//    },{
+//        friend : "ken"
+//    }]
 </script>
 </body>
 </html>
