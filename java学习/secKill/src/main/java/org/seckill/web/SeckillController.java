@@ -13,6 +13,7 @@ import org.seckill.service.impl.SeckillServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,19 +34,18 @@ public class SeckillController {
     @Autowired
     private SeckillService seckillService;
 
-    @RequestMapping(value = "/test",method = RequestMethod.POST)
+    @RequestMapping(value = "/test")
     public void test(
-            Link link,
-            School school,
-                     HttpServletRequest request
+//            Link link,
+//            School school,
+            @RequestParam(value = "list[]") Integer[] list,
+                     HttpServletRequest request,
+            @RequestHeader HttpHeaders headers
                      ){
-//        System.out.println(list);
-//        for(People o:list){
-//            System.out.println(o);
-//        }
-
-        System.out.println(link);
-        System.out.println(school);
+//        System.out.println(link);
+//        System.out.println(school);
+        String c = request.getHeader("content-type");
+        System.out.println(list);
         Enumeration a = request.getParameterNames();
         System.out.println(a);
     }

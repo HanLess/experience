@@ -42,25 +42,28 @@
     })
 
     $.ajax({
-        type : "post",
+        type : "get",
+        contentType : "application/json",
         url : "/seckill/test",
         data : {
-            address : [
-                {
-                    address : "beijing",
-                    code : 1
-                },
-                {
-                    address : "shanghai",
-                    code : 2
-                }
-            ],
-            xiaoxue:"a",
-            zhongxue:"b",
-            daxue:"c"
+            list : [1,2,3]
         },
         dataType : "json"
     })
+
+    // address : [
+    //     {
+    //         address : "beijing",
+    //         code : 1
+    //     },
+    //     {
+    //         address : "shanghai",
+    //         code : 2
+    //     }
+    // ],
+    //     xiaoxue:"a",
+    //     zhongxue:"b",
+    //     daxue:"c"
 
 
 //    school : {
