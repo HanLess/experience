@@ -42,39 +42,15 @@
     })
 
     $.ajax({
-        type : "post",
+        type : "get",
         url : "/seckill/test",
+//        contentType : "application/json",
         data : {
-            address : [
-                {
-                    address : "beijing",
-                    code : 1
-                },
-                {
-                    address : "shanghai",
-                    code : 2
-                }
-            ],
-            xiaoxue:"a",
-            zhongxue:"b",
-            daxue:"c"
+            name : "hehe",
+            age : 10
         },
         dataType : "json"
     })
-
-
-//    school : {
-//        xiaoxue : "xiaoxue",
-//            zhongxue : "zhongxue",
-//            daxue : "daxue"
-//    },
-//    name : "hello world",
-//        age : 18,
-//        relationShip : [{
-//        friend : "tom"
-//    },{
-//        friend : "ken"
-//    }]
 </script>
 </body>
 </html>

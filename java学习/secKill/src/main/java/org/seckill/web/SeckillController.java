@@ -2,6 +2,7 @@ package org.seckill.web;
 
 
 import com.mysql.cj.api.Session;
+import org.apache.commons.lang.StringUtils;
 import org.seckill.dto.*;
 import org.seckill.entry.Seckill;
 import org.seckill.enums.SeckillState;
@@ -13,12 +14,15 @@ import org.seckill.service.impl.SeckillServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Enumeration;
@@ -33,24 +37,46 @@ public class SeckillController {
     @Autowired
     private SeckillService seckillService;
 
-    @RequestMapping(value = "/test",method = RequestMethod.POST)
-    public void test(
-            Link link,
-            School school,
-                     HttpServletRequest request
+    @RequestMapping(value = "/test")
+    @ResponseBody
+    public String test(
+                    String name,
+                    Integer age,
+                    HttpServletRequest request,
+                    HttpServletResponse response
                      ){
-//        System.out.println(list);
-//        for(People o:list){
-//            System.out.println(o);
-//        }
 
-        System.out.println(link);
-        System.out.println(school);
+        Cookie[] cookies = request.getCookies();
+
+        Cookie cookie = new Cookie("name",name);
+        Cookie cookie2 = new Cookie("age",age.toString());
+
+        response.addCookie(cookie);
+        response.addCookie(cookie2);
+
+        String c = request.getHeader("content-type");
         Enumeration a = request.getParameterNames();
-        System.out.println(a);
+        return "name = " + name + "; age = " + age;
     }
 
+    @RequestMapping(value = "/test2",method = RequestMethod.GET)
+    @ResponseBody
+    public Object test2(
+            String callback,
+            HttpSession session
+    ){
 
+        if(StringUtils.isBlank(callback)){
+            return "is not jsonp";
+        }
+
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue("ok");
+        mappingJacksonValue.setJsonpFunction(callback);
+        return mappingJacksonValue;
+//        String name = (String)session.getAttribute("name");
+//        Integer age = (Integer) session.getAttribute("age");
+//        return "name : " + name + "; age = " + age;
+    }
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
