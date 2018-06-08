@@ -13,3 +13,34 @@ expires选项用来设置“cookie 什么时间内有效”。expires其实是co
 <h3>domain / path</h3>
 
 一句话概括：某cookie的 domain为“baidu.com”, path为“/ ”，若请求的URL的域名是“baidu.com”或其子域如“api.baidu.com”、“dev.api.baidu.com”，且 URL 的路径是“/ ”或子路径“/home”、“/home/login”，则浏览器会将此 cookie 添加到该请求的 cookie 头部中。domain指定的是其一级和二级域名
+
+<h3>secure</h3>
+
+secure选项用来设置cookie只在确保安全的请求中才会发送。当请求是HTTPS或者其他安全协议时，包含 secure 选项的 cookie 才能被发送至服务器。
+
+<h3>httpOnly</h3>
+
+这个选项用来设置cookie是否能通过 js 去访问。默认情况下，cookie不会带httpOnly选项(即为空)，所以默认情况下，客户端是可以通过js代码去访问（包括读取、修改、删除等）这个cookie的。当cookie带httpOnly选项时，客户端则无法通过js代码去访问（包括读取、修改、删除等）这个cookie。
+在客户端是不能通过js代码去设置一个httpOnly类型的cookie的，这种类型的cookie只能通过服务端来设置。
+
+<h3>用 js 如何设置多个 cookie</h3>
+
+当要设置多个cookie时， js 代码很自然地我们会这么写：
+```
+document.cookie = "name=Jonh; age=12; class=111";
+```
+但你会发现这样写只是添加了第一个cookie“name=John”，后面的所有cookie都没有添加成功。所以最简单的设置多个cookie的方法就在重复执行document.cookie = "key=name"，如下：
+```
+document.cookie = "name=Jonh";
+document.cookie = "age=12";
+document.cookie = "class=111";
+```
+
+<h3>修改 cookie</h3>
+
+要想修改一个cookie，只需要重新赋值就行，旧的值会被新的值覆盖。但要注意一点，在设置新cookie时，path/domain这几个选项一定要旧cookie 保持一样。否则不会修改旧值，而是添加了一个新的 cookie。
+
+<h3>删除 cookie</h3>
+
+删除一个cookie 也挺简单，也是重新赋值，只要将这个新cookie的expires 选项设置为一个过去的时间点就行了。但同样要注意，path/domain/这几个选项一定要旧cookie 保持一样。
+
