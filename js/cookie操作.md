@@ -12,7 +12,7 @@ expires选项用来设置“cookie 什么时间内有效”。expires其实是co
 
 <h3>domain / path</h3>
 
-一句话概括：某cookie的 domain为“baidu.com”, path为“/ ”，若请求的URL的域名是“baidu.com”或其子域如“api.baidu.com”、“dev.api.baidu.com”，且 URL 的路径是“/ ”或子路径“/home”、“/home/login”，则浏览器会将此 cookie 添加到该请求的 cookie 头部中。domain指定的是其一级和二级域名
+一句话概括：某cookie的 domain为“baidu.com”, path为“/ ”，若请求的URL的域名是“baidu.com”或其子域如“api.baidu.com”、“dev.api.baidu.com”，且 URL 的路径是“/ ”或子路径“/home”、“/home/login”，则浏览器会将此 cookie 添加到该请求的 cookie 头部中。domain指定的是其一级和二级域名。domain的默认值为设置该cookie的网页所在的域名，path默认值为设置该cookie的网页所在的目录
 
 <h3>secure</h3>
 
