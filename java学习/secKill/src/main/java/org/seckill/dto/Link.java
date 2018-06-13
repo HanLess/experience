@@ -18,7 +18,7 @@ public class Link {
     @Override
     public String toString() {
         return "Link{" +
-                " address=" + address +
+                ", address=" + address +
                 '}';
     }
 }
