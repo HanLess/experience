@@ -4,6 +4,7 @@ package com.mmall.controller.portal;
 import com.mmall.common.Const;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +28,25 @@ public class UserController {
             session.setAttribute(Const.CURRENT_USER,user.getData());
         }
         return user;
+    }
+    @RequestMapping(value = "logout",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse logout(HttpSession session){
+        session.removeAttribute(Const.CURRENT_USER);
+        ServerResponse out = iUserService.logout();
+        return out;
+    }
+
+    @RequestMapping(value = "register",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<User> register(User user){
+        ServerResponse<User> new_user = iUserService.register(user);
+        return new_user;
+    }
+
+    @RequestMapping(value = "checkValid",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse checkValid(String str,String type){
+        return iUserService.checkValid(str,type);
     }
 }
