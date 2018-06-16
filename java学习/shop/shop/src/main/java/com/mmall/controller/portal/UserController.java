@@ -49,4 +49,30 @@ public class UserController {
     public ServerResponse checkValid(String str,String type){
         return iUserService.checkValid(str,type);
     }
+
+    @RequestMapping(value = "getUserInfo",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<User> getUserInfo(HttpSession session){
+        User user = (User)session.getAttribute(Const.CURRENT_USER);
+        return ServerResponse.createBySuccess(user,"获取用户信息成功");
+    }
+
+    @RequestMapping(value = "forgetPassword",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<String> forgetPassword(String username){
+        ServerResponse<String> question = iUserService.forgetPassword(username);
+        return question;
+    }
+
+    @RequestMapping(value = "checkQuestion",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<String> checkQuestion(String username,String question,String answer){
+        return iUserService.checkQuestion(username,question,answer);
+    }
+
+    @RequestMapping(value = "forgetResetPassword",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse forgetResetPassword(String username,String password,String token){
+        return iUserService.forgetResetPassword(username,password,token);
+    }
 }
