@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<button id="register">register</button>
+<button id="login">login</button>
+<button id="logout">logout</button>
+<button id="checkValid">checkValid</button>
+<button id="getUserInfo">getUserInfo</button>
+<button id="forgetPassword">forgetPassword</button>
+<button id="checkQuestion">checkQuestion</button>
+<button id="getInformation">getInformation</button>
+<button id="forgetResetPassword">forgetResetPassword</button>
+
+
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+var token
+    $("#register").click(function(){
+        $.ajax({
+            url : "/user/register",
+            data : {
+                username : "hanhongxuan",
+                password : "123456",
+                email : "happydroll@163.com",
+                phone : "13000000000",
+                question : "问题",
+                answer : "answer"
+            },
+            type : "post"
+        })
+    })
+
+    $("#login").click(function(){
+        $.ajax({
+            url : "/user/login",
+            data : {
+                username : "hanhongxuan",
+                password : "100100"
+            },
+            type : "post"
+        })
+    })
+
+    $("#logout").click(function(){
+        $.ajax({
+            url : "/user/logout",
+            type : "post"
+        })
+    })
+
+    $("#checkValid").click(function(){
+        $.ajax({
+            url : "/user/checkValid",
+            data : {
+                str : "hanhongxuan",
+                type : "username"
+            },
+            type : "post"
+        })
+    })
+
+    $("#getUserInfo").click(function(){
+        $.ajax({
+            url : "/user/getUserInfo",
+            type : "post"
+        })
+    })
+
+    $("#forgetPassword").click(function(){
+        $.ajax({
+            url : "/user/forgetPassword",
+            data : {
+                username : "hanhongxuan"
+            },
+            type : "post"
+        })
+    })
+
+    $("#checkQuestion").click(function(){
+        $.ajax({
+            url : "/user/checkQuestion",
+            data : {
+                username : "hanhongxuan",
+                question : "问题",
+                answer : "answer"
+            },
+            type : "post",
+            success : function(data){
+               token = data.data;
+            }
+        })
+    })
+
+    $("#forgetResetPassword").click(function(){
+        $.ajax({
+            url : "/user/forgetResetPassword",
+            data : {
+                username : "hanhongxuan",
+                password : "100100",
+                token : token
+            },
+            type : "post"
+        })
+    })
+
+    $("#getInformation").click(function(){
+        $.ajax({
+            url : "/user/getInformation",
+            type : "post"
+        })
+    })
+</script>
+</body>
+</html>

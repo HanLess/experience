@@ -81,7 +81,7 @@ public class userServiceImpl implements IUserService {
 
     @Override
     public ServerResponse<String> forgetPassword(String username) {
-        if(!this.checkValid(username,Const.USER_NAME).isSuccess()){
+        if(userMapper.checkUserName(username) < 1){
             return ServerResponse.createByErrorMessage("用户名不存在");
         }
         String question = userMapper.getQuestion(username);
@@ -109,7 +109,7 @@ public class userServiceImpl implements IUserService {
         if(!StringUtils.isNotBlank(token)){
             ServerResponse.createByErrorMessage("临时token为空");
         }
-        if(!this.checkValid(username,Const.USER_NAME).isSuccess()){
+        if(userMapper.checkUserName(username) < 1){
             return ServerResponse.createByErrorMessage("用户名不存在");
         }
         String temp_token = TokenCache.getValue(TokenCache.PREFIX + username);
@@ -117,7 +117,7 @@ public class userServiceImpl implements IUserService {
             return ServerResponse.createByErrorMessage("临时token失效");
         }
 
-        int result = userMapper.forgetResetPassword(username,MD5Util.MD5EncodeUtf8("password"));
+        int result = userMapper.forgetResetPassword(username,MD5Util.MD5EncodeUtf8(password));
         if(result > 0){
             return ServerResponse.createBySuccessMessage("重置密码成功");
         }
