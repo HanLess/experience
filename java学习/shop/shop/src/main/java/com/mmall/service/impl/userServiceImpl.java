@@ -123,4 +123,13 @@ public class userServiceImpl implements IUserService {
         }
         return ServerResponse.createByErrorMessage("重置密码失败");
     }
+
+    @Override
+    public ServerResponse checkAdminRole(User user) {
+        if(user != null && user.getRole() == Const.Role.ROLE_ADMIN){
+            return ServerResponse.createBySuccess();
+        }
+
+        return ServerResponse.createByError();
+    }
 }
