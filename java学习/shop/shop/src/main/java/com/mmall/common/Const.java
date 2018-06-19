@@ -3,7 +3,7 @@ package com.mmall.common;
 public class Const {
     public static final String CURRENT_USER = "currentUser";
 
-    public static final String USER_NAME = "userName";
+    public static final String USER_NAME = "username";
 
     public interface Role{
         public static final int ROLE_CUSTOMER = 0; // 普通用户
