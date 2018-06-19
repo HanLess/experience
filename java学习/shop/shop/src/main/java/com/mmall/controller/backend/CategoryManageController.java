@@ -43,7 +43,7 @@ public class CategoryManageController {
         return iCategoryService.addCategory(parentId,name,1);
     }
 
-    @RequestMapping(value = "addCategory",method = RequestMethod.POST)
+    @RequestMapping(value = "rename",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse rename(HttpSession session,int id,String name){
         User user = (User) session.getAttribute(Const.CURRENT_USER);

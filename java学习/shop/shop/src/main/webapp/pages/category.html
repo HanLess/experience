@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="addCategory">addCategory</button>
+<button id="rename">rename</button>
+<button id="getChildrenParallelCategory">getChildrenParallelCategory</button>
+<button id="getCategoryAndDeepChildrenCategory">getCategoryAndDeepChildrenCategory</button>
+
+
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+$("#addCategory").click(function () {
+    $.ajax({
+        url : "/manage/category/addCategory",
+        data : {
+            parentId : "100001",
+            name : "新增的家用电器"
+        },
+        type : "post"
+    })
+})
+$("#rename").click(function () {
+    $.ajax({
+        url : "/manage/category/rename",
+        data : {
+            id : "100001",
+            name : "家用电器改名"
+        },
+        type : "post"
+    })
+})
+$("#getChildrenParallelCategory").click(function () {
+    $.ajax({
+        url : "/manage/category/getChildrenParallelCategory",
+        data : {
+            categoryId : 100001
+        },
+        type : "post"
+    })
+})
+$("#getCategoryAndDeepChildrenCategory").click(function () {
+    $.ajax({
+        url : "/manage/category/getCategoryAndDeepChildrenCategory",
+        data : {
+            categoryId : 100001
+        },
+        type : "post"
+    })
+})
+</script>
+</body>
+</html>

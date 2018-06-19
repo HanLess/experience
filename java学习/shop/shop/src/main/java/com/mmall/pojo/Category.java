@@ -10,7 +10,7 @@ public class Category {
 
     private String name;
 
-    private int status;
+    private Integer status;
 
     private Integer sortOrder;
 
@@ -18,7 +18,7 @@ public class Category {
 
     private Date updateTime;
 
-    public Category(Integer id, Integer parentId, String name, int status, Integer sortOrder, Date createTime, Date updateTime) {
+    public Category(Integer id, Integer parentId, String name, Integer status, Integer sortOrder, Date createTime, Date updateTime) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;
@@ -56,11 +56,11 @@ public class Category {
         this.name = name == null ? null : name.trim();
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

@@ -6,7 +6,7 @@
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="parent_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="status" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="status" jdbcType="BIT" javaType="java.lang.Integer" />
       <arg column="sort_order" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -117,7 +117,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getChildrenParallelCategory" parameterType="int" resultMap="BaseResultMap">
+  <select id="getChildrenParallelCategory" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from mmall_category
