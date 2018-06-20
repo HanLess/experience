@@ -176,4 +176,10 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="changeProductStatus" parameterType="map">
+    update mmall_product
+    set status = #{status}
+    where id = #{productId,jdbcType=INTEGER}
+  </update>
 </mapper>
