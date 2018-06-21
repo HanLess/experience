@@ -13,6 +13,9 @@ import com.mmall.vo.ProductDetailVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Service("iProductService")
 public class ProductServiceImpl implements IProductService {
     @Autowired
@@ -75,13 +78,19 @@ public class ProductServiceImpl implements IProductService {
 
         productDetailVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix","http://img.happymmall.com/"));
 
-        Category category = categoryMapper.selectByPrimaryKey(product.getId());
+        Category category = categoryMapper.selectByPrimaryKey(product.getCategoryId());
         if(category == null){
             productDetailVo.setParentCategoryId(0);
+        }else{
+            productDetailVo.setParentCategoryId(category.getParentId());
         }
-        productDetailVo.setParentCategoryId(category.getParentId());
-        productDetailVo.setCreateTime(DateTimeUtil.dateToStr(product.getCreateTime()));
-        productDetailVo.setUpdateTime(DateTimeUtil.dateToStr(product.getUpdateTime()));
+//        productDetailVo.setCreateTime(DateTimeUtil.dateToStr(product.getCreateTime()));
+//        productDetailVo.setUpdateTime(DateTimeUtil.dateToStr(product.getUpdateTime()));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+
+        productDetailVo.setCreateTime(sdf.format(product.getCreateTime()));
+        productDetailVo.setUpdateTime(sdf.format(product.getUpdateTime()));
 
         return productDetailVo;
     }
