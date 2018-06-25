@@ -1,5 +1,7 @@
 https://blog.csdn.net/briblue/article/details/54973413
 
+Bootstrap ClassLoader：加载java核心库
+
 关注点在 ExtClassLoader 和 AppClassLoader，AppClassLoader的parentLoader是ExtClassLoader
 
 ExtClassLoader加载：扩展的类加载器，加载目录%JRE_HOME%\lib\ext目录下的jar包和class文件。还可以加载-D java.ext.dirs选项指定的目录
