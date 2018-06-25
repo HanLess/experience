@@ -20,6 +20,8 @@ public class PropertiesUtil {
     static {
         String fileName = "mmall.properties";
         props = new Properties();
+        ClassLoader c = PropertiesUtil.class.getClassLoader();
+        System.out.println(c);
         try {
             props.load(new InputStreamReader(PropertiesUtil.class.getClassLoader().getResourceAsStream(fileName),"UTF-8"));
         } catch (IOException e) {
@@ -43,7 +45,5 @@ public class PropertiesUtil {
         }
         return value.trim();
     }
-
-
 
 }
