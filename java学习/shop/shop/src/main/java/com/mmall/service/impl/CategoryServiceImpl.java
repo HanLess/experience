@@ -85,7 +85,7 @@ public class CategoryServiceImpl implements ICategoryService {
             categories.add(category);
         }
 
-//        查找自节点，如果为空，退出遍历
+//        查找子节点，如果为空，退出遍历
         List<Category> childrenCategories = categoryMapper.getChildrenParallelCategory(categoryId);
         for(Category categoryItem : childrenCategories){
             findChildCategory(categories,categoryItem.getId());

@@ -4,6 +4,8 @@ import com.mmall.common.ServerResponse;
 import com.mmall.pojo.Product;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -17,5 +19,11 @@ public interface ProductMapper {
 
     int updateByPrimaryKey(Product record);
 
-    ServerResponse<Integer> changeProductStatus(@Param("productId") Integer productId,@Param("status") Integer status);
+    int changeProductStatus(@Param("productId") Integer productId,@Param("status") Integer status);
+
+    List<Product> getList();
+
+    List<Product> search(@Param("productName") String ProductName,@Param("productId") Integer productId);
+
+    List<Product> selectByNameAndCategoryIds(@Param("name") String name,@Param("categoryIds") List<Integer> categoryIds);
 }
