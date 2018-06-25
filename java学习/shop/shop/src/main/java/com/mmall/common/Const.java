@@ -9,6 +9,11 @@ public class Const {
 
     public static final String USER_NAME = "username";
 
+    public interface Cart{
+        int CHECHED = 1;
+        int UN_CHECKED = 0;
+    }
+
     public interface ProductListOrderBy{
         Set<String> PRICE_ASC_DESC = new HashSet<>(Arrays.asList("price_desc","price_asc"));
     }

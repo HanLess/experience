@@ -116,4 +116,26 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectCartByUserIdProductId" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from
+    mmall_cart
+    where user_id = #{userId} and product_id = #{productId}
+  </select>
+
+  <update id="addQuantity" parameterType="map">
+    update mmall_cart
+    set quantity = quantity + #{addNumber}
+    where user_id = #{userId} and product_id = #{productId}
+  </update>
+
+  <select id="getCartByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    form
+    mmall_cart
+    where user_id = #{userId}
+  </select>
 </mapper>
