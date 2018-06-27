@@ -35,7 +35,7 @@ public class FileServiceImpl implements IFileService {
         try {
             file.transferTo(targetFile);
             //  上传ftp
-            FTPUtil.uploadFile(Lists.newArrayList(targetFile));
+//            FTPUtil.uploadFile(Lists.newArrayList(targetFile));
             // 删除上传的文件
             targetFile.delete();
 

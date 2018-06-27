@@ -123,7 +123,7 @@ public class ProductManageController {
         String path = request.getSession().getServletContext().getRealPath("upload");
         String targetFileName = iFileService.upload(file,path);
         String url = PropertiesUtil.getProperty("ftp.server.http.prefix") + targetFileName;
-        Map fileMap = new HashMap();
+        Map<String,String> fileMap = new HashMap<>();
         fileMap.put("uri",targetFileName);
         fileMap.put("url",url);
         return ServerResponse.createBySuccess(fileMap);

@@ -6,6 +6,11 @@
 </head>
 <body>
 <button id="getProductDetail">getProductDetail</button>
+<div>
+    <input multiple="multiple" id="file" type="file" />
+    <button id="upload">upload</button>
+</div>
+
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
     $("#getProductDetail").click(function () {
@@ -14,6 +19,18 @@
             data : {
                 productId : 27
             },
+            type : "post"
+        })
+    })
+
+    $("#upload").click(function () {
+        var formData = new FormData();
+            formData.append('file', $('#file')[0].files[0]);
+        $.ajax({
+            url : "/manage/product/upload",
+            data : formData,
+            processData: false,
+            contentType: false,
             type : "post"
         })
     })
