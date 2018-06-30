@@ -23,4 +23,8 @@ public interface CartMapper {
     int addQuantity(@Param(value = "userId") Integer userId,@Param("productId") Integer productId,@Param("addNumber") Integer addNumber);
 
     List<Cart> getCartByUserId(Integer userId);
+
+    int getAllCheckStatusByUserId(Integer userId);
+
+    int deleteByUserIdAndProductIds(@Param("userId") Integer userId,@Param("productId") List<Integer> productIds);
 }

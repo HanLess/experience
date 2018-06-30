@@ -10,8 +10,11 @@ public class Const {
     public static final String USER_NAME = "username";
 
     public interface Cart{
-        int CHECHED = 1;
+        int CHECKED = 1;
         int UN_CHECKED = 0;
+
+        String LIMIT_NUM_FAIL = "LIMIT_NUM_FAIL";
+        String LIMIT_NUM_SUCCESS = "LIMIT_NUM_SUCCESS";
     }
 
     public interface ProductListOrderBy{

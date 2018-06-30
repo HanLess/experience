@@ -1,8 +1,15 @@
 package com.mmall.service;
 
 import com.mmall.common.ServerResponse;
+import com.mmall.vo.CartVo;
+
+import java.util.List;
 
 public interface ICartService {
 
-    ServerResponse add(Integer userId,Integer count,Integer productId);
+    ServerResponse<CartVo> add(Integer userId,Integer count,Integer productId);
+
+    ServerResponse<CartVo> update(Integer userId, Integer count, Integer productId);
+
+    ServerResponse<CartVo> delete(Integer userId,List<Integer> productIds);
 }

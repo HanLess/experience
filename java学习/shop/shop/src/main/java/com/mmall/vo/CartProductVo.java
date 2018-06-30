@@ -27,7 +27,7 @@ public class CartProductVo {
 
     private Integer checked;
 
-    private Integer limitQuantity;
+    private String limitQuantity;
 
     public Integer getId() {
         return id;
@@ -125,11 +125,11 @@ public class CartProductVo {
         this.checked = checked;
     }
 
-    public Integer getLimitQuantity() {
+    public String getLimitQuantity() {
         return limitQuantity;
     }
 
-    public void setLimitQuantity(Integer limitQuantity) {
+    public void setLimitQuantity(String limitQuantity) {
         this.limitQuantity = limitQuantity;
     }
 }
