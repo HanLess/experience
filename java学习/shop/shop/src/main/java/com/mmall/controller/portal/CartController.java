@@ -53,4 +53,46 @@ public class CartController {
 
         return iCartService.delete(user.getId(),productIds);
     }
+
+    @RequestMapping(value = "list",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<CartVo> list(HttpSession session){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+
+        return iCartService.list(user.getId());
+    }
+
+    @RequestMapping(value = "selectOrUnSelectAll",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<CartVo> selectOrUnSelectAll(HttpSession session,Integer checked){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iCartService.selectOrUnSelectAll(user.getId(),checked);
+    }
+
+    @RequestMapping(value = "selectOrUnSelect",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<CartVo> selectOrUnSelect(HttpSession session,Integer checked,Integer productId){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iCartService.selectOrUnSelect(user.getId(),checked,productId);
+    }
+
+    @RequestMapping(value = "countAllNumber",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<Integer> countAllNumber(HttpSession session){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+
+        return iCartService.countAllNumber(user.getId());
+    };
 }

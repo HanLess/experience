@@ -12,4 +12,12 @@ public interface ICartService {
     ServerResponse<CartVo> update(Integer userId, Integer count, Integer productId);
 
     ServerResponse<CartVo> delete(Integer userId,List<Integer> productIds);
+
+    ServerResponse<CartVo> list(Integer userId);
+
+    ServerResponse<CartVo> selectOrUnSelectAll(Integer userId,Integer checked);
+
+    ServerResponse<CartVo> selectOrUnSelect(Integer userId,Integer checked,Integer productId);
+
+    ServerResponse<Integer> countAllNumber(Integer userId);
 }

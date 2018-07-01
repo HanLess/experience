@@ -86,6 +86,59 @@ public class CartServiceImpl implements ICartService {
         return ServerResponse.createBySuccess(cartVo);
     }
 
+    @Override
+    public ServerResponse<CartVo> list(Integer userId) {
+        CartVo cartVo = getCartVoLimit(userId);
+        return ServerResponse.createBySuccess(cartVo);
+    }
+
+    @Override
+    public ServerResponse<CartVo> selectOrUnSelectAll(Integer userId,Integer checked) {
+        boolean allChecked = getAllCheckedStatus(userId);
+        if(allChecked){
+            return ServerResponse.createBySuccessMessage("已全选");
+        }
+        int result = 0;
+        if(checked == Const.Cart.CHECKED){
+            result = cartMapper.selectOrUnSelectAll(userId,checked);
+        }else if(checked == Const.Cart.UN_CHECKED){
+            result = cartMapper.selectOrUnSelectAll(userId,checked);
+        }else{
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+
+        if(result > 0){
+            CartVo cartVo = getCartVoLimit(userId);
+            return ServerResponse.createBySuccess(cartVo);
+        }
+
+        return ServerResponse.createByErrorMessage("操作失败");
+    }
+
+    @Override
+    public ServerResponse<CartVo> selectOrUnSelect(Integer userId, Integer checked, Integer productId) {
+        int result = 0;
+        if(checked == Const.Cart.CHECKED){
+            result = cartMapper.selectOrUnSelect(userId,checked,productId);
+        }else if(checked == Const.Cart.UN_CHECKED){
+            result = cartMapper.selectOrUnSelect(userId,checked,productId);
+        }else{
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+
+        if(result > 0){
+            CartVo cartVo = getCartVoLimit(userId);
+            return ServerResponse.createBySuccess(cartVo);
+        }
+        return ServerResponse.createByErrorMessage("操作失败");
+    }
+
+    @Override
+    public ServerResponse<Integer> countAllNumber(Integer userId) {
+        Integer num = cartMapper.countAllNumber(userId);
+        return ServerResponse.createBySuccess(num);
+    }
+
     private CartVo getCartVoLimit(Integer userId){
         CartVo cartVo = new CartVo();
         List<Cart> cartList = cartMapper.getCartByUserId(userId);

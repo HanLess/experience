@@ -156,4 +156,22 @@
       </foreach>
     </if>
   </delete>
+
+  <update id="selectOrUnSelectAll" parameterType="map">
+    update mmall_cart
+    set checked = #{checked}, update_time = now()
+    where user_id = #{userId}
+  </update>
+
+  <update id="selectOrUnSelect" parameterType="map">
+    update mmall_cart
+    set checked = #{checked}, update_time = now()
+    where user_id = #{userId} and product_id = #{productId}
+  </update>
+
+  <select id="countAllNumber" parameterType="int" resultType="int">
+    select NULLIF(sum(quantity),0) as count
+    from mmall_cart
+    where user_id = #{userId}
+  </select>
 </mapper>
