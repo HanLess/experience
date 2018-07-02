@@ -10,7 +10,13 @@
     <input multiple="multiple" id="file" type="file" />
     <button id="upload">upload</button>
 </div>
-
+<h2>多个文件上传实例</h2>
+<form action="/manage/product/upload" method="post" enctype="multipart/form-data">
+    <p> 选择文件:<input multiple="multiple" type="file" name="file">
+    <p> 选择文件:<input multiple="multiple" type="file" name="file">
+    <p> 选择文件:<input multiple="multiple" type="file" name="file">
+        <input type="submit" value="提交">
+</form>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
     $("#getProductDetail").click(function () {
@@ -25,7 +31,15 @@
 
     $("#upload").click(function () {
         var formData = new FormData();
-            formData.append('file', $('#file')[0].files[0]);
+        var fileList = $('#file')[0].files
+
+        Array.prototype.forEach.call(fileList,function (val,index) {
+            formData.append('file', val);
+        })
+//        fileList.forEach(function (val,index) {
+//            formData.append('file', val);
+//        })
+
         $.ajax({
             url : "/manage/product/upload",
             data : formData,

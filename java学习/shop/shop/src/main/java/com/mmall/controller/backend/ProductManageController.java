@@ -119,9 +119,9 @@ public class ProductManageController {
 
     @RequestMapping(value = "upload",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<Map> upload(MultipartFile file, HttpServletRequest request){
+    public ServerResponse<Map> upload(@RequestParam(value = "file") MultipartFile[] file, HttpServletRequest request){
         String path = request.getSession().getServletContext().getRealPath("upload");
-        String targetFileName = iFileService.upload(file,path);
+        String targetFileName = iFileService.upload(file[0],path);
         String url = PropertiesUtil.getProperty("ftp.server.http.prefix") + targetFileName;
         Map<String,String> fileMap = new HashMap<>();
         fileMap.put("uri",targetFileName);
