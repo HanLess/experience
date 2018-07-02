@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/shipping/")
@@ -61,7 +62,7 @@ public class ShippingController {
 
     @RequestMapping(value = "getList",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<PageInfo> getList(HttpSession session, @RequestParam(value = "pageSize" ,defaultValue = "10") Integer pageSize, @RequestParam(value = "pageSize" ,defaultValue = "0")  Integer pageNumber){
+    public ServerResponse<PageInfo> getList(HttpSession session, @RequestParam(value = "pageSize" ,defaultValue = "10") Integer pageSize, @RequestParam(value = "pageSize" ,defaultValue = "1")  Integer pageNumber){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());

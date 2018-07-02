@@ -134,7 +134,7 @@
   <select id="getCartByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select
     <include refid="Base_Column_List" />
-    form
+    from
     mmall_cart
     where user_id = #{userId}
   </select>

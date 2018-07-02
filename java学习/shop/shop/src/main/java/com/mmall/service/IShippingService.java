@@ -5,6 +5,8 @@ import com.mmall.common.ServerResponse;
 import com.mmall.pojo.Shipping;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface IShippingService {
 
     ServerResponse<Shipping> add(Integer userId,Shipping shipping);

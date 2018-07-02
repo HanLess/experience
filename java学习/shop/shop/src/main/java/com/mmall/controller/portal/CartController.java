@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -45,13 +47,14 @@ public class CartController {
 
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<CartVo> delete(HttpSession session, List<Integer> productIds){
+    public ServerResponse<CartVo> delete(HttpSession session,@RequestParam(value = "productIds[]") Integer[] productIds){
+
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
 
-        return iCartService.delete(user.getId(),productIds);
+        return iCartService.delete(user.getId(), Arrays.asList(productIds));
     }
 
     @RequestMapping(value = "list",method = RequestMethod.POST)

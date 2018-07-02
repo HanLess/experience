@@ -84,7 +84,7 @@ public class ProductManageController {
     @RequestMapping(value = "getList",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<PageInfo> getList(HttpSession session,
-                                            @RequestParam(value = "pageNumber",defaultValue = "0") Integer pageNumber,
+                                            @RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber,
                                             @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize
                                                          ){
         User user = (User) session.getAttribute(Const.CURRENT_USER);

@@ -94,10 +94,6 @@ public class CartServiceImpl implements ICartService {
 
     @Override
     public ServerResponse<CartVo> selectOrUnSelectAll(Integer userId,Integer checked) {
-        boolean allChecked = getAllCheckedStatus(userId);
-        if(allChecked){
-            return ServerResponse.createBySuccessMessage("已全选");
-        }
         int result = 0;
         if(checked == Const.Cart.CHECKED){
             result = cartMapper.selectOrUnSelectAll(userId,checked);
