@@ -103,7 +103,7 @@ public class ProductManageController {
     public ServerResponse<PageInfo> search(HttpSession session,
                                             @RequestParam(value = "productName",required = false) String productName,
                                             @RequestParam(value = "productId",required = false) Integer productId,
-                                            @RequestParam(value = "pageNumber",defaultValue = "0") Integer pageNumber,
+                                            @RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber,
                                             @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize
     ){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
