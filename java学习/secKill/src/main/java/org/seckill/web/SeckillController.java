@@ -38,7 +38,7 @@ public class SeckillController {
     private SeckillService seckillService;
 
     @RequestMapping(value = "/test")
-    @ResponseBody
+//    @ResponseBody
     public String test(
                     String name,
                     Integer age,
@@ -56,7 +56,8 @@ public class SeckillController {
 
         String c = request.getHeader("content-type");
         Enumeration a = request.getParameterNames();
-        return "name = " + name + "; age = " + age;
+//        return "name = " + name + "; age = " + age;
+        return "redirect:/page/redirect.html";
     }
 
     @RequestMapping(value = "/test2",method = RequestMethod.GET)
