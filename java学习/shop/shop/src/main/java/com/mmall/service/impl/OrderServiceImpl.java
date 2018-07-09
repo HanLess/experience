@@ -12,28 +12,24 @@ import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.alipay.demo.trade.utils.ZxingUtils;
 import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
-import com.mmall.dao.OrderItemMapper;
-import com.mmall.dao.OrderMapper;
-import com.mmall.dao.PayInfoMapper;
-import com.mmall.pojo.Order;
-import com.mmall.pojo.OrderItem;
-import com.mmall.pojo.PayInfo;
+import com.mmall.dao.*;
+import com.mmall.pojo.*;
 import com.mmall.service.IOrderService;
 import com.mmall.util.BigDecimalUtil;
 import com.mmall.util.FTPUtil;
 import com.mmall.util.PropertiesUtil;
 import org.apache.commons.lang.StringUtils;
+import org.aspectj.weaver.ast.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Service("iOrderService")
 public class OrderServiceImpl implements IOrderService {
@@ -44,6 +40,10 @@ public class OrderServiceImpl implements IOrderService {
     private OrderItemMapper orderItemMapper;
     @Autowired
     private PayInfoMapper payInfoMapper;
+    @Autowired
+    private CartMapper cartMapper;
+    @Autowired
+    private ProductMapper productMapper;
 
     private Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
@@ -210,7 +210,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public ServerResponse<String> queryPay(Integer userId, Long orderNo) {
+    public ServerResponse< String> queryPay(Integer userId, Long orderNo) {
         Order order = orderMapper.selectByOrderIdAndUserNo(orderNo,userId);
         if(order == null){
             return ServerResponse.createBySuccessMessage("订单不存在");
@@ -233,5 +233,86 @@ public class OrderServiceImpl implements IOrderService {
         }
 
         return ServerResponse.createBySuccess("未知状态");
+    }
+
+
+    public ServerResponse createOrder(Integer userId,Integer shippingId){
+        // 拿到购物车中的数据
+        List<Cart> cartList = cartMapper.selectByUserIdChecked(userId);
+        // 计算订单总价
+        ServerResponse serverResponse = this.getCartOrderItem(userId,cartList);
+        if(!serverResponse.isSuccess()){
+            return serverResponse;
+        }
+        List<OrderItem> orderItems =(List<OrderItem>) serverResponse.getData();
+        BigDecimal totalPrice = this.countTotalPrice(orderItems);
+
+        // 生成订单
+
+        return null;
+    }
+
+    private Order assembleOrder(Integer userId,Integer shippingId,BigDecimal totalPrice){
+        Order order = new Order();
+        long orderNo = this.generateOrderNo();
+        order.setOrderNo(orderNo);
+        order.setStatus(Const.OrderStatus.NO_PAY.getCode());
+        order.setPostage(0);
+        order.setPaymentType(Const.paymentType.ON_LINE.getCode());
+        order.setPayment(totalPrice);
+        order.setUserId(userId);
+        order.setShippingId(shippingId);
+
+        // todo 发货时间，付款时间
+
+        return order;
+    }
+
+    private Long generateOrderNo(){
+        long time = (new Date()).getTime();
+        return time + time%10;
+    }
+
+    private ServerResponse<List<OrderItem>> getCartOrderItem(Integer userId,List<Cart> cartList){
+        List<OrderItem> orderItems = new ArrayList<>();
+        if(CollectionUtils.isEmpty(cartList)){
+            return ServerResponse.createByErrorMessage("购物车为空");
+        }
+
+        // 校验购物车中产品的库存和状态
+        for(Cart cart:cartList){
+            OrderItem orderItem = new OrderItem();
+            Product product = productMapper.selectByPrimaryKey(cart.getProductId());
+            //校验在售状态
+            if(product.getStatus() != Const.ProductStatusCode.ON_SALE.getCode()){
+                return ServerResponse.createByErrorMessage("商品已下架");
+            }
+            // 校验商品库存
+            if(product.getStock() < cart.getQuantity()){
+                return ServerResponse.createByErrorMessage("商品库存不足");
+            }
+
+            orderItem.setUserId(userId);
+            orderItem.setProductId(product.getId());
+            orderItem.setProductName(product.getName());
+            orderItem.setProductImage(product.getMainImage());
+            orderItem.setCurrentUnitPrice(product.getPrice());
+            orderItem.setQuantity(cart.getQuantity());
+            orderItem.setTotalPrice(BigDecimalUtil.mul(product.getPrice().doubleValue(),cart.getQuantity()));
+
+            orderItems.add(orderItem);
+        }
+
+        return ServerResponse.createBySuccess(orderItems);
+    }
+
+    private BigDecimal countTotalPrice(List<OrderItem> orderItemList){
+        BigDecimal totalPrice = new BigDecimal("0");
+
+        for(OrderItem orderItem:orderItemList){
+            totalPrice = totalPrice.add(orderItem.getTotalPrice());
+        }
+
+        return totalPrice;
     }
 }
