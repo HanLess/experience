@@ -211,4 +211,20 @@
     from mmall_order
     where order_no = #{orderNo}
   </select>
+
+  <insert id="batchInset" parameterType="list">
+    insert into mmall_order (id, order_no, user_id,
+      shipping_id, payment, payment_type,
+      postage, status, payment_time,
+      send_time, end_time, close_time,
+      create_time, update_time)
+    values 
+    <foreach collection="orderItemList" index="index" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.orderNo,jdbcType=BIGINT}, #{item.userId,jdbcType=INTEGER},
+      #{item.shippingId,jdbcType=INTEGER}, #{item.payment,jdbcType=DECIMAL}, #{item.paymentType,jdbcType=INTEGER},
+      #{item.postage,jdbcType=INTEGER}, #{item.status,jdbcType=INTEGER}, #{item.paymentTime,jdbcType=TIMESTAMP},
+      #{item.sendTime,jdbcType=TIMESTAMP}, #{item.endTime,jdbcType=TIMESTAMP}, #{item.closeTime,jdbcType=TIMESTAMP},
+      now(), now())
+    </foreach>
+  </insert>
 </mapper>
