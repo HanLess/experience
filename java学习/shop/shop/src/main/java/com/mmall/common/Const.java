@@ -98,4 +98,23 @@ public class Const {
             return this.name;
         }
     }
+
+    public enum paymentType{
+        ON_LINE(1,"线上支付");
+
+        paymentType(int code,String name){
+            this.code = code;
+            this.name = name;
+        }
+
+        private int code;
+        private String name;
+        public int getCode(){
+            return this.code;
+        }
+
+        public String getName(){
+            return this.name;
+        }
+    }
 }

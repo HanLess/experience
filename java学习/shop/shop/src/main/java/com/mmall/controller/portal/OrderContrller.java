@@ -32,6 +32,23 @@ public class OrderContrller {
     private IOrderService iOrderService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+
+    @RequestMapping(value = "create",method = RequestMethod.POST)
+    public ServerResponse create(HttpSession session,Integer shippingId){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+
+
+        return null;
+    }
+
+
+
+
+
+
     @RequestMapping(value = "pay",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<Map<String,String>> pay(HttpSession session, HttpServletRequest request,Long orderNo){
@@ -88,4 +105,6 @@ public class OrderContrller {
         }
         return iOrderService.queryPay(user.getId(),orderNo);
     }
+
+
 }

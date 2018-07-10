@@ -11,4 +11,6 @@ public interface IOrderService {
     ServerResponse aliCallback(Map<String,String> params);
 
     ServerResponse<String> queryPay(Integer userId,Long orderNo);
+
+
 }
