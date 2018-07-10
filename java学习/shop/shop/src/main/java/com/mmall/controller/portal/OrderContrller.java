@@ -34,7 +34,7 @@ public class OrderContrller {
 
     @RequestMapping(value = "pay",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse pay(HttpSession session, HttpServletRequest request,Long orderNo){
+    public ServerResponse<Map<String,String>> pay(HttpSession session, HttpServletRequest request,Long orderNo){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());

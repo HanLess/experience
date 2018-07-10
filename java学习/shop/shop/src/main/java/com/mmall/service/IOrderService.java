@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface IOrderService {
 
-    ServerResponse pay(Long orderNo,Integer userId,String path);
+    ServerResponse<Map<String,String>> pay(Long orderNo,Integer userId,String path);
 
     ServerResponse aliCallback(Map<String,String> params);
 
