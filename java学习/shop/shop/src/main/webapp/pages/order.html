@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="pay">pay</button>
+<button id="queryPay">queryPay</button>
+
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $("#pay").click(function () {
+        $.ajax({
+            url : "/order/pay",
+            data : {
+                orderNo : "1491753014256"
+            },
+            type : "post"
+        })
+    })
+
+    $("#queryPay").click(function () {
+        $.ajax({
+            url : "/order/queryPay",
+            data : {
+                orderNo : "1491753014256"
+            },
+            type : "post"
+        })
+    })
+</script>
+</body>
+</html>
