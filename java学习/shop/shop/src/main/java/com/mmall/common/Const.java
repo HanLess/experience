@@ -70,6 +70,15 @@ public class Const {
         public String getMsg(){
             return this.msg;
         }
+
+        public static OrderStatus codeOf(Integer code){
+            for(OrderStatus pt : values()){
+                if(pt.getCode() == code){
+                    return pt;
+                }
+            }
+            throw new RuntimeException("没有找到枚举类");
+        }
     }
 
     public interface AlipayCallback{
@@ -115,6 +124,15 @@ public class Const {
 
         public String getName(){
             return this.name;
+        }
+
+        public static paymentType codeOf(Integer code){
+            for(paymentType pt : values()){
+                if(pt.getCode() == code){
+                    return pt;
+                }
+            }
+            throw new RuntimeException("没有找到枚举类");
         }
     }
 }
