@@ -244,10 +244,24 @@ public class OrderServiceImpl implements IOrderService {
         if(!serverResponse.isSuccess()){
             return serverResponse;
         }
-        List<OrderItem> orderItems =(List<OrderItem>) serverResponse.getData();
+        List<OrderItem> orderItems = (List<OrderItem>) serverResponse.getData();
         BigDecimal totalPrice = this.countTotalPrice(orderItems);
-
         // 生成订单
+        Order order = this.assembleOrder(userId,shippingId,totalPrice);
+        if(order == null){
+            return ServerResponse.createByErrorMessage("创建订单失败");
+        }
+        if(CollectionUtils.isEmpty(orderItems)){
+            return ServerResponse.createByErrorMessage("购物车为空");
+        }
+        for(OrderItem orderItem : orderItems){
+            orderItem.setOrderNo(order.getOrderNo());
+        }
+        // mybatis 批量插入
+        orderMapper.batchInset(orderItems);
+        // 生成订单成功，减少商品库存
+
+        // 清空购物车
 
         return null;
     }
@@ -262,15 +276,17 @@ public class OrderServiceImpl implements IOrderService {
         order.setPayment(totalPrice);
         order.setUserId(userId);
         order.setShippingId(shippingId);
-
         // todo 发货时间，付款时间
-
-        return order;
+        int result = orderMapper.insert(order);
+        if(result > 0){
+            return order;
+        }
+        return null;
     }
 
     private Long generateOrderNo(){
         long time = (new Date()).getTime();
-        return time + time%10;
+        return time + new Random().nextInt(100);
     }
 
     private ServerResponse<List<OrderItem>> getCartOrderItem(Integer userId,List<Cart> cartList){
