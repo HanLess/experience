@@ -181,4 +181,9 @@
     from mmall_cart
     where user_id = #{userId} and checked = 1
   </select>
+
+  <update id="emptyCart" parameterType="int">
+    delete from mall_cart
+    where user_id = #{userId} and checked = 1
+  </update>
 </mapper>

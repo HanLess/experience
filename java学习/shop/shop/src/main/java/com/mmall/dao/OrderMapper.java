@@ -22,6 +22,4 @@ public interface OrderMapper {
     Order selectByOrderIdAndUserNo(@Param("orderNo") Long orderNo,@Param("userId") Integer userId);
 
     Order selectByOrderNo(Long orderNo);
-
-    int batchInset(@Param("orderItemList") List<OrderItem> orderItemList);
 }

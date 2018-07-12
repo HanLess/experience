@@ -245,6 +245,7 @@ public class OrderServiceImpl implements IOrderService {
             return serverResponse;
         }
         List<OrderItem> orderItems = (List<OrderItem>) serverResponse.getData();
+        List<Map<String,Integer>> productIdList = new ArrayList<>();
         BigDecimal totalPrice = this.countTotalPrice(orderItems);
         // 生成订单
         Order order = this.assembleOrder(userId,shippingId,totalPrice);
@@ -255,15 +256,27 @@ public class OrderServiceImpl implements IOrderService {
             return ServerResponse.createByErrorMessage("购物车为空");
         }
         for(OrderItem orderItem : orderItems){
+            Map<String,Integer> map = new HashMap<>();
+            map.put("quantity",orderItem.getQuantity());
+            map.put("productId",orderItem.getProductId());
+            productIdList.add(map);
             orderItem.setOrderNo(order.getOrderNo());
         }
         // mybatis 批量插入
-        orderMapper.batchInset(orderItems);
+        orderItemMapper.batchInset(orderItems);
         // 生成订单成功，减少商品库存
-
+        this.reduceStock(orderItems);
         // 清空购物车
-
+        cartMapper.emptyCart(userId);
         return null;
+    }
+
+    private void reduceStock(List<OrderItem> orderItems){
+        for(OrderItem orderItem : orderItems){
+            Integer productId = orderItem.getProductId();
+            Integer quantity = orderItem.getQuantity();
+            productMapper.reduceStock(productId,quantity);
+        }
     }
 
     private Order assembleOrder(Integer userId,Integer shippingId,BigDecimal totalPrice){
