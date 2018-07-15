@@ -227,4 +227,11 @@
       now(), now())
     </foreach>
   </insert>
+
+  <select id="getList" parameterType="int" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mmall_order
+    where user_id = #{userId}
+  </select>
 </mapper>

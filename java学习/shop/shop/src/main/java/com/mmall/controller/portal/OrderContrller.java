@@ -4,11 +4,14 @@ package com.mmall.controller.portal;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.demo.trade.config.Configs;
+import com.github.pagehelper.PageInfo;
 import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.IOrderService;
+import com.mmall.vo.OrderProductVo;
+import com.mmall.vo.OrderVo;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
@@ -23,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -35,7 +40,7 @@ public class OrderContrller {
 
     @RequestMapping(value = "create",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse create(HttpSession session,Integer shippingId){
+    public ServerResponse<OrderVo> create(HttpSession session, Integer shippingId){
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
@@ -43,9 +48,48 @@ public class OrderContrller {
         return iOrderService.createOrder(user.getId(),shippingId);
     }
 
+    @RequestMapping(value = "cancel",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> cancel(HttpSession session,long orderNo){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.cancel(user.getId(),orderNo);
+    }
 
+    @RequestMapping(value = "getOrderCartProduct",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<OrderProductVo> getOrderCartProduct(HttpSession session){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.getOrderCartProduct(user.getId());
+    }
 
+    @RequestMapping(value = "detail",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<OrderVo> detail(HttpSession session,long orderNo){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.detail(user.getId(),orderNo);
+    }
 
+    @RequestMapping(value = "list",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<PageInfo> list(HttpSession session,
+                                         @RequestParam(value = "pageNumber",defaultValue = "0") Integer pageNumber,
+                                         @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize
+    ){
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if(user == null){
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
+        }
+        return iOrderService.list(user.getId(),pageNumber,pageSize);
+    }
 
 
     @RequestMapping(value = "pay",method = RequestMethod.POST)
