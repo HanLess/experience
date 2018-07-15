@@ -221,4 +221,11 @@
       </foreach>
     </if>
   </select>
+
+  <update id="reduceStock" parameterType="map">
+    update mmall_product
+    set
+    stock = stock - #{quantity}
+    where product_id = #{productId}
+  </update>
 </mapper>

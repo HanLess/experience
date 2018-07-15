@@ -211,7 +211,6 @@
     from mmall_order
     where order_no = #{orderNo}
   </select>
-
   <insert id="batchInset" parameterType="list">
     insert into mmall_order (id, order_no, user_id,
       shipping_id, payment, payment_type,

@@ -35,4 +35,6 @@ public interface CartMapper {
     int countAllNumber(Integer userId);
 
     List<Cart> selectByUserIdChecked(Integer userId);
+
+    int emptyCart(Integer userId);
 }
