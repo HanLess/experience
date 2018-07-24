@@ -1,5 +1,8 @@
 https://www.cnblogs.com/shudonghe/p/3457990.html
 
+JIT：https://www.ibm.com/developerworks/cn/java/j-lo-just-in-time/index.html
+
+
 <h3>虚拟机的启动过程</h3>
 
 加载 验证 准备 解析 初始化 使用 卸载
