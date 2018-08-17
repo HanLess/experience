@@ -1,5 +1,8 @@
 https://www.cnblogs.com/shudonghe/p/3457990.html
 
+JIT：https://www.ibm.com/developerworks/cn/java/j-lo-just-in-time/index.html
+
+
 <h3>虚拟机的启动过程</h3>
 
 加载 验证 准备 解析 初始化 使用 卸载
@@ -49,3 +52,10 @@ jvm中的gc只管理堆中的内存，栈中的栈帧会随着方法的执行入
 垃圾回收的步骤：标记（分代），删除（正常删除、带压缩的删除）
 
 堆中的三代：年轻代 老年代 持久代（分代回收，优先回收年轻代，可以节省大量扫描-删除的时间）
+
+<h3>内存溢出</h3>
+
+https://blog.csdn.net/u011936381/article/details/20039103
+
+
+

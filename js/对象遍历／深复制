@@ -7,46 +7,7 @@ typeof null /   undefined /    "abc" /    123 /      [] /        {} /     functi
      'object' / 'undefined' / 'string' / 'number' /  'object' / 'object' / 'function'  /  'boolean'
      
      
-在遍历的过程中，遇到数组和对象（ {} ）才需递归，其他对象（如Date,RegExp等）不需要，因为日期，正则的实例对象非引用类型，赋值后独立。
-
-var copyObj = function(obj){
-     var typeOfObj = Object.prototype.toString.call(obj)
-     var copy;
-
-     if(typeOfObj == '[object Array]'){
-          copy = []
-          obj.forEach((val,index) => {
-               var value = copyObj(val)
-               copy[index] = value
-          })
-          return copy
-     }else if(typeOfObj == '[object Object]'){
-          copy = {}
-          for(let key in obj){
-               var val = copyObj(obj[key])
-               copy[key] = val
-          }
-          return copy
-     }else{
-          copy = obj;
-          return copy
-     }
-}
+遇到数组和对象（ {} ）才需深拷贝，其他对象（如Date,RegExp等）不需要，因为日期，正则的实例对象非引用类型，赋值后独立。
 
 
-对象遍历（计算深度）
-var Count = function(obj){
-     var deep = 0;
-     var countDeep = function(obj){
-          deep++
-          for(let key in obj){
-               var type = typeof obj[key]
-               if(type == 'object'){
-                    countDeep(obj[key])
-               }
-          }
-     }
-     countDeep(obj)
-     return deep
-}
 
