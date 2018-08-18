@@ -39,3 +39,46 @@ public class ContextLoaderListener extends ContextLoader implements ServletConte
     }
 }
 ```
+
+<h3>initWebApplicationContext方法的执行（启动spring）</h3>
+大概步骤：
+1）设置 context，在配置文件中可以按如下配置：
+```
+this.context = this.createWebApplicationContext(servletContext);
+```
+会被赋值一个 ConfigurableWebApplicationContext 类
+2）按配置文件初始化spring
+```
+this.configureAndRefreshWebApplicationContext(cwac, servletContext);
+```
+```
+wac.refresh();
+```
+```
+public void refresh() throws BeansException, IllegalStateException {
+        Object var1 = this.startupShutdownMonitor;
+        synchronized(this.startupShutdownMonitor) {
+            this.prepareRefresh();
+            ConfigurableListableBeanFactory beanFactory = this.obtainFreshBeanFactory();
+            this.prepareBeanFactory(beanFactory);
+
+            try {
+                this.postProcessBeanFactory(beanFactory);
+                this.invokeBeanFactoryPostProcessors(beanFactory);
+                this.registerBeanPostProcessors(beanFactory);
+                this.initMessageSource();
+                this.initApplicationEventMulticaster();
+                this.onRefresh();
+                this.registerListeners();
+                this.finishBeanFactoryInitialization(beanFactory);
+                this.finishRefresh();
+            } catch (BeansException var5) {
+                this.destroyBeans();
+                this.cancelRefresh(var5);
+                throw var5;
+            }
+
+        }
+    }
+```
+执行完 refresh ，spring的IOC容器久被初始化完成了。
