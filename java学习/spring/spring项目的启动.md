@@ -87,4 +87,4 @@ public void refresh() throws BeansException, IllegalStateException {
     }
 ```
 
-执行完 refresh ，spring的IOC容器久被初始化完成了。
+执行完 refresh ，spring的IOC容器就被初始化完成了。
