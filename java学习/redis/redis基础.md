@@ -103,4 +103,5 @@ redis持久化：
 以日志的形式，把redis的每一次操作记录下来，在redis启动的时候，读取日志并执行
 
 
+在spring项目中，使用 jedis与spring-data-redis效果最佳
 
