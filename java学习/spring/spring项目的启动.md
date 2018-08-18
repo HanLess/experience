@@ -14,8 +14,28 @@ https://zouzls.github.io/2017/03/29/SpringStart/
 一个是 ServletContext，这是一个web项目的配置记录对象，记录了 listener/context-param/servlet/filter（即web.xml中的配置）
 一个是监听类的对象，用来后面启动spring（ServletContextListener）
 
-<h3监听器启动spring</h3>
+<h3>监听器启动spring</h3>
 
 ServletContextListener 会监听 ServletContext 的状态，如果 ServletContext 状态变化
 （个人理解：ServletContext对象创建、初始化完成，记录了所有信息）
-会触发监听类的
+会触发监听类的 contextInitialized 事件，执行 initWebApplicationContext 方法
+
+```
+public class ContextLoaderListener extends ContextLoader implements ServletContextListener {
+    public ContextLoaderListener() {
+    }
+
+    public ContextLoaderListener(WebApplicationContext context) {
+        super(context);
+    }
+
+    public void contextInitialized(ServletContextEvent event) {
+        this.initWebApplicationContext(event.getServletContext());
+    }
+
+    public void contextDestroyed(ServletContextEvent event) {
+        this.closeWebApplicationContext(event.getServletContext());
+        ContextCleanupListener.cleanupAttributes(event.getServletContext());
+    }
+}
+```
