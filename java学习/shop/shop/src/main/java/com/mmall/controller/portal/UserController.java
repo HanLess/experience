@@ -21,9 +21,10 @@ public class UserController {
     @Autowired
     private IUserService iUserService;
 
-    @RequestMapping(value = "login",method = RequestMethod.POST)
+    @RequestMapping(value = "login")
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session){
+        System.out.println("=============================================");
         ServerResponse<User> user =  iUserService.login(username,password);
         if(user.isSuccess()){
             session.setAttribute(Const.CURRENT_USER,user.getData());

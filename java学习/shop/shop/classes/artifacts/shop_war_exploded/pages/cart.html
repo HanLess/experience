@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button id="add">add</button>
+<button id="update">update</button>
+<button id="delete">delete</button>
+<button id="list">list</button>
+<button id="selectOrUnSelectAll">selectOrUnSelectAll</button>
+<button id="selectOrUnSelectAll2">selectOrUnSelectAll2</button>
+<button id="selectOrUnSelect">selectOrUnSelect</button>
+<button id="selectOrUnSelect2">selectOrUnSelect2</button>
+<button id="countAllNumber">countAllNumber</button>
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $("#add").click(function () {
+        $.ajax({
+            url : "/cart/add",
+            data : {
+                count : 2,
+                productId : 26
+            },
+            type : "post"
+        })
+    })
+
+    $("#update").click(function () {
+        $.ajax({
+            url : "/cart/update",
+            data : {
+                count : 2,
+                productId : 26
+            },
+            type : "post"
+        })
+    })
+
+    $("#delete").click(function () {
+        $.ajax({
+            url : "/cart/delete",
+            data : {
+                productIds : [26]
+            },
+            type : "post"
+        })
+    })
+
+    $("#list").click(function () {
+        $.ajax({
+            url : "/cart/list",
+            data : {
+            },
+            type : "post"
+        })
+    })
+
+    $("#selectOrUnSelectAll").click(function () {
+        $.ajax({
+            url : "/cart/selectOrUnSelectAll",
+            data : {
+                checked : 1
+            },
+            type : "post"
+        })
+    })
+
+    $("#selectOrUnSelectAll2").click(function () {
+        $.ajax({
+            url : "/cart/selectOrUnSelectAll",
+            data : {
+                checked : 0
+            },
+            type : "post"
+        })
+    })
+
+    $("#selectOrUnSelect").click(function () {
+        $.ajax({
+            url : "/cart/selectOrUnSelect",
+            data : {
+                checked : 1,
+                productId : 26
+            },
+            type : "post"
+        })
+    })
+
+    $("#selectOrUnSelect2").click(function () {
+        $.ajax({
+            url : "/cart/selectOrUnSelect",
+            data : {
+                checked : 0,
+                productId : 26
+            },
+            type : "post"
+        })
+    })
+
+    $("#countAllNumber").click(function () {
+        $.ajax({
+            url : "/cart/countAllNumber",
+            data : {
+            },
+            type : "post"
+        })
+    })
+</script>
+</body>
+</html>

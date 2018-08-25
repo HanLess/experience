@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="add">add</button>
+<button id="update">update</button>
+<button id="delete">delete</button>
+<button id="getDetail">getDetail</button>
+<button id="getList">getList</button>
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+
+    $("#add").click(function () {
+        $.ajax({
+            url : "/shipping/add",
+            data : {
+                receiverName : "hanhongxuan",
+                receiverMobile : "13000000000",
+                receiverProvince : "黑龙江",
+                receiverCity : "牡丹江",
+                receiverDistrict : "东宁县",
+                receiverAddress : "幸福街"
+            },
+            type : "post"
+        })
+    })
+
+    $("#update").click(function () {
+        $.ajax({
+            url : "/shipping/update",
+            data : {
+                id : 29,
+                receiverName : "hanhongxuan"
+            },
+            type : "post"
+        })
+    })
+
+    $("#delete").click(function () {
+        $.ajax({
+            url : "/shipping/delete",
+            data : {
+                shippingId : 29
+            },
+            type : "post"
+        })
+    })
+
+    $("#getDetail").click(function () {
+        $.ajax({
+            url : "/shipping/getDetail",
+            data : {
+                shippingId : 7
+            },
+            type : "post"
+        })
+    })
+
+    $("#getList").click(function () {
+        $.ajax({
+            url : "/shipping/getList",
+            data : {
+
+            },
+            type : "post"
+        })
+    })
+</script>
+</body>
+</html>
