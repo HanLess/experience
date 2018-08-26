@@ -82,4 +82,9 @@ WHILE expression DO
 END WHILE
 ```
 
+mysql的事务隔离界别：http://www.cnblogs.com/zhoujinyi/p/3437475.html
+
+mysql默认的事务隔离级别：可重复读
+
+
 
