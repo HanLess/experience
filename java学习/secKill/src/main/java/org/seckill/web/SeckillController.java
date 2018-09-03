@@ -3,6 +3,8 @@ package org.seckill.web;
 
 import com.mysql.cj.api.Session;
 import org.apache.commons.lang.StringUtils;
+import org.seckill.dao.cache.JedisDao;
+import org.seckill.dao.cache.RedisDao;
 import org.seckill.dto.*;
 import org.seckill.entry.Seckill;
 import org.seckill.enums.SeckillState;
@@ -37,27 +39,19 @@ public class SeckillController {
     @Autowired
     private SeckillService seckillService;
 
+//    @Autowired
+//    private JedisDao jedisDao;
+    @Autowired
+    private RedisDao redisDao;
+
     @RequestMapping(value = "/test")
-//    @ResponseBody
-    public String test(
-                    String name,
-                    Integer age,
-                    HttpServletRequest request,
-                    HttpServletResponse response
-                     ){
+    @ResponseBody
+    public String test(){
 
-        Cookie[] cookies = request.getCookies();
+//        jedisDao.test();
 
-        Cookie cookie = new Cookie("name",name);
-        Cookie cookie2 = new Cookie("age",age.toString());
 
-        response.addCookie(cookie);
-        response.addCookie(cookie2);
-
-        String c = request.getHeader("content-type");
-        Enumeration a = request.getParameterNames();
-//        return "name = " + name + "; age = " + age;
-        return "redirect:/page/redirect.html";
+        return null;
     }
 
     @RequestMapping(value = "/test2",method = RequestMethod.GET)

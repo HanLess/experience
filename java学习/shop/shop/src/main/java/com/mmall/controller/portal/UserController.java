@@ -1,6 +1,7 @@
 package com.mmall.controller.portal;
 
 
+import com.mmall.cache.JedisDao;
 import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
 import com.mmall.pojo.User;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.mmall.common.ServerResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -20,11 +22,13 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private IUserService iUserService;
+    @Autowired
+    private JedisDao jedisDao;
 
     @RequestMapping(value = "login")
     @ResponseBody
-    public ServerResponse<User> login(String username, String password, HttpSession session){
-        System.out.println("=============================================");
+    public ServerResponse<User> login(String username, String password, HttpSession session, HttpServletRequest request){
+        System.out.println(request.getAttribute("name"));
         ServerResponse<User> user =  iUserService.login(username,password);
         if(user.isSuccess()){
             session.setAttribute(Const.CURRENT_USER,user.getData());
@@ -39,9 +43,11 @@ public class UserController {
         return out;
     }
 
-    @RequestMapping(value = "register",method = RequestMethod.POST)
+    @RequestMapping(value = "register")
     @ResponseBody
-    public ServerResponse<User> register(User user){
+    public ServerResponse<User> register(User user,HttpServletRequest request){
+        System.out.println(request.getAttribute("name"));
+        jedisDao.test();
         ServerResponse<User> new_user = iUserService.register(user);
         return new_user;
     }
