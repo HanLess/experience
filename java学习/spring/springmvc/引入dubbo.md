@@ -38,3 +38,6 @@
     <dubbo:reference id="userService" interface="com.shengfeng.user.service.UserService" />
 </beans>
 ```
+
+注：消费者的pom中，要手动把提供者的接口jar包引进来。
+
