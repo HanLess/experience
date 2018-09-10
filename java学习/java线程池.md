@@ -11,3 +11,5 @@ http://www.crazyant.net/2124.html
   <li>当一个线程完成任务时，它会从队列中取下一个任务来执行。</li>
   <li>当一个线程无事可做，超过一定的时间（keepAliveTime）时，线程池会判断，如果当前运行的线程数大于 corePoolSize，那么这个线程就被停掉。所以线程池的所有任务完成后，它最终会收缩到 corePoolSize 的大小。</li>
 </ul>
+
+ThreadPoolExecutor线程池执行过程：（1）先比较 corePoolSize （2）比较队列（3）比较 maximumPoolSize（4）阻塞或报错
