@@ -21,3 +21,37 @@ new ThreadPoolExecutor(nThreads, nThreads,
                                       new LinkedBlockingQueue<Runnable>());
 ```
 使用无界队列 LinkedBlockingQueue，且keepAlive为0，所以不会有现成空闲，线程池也不会拒绝任务（任务排队会阻塞），所以也不会执行 RejectedExecutionHandler
+
+FixedThreadPool适用于为了满足资源管理的需求，而需要限制当前线程数量的应用场景，它适用于负载比较重的服务器
+
+（2）newSingleThreadPool：corePoolSize 和 maximumPoolSize 都是1，其他的与 FixedThreadPool 相同
+
+```
+ public static ExecutorService newSingleThreadExecutor() {
+        return new FinalizableDelegatedExecutorService
+            (new ThreadPoolExecutor(1, 1,
+                                    0L, TimeUnit.MILLISECONDS,
+                                    new LinkedBlockingQueue<Runnable>()));
+    }
+```
+
+意味着此线程池只会创建一个线程来执行任务，其他任务都会在阻塞队列中等待
+
+SingleThreadExecutor适用于需要保证顺序地执行各个任务；并且在任意时间点，不会有多个线程是活动的应用场景。
+
+（3）newCachedThreaPool：
+
+```
+public static ExecutorService newCachedThreadPool() {
+        return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+                                      60L, TimeUnit.SECONDS,
+                                      new SynchronousQueue<Runnable>());
+    }
+```
+通过方法可知，队列是一个没有容量的队列，所以成为转移队列，当不断有任务进来的时候，会一直创建线程（maximumPoolSize的值为最大值），且闲置线程的寿命为一分钟（缓存一分钟），所以称之为缓存线程池。
+
+试用于如下场景：线程执行任务很快，且需要快速大量创建线程的场景。
+
+
+
+
