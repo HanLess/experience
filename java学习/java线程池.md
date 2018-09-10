@@ -13,3 +13,13 @@ http://www.crazyant.net/2124.html
 </ul>
 
 ThreadPoolExecutor线程池执行过程：（1）先比较 corePoolSize （2）比较队列（3）比较 maximumPoolSize（4）阻塞或报错
+
+使用Executors创建线程池：
+
+（1）newFixedThreadPool：创建一个定长有界的线程池，创建的 ThreadPoolExecutor 对象如下：
+```
+new ThreadPoolExecutor(nThreads, nThreads,
+                                      0L, TimeUnit.MILLISECONDS,
+                                      new LinkedBlockingQueue<Runnable>());
+```
+使用无界队列 LinkedBlockingQueue，且keepAlive为0，所以不会有现成空闲，线程池也不会拒绝任务（任务排队会阻塞），所以也不会执行 RejectedExecutionHandler
