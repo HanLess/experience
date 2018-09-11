@@ -31,13 +31,13 @@ var token
                 question : "问题",
                 answer : "answer"
             },
-            type : "post"
+            type : "get"
         })
     })
 
     $("#login").click(function(){
         $.ajax({
-            url : "/user/login",
+            url : "/mmall/user/login",
             data : {
                 username : "hanhongxuan",
                 password : "123456"
@@ -48,14 +48,14 @@ var token
 
     $("#logout").click(function(){
         $.ajax({
-            url : "/user/logout",
+            url : "/mmall/user/logout",
             type : "post"
         })
     })
 
     $("#checkValid").click(function(){
         $.ajax({
-            url : "/user/checkValid",
+            url : "/mmall/user/checkValid",
             data : {
                 str : "hanhongxuan",
                 type : "username"
@@ -66,14 +66,14 @@ var token
 
     $("#getUserInfo").click(function(){
         $.ajax({
-            url : "/user/getUserInfo",
+            url : "/mmall/user/getUserInfo",
             type : "post"
         })
     })
 
     $("#forgetPassword").click(function(){
         $.ajax({
-            url : "/user/forgetPassword",
+            url : "/mmall/user/forgetPassword",
             data : {
                 username : "hanhongxuan"
             },
@@ -83,7 +83,7 @@ var token
 
     $("#checkQuestion").click(function(){
         $.ajax({
-            url : "/user/checkQuestion",
+            url : "/mmall/user/checkQuestion",
             data : {
                 username : "hanhongxuan",
                 question : "问题",
@@ -98,7 +98,7 @@ var token
 
     $("#forgetResetPassword").click(function(){
         $.ajax({
-            url : "/user/forgetResetPassword",
+            url : "/mmall/user/forgetResetPassword",
             data : {
                 username : "hanhongxuan",
                 password : "100100",
@@ -110,7 +110,7 @@ var token
 
     $("#getInformation").click(function(){
         $.ajax({
-            url : "/user/getInformation",
+            url : "/mmall/user/getInformation",
             type : "post"
         })
     })

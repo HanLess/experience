@@ -32,6 +32,10 @@
     <!--</mvc:annotation-driven>-->
 
     <mvc:default-servlet-handler />
+    <mvc:interceptors>
+        <bean class="com.mmall.interceptor.LoginInterceptor"></bean>
+    </mvc:interceptors>
+
 
     <!-- 文件上传 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
