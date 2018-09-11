@@ -5,7 +5,10 @@ import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
+import com.mmall.service.impl.FileServiceImpl;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.mmall.common.ServerResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -21,14 +25,19 @@ public class UserController {
     @Autowired
     private IUserService iUserService;
 
+//    private Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @RequestMapping(value = "login",method = RequestMethod.POST)
-    @ResponseBody
-    public ServerResponse<User> login(String username, String password, HttpSession session){
-        ServerResponse<User> user =  iUserService.login(username,password);
-        if(user.isSuccess()){
-            session.setAttribute(Const.CURRENT_USER,user.getData());
-        }
-        return user;
+//    @ResponseBody
+    public String login(String username, String password, HttpSession session , HttpServletRequest request){
+        return "redirect:https://www.baidu.com";
+//        String one = request.getHeader("name");
+//        System.out.println("=======================logger info test========================= one = " + one);
+//        ServerResponse<User> user =  iUserService.login(username,password);
+//        if(user.isSuccess()){
+//            session.setAttribute(Const.CURRENT_USER,user.getData());
+//        }
+//        return user;
     }
     @RequestMapping(value = "logout",method = RequestMethod.POST)
     @ResponseBody
