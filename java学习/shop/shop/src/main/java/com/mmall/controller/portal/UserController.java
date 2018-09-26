@@ -6,7 +6,10 @@ import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
+import com.mmall.service.impl.FileServiceImpl;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,10 @@ public class UserController {
     @Autowired
     private JedisDao jedisDao;
 
+<<<<<<< HEAD
+//    private Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @RequestMapping(value = "login",method = RequestMethod.POST)
     @RequestMapping(value = "login")
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session, HttpServletRequest request){
