@@ -14,6 +14,32 @@
     <!--<context:annotation-config/>-->
     <aop:aspectj-autoproxy/>
 
+    <bean id="connectionFactory" class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+        <property name="username" value="guest"></property>
+        <property name="password" value="guest"></property>
+        <property name="virtualHost" value="/"></property>
+        <property name="addresses" value="localhost:5672"></property>
+        <property name="publisherConfirms" value="true"></property>
+    </bean>
+
+    <bean id="rabbitTemplate"  class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+        <constructor-arg name="connectionFactory" ref="connectionFactory"/>
+        <!--消息确认回调 -->
+        <!--<property name="confirmCallback" ref="producer"/>-->
+    </bean>
+    <bean id="queue" class="org.springframework.amqp.core.Queue">
+        <constructor-arg name="name" value="order-queue"></constructor-arg>
+        <constructor-arg name="durable" value="true"></constructor-arg>
+    </bean>
+    <bean id="exchange" class="org.springframework.amqp.core.DirectExchange">
+        <constructor-arg name="name" value="order-exchange"></constructor-arg>
+    </bean>
+
+    <bean id="binding" class="cn.sunsharp.bigdata.mq.MyBinding" init-method="createBinding">
+        <constructor-arg index="0" ref="queue"></constructor-arg>
+        <constructor-arg index="1" ref="exchange"></constructor-arg>
+        <constructor-arg index="2" value="spring-boot-routingKey"></constructor-arg>
+    </bean>
 
     <import resource="applicationContext-datasource.xml"/>
 

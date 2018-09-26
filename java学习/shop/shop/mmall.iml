@@ -80,5 +80,31 @@
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-redis:1.4.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:4.0.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:4.0.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.amqp:spring-rabbit:2.0.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.amqp:spring-amqp:2.0.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.retry:spring-retry:1.2.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.rabbitmq:http-client:2.0.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-webflux:5.0.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:3.1.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.2" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor.ipc:reactor-netty:0.7.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-http:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler-proxy:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-socks:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport-native-epoll:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport-native-unix-common:4.1.16.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-messaging:5.0.9.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.rabbitmq:amqp-client:5.4.1" level="project" />
   </component>
 </module>
