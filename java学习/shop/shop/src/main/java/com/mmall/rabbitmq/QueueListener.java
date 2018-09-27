@@ -7,9 +7,10 @@ package com.mmall.rabbitmq;
 import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
+
 import com.rabbitmq.client.Channel;
 
-public class QueueListenter implements ChannelAwareMessageListener {
+public class QueueListener implements ChannelAwareMessageListener {
 
     @Override
     public void onMessage(Message message, Channel channel) throws Exception {

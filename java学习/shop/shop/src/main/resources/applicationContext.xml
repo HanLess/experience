@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
 
     <context:component-scan base-package="com.mmall" annotation-config="true"/>
 
@@ -18,12 +18,15 @@
         <property name="username" value="guest"></property>
         <property name="password" value="guest"></property>
         <property name="virtualHost" value="/"></property>
-        <property name="addresses" value="localhost:5672"></property>
+        <property name="addresses" value="127.0.0.1:5672"></property>
         <property name="publisherConfirms" value="true"></property>
     </bean>
 
+    <rabbit:admin connection-factory="connectionFactory" />
+
     <bean id="rabbitTemplate"  class="org.springframework.amqp.rabbit.core.RabbitTemplate">
         <constructor-arg name="connectionFactory" ref="connectionFactory"/>
+        <property name="queue" value="order-queue" />
         <!--消息确认回调 -->
         <property name="confirmCallback" ref="producer"/>
     </bean>
@@ -31,7 +34,7 @@
         <constructor-arg name="name" value="order-queue"></constructor-arg>
         <constructor-arg name="durable" value="true"></constructor-arg>
     </bean>
-    <bean id="exchange" class="org.springframework.amqp.core.DirectExchange">
+    <bean id="exchange" class="org.springframework.amqp.core.TopicExchange">
         <constructor-arg name="name" value="order-exchange"></constructor-arg>
     </bean>
 
@@ -40,8 +43,20 @@
     <bean id="binding" class="com.mmall.rabbitmq.MyBinding" init-method="createBinding">
         <constructor-arg index="0" ref="queue"></constructor-arg>
         <constructor-arg index="1" ref="exchange"></constructor-arg>
-        <constructor-arg index="2" value="spring-boot-routingKey"></constructor-arg>
+        <constructor-arg index="2" value="one"></constructor-arg>
     </bean>
+
+    <bean id="queueListener" class="com.mmall.rabbitmq.QueueListener"></bean>
+
+    <!--<bean id="messageContainer" class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">-->
+        <!--<property name="queues" ref="queue"></property>-->
+        <!--<property name="exposeListenerChannel" value="true"></property>-->
+        <!--<property name="maxConcurrentConsumers" value="10"></property>-->
+        <!--<property name="concurrentConsumers" value="2"></property>-->
+        <!--<property name="connectionFactory" ref="connectionFactory"></property>-->
+        <!--<property name="acknowledgeMode" value="MANUAL"></property>-->
+        <!--<property name="messageListener" ref="queueListenter"></property>-->
+    <!--</bean>-->
 
     <import resource="applicationContext-datasource.xml"/>
 

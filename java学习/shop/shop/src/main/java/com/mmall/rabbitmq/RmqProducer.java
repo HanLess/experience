@@ -23,7 +23,7 @@ public class RmqProducer implements ConfirmCallback{
     public void sendMessage(String content) {
         try {
             CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
-            rabbitTemplate.convertAndSend("spring-boot-exchange", "spring-boot-routingKey",content,correlationId);
+            rabbitTemplate.convertAndSend("order-exchange", "one",content,correlationId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -31,19 +31,7 @@ public class RmqProducer implements ConfirmCallback{
 
     @Override
     public void confirm(CorrelationData correlationData, boolean ack,String msg) {
-        System.out.println(" 回调id:" + correlationData+"ack:"+ack);
-    }
-
-
-
-    public static void main(String[] args){
-        RmqProducer rmqProducer = new RmqProducer();
-
-        try {
-            rmqProducer.sendMessage("this is test");
-        }catch (Exception e){
-
-        }
+        System.out.println(" 回调id:" + correlationData+"ack:"+ack + "----msg :" + msg);
     }
 }
 
