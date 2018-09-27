@@ -28,10 +28,8 @@ public class UserController {
     @Autowired
     private JedisDao jedisDao;
 
-<<<<<<< HEAD
 //    private Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @RequestMapping(value = "login",method = RequestMethod.POST)
     @RequestMapping(value = "login")
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session, HttpServletRequest request){
