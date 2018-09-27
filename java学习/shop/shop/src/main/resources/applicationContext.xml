@@ -48,6 +48,11 @@
 
     <bean id="queueListener" class="com.mmall.rabbitmq.QueueListener"></bean>
 
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="manual" prefetch="1">
+        <rabbit:listener queues="queue" ref="queueListener"  method="onMessage"/>
+    </rabbit:listener-container>
+
+
     <!--<bean id="messageContainer" class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">-->
         <!--<property name="queues" ref="queue"></property>-->
         <!--<property name="exposeListenerChannel" value="true"></property>-->
