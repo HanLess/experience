@@ -16,7 +16,7 @@ public class QueueListener implements ChannelAwareMessageListener {
     public void onMessage(Message message, Channel channel) throws Exception {
         byte[] body = message.getBody();
         System.out.println("receive msg : " + new String(body));
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false); //确认消息成功消费
+//        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false); //确认消息成功消费
     }
 
 }
