@@ -26,16 +26,16 @@
 
     <bean id="rabbitTemplate"  class="org.springframework.amqp.rabbit.core.RabbitTemplate">
         <constructor-arg name="connectionFactory" ref="connectionFactory"/>
-        <property name="queue" value="order-queue" />
+        <property name="queue" value="order-queue-2" />
         <!--消息确认回调 -->
         <property name="confirmCallback" ref="producer"/>
     </bean>
     <bean id="queue" class="org.springframework.amqp.core.Queue">
-        <constructor-arg name="name" value="order-queue"></constructor-arg>
+        <constructor-arg name="name" value="order-queue-2"></constructor-arg>
         <constructor-arg name="durable" value="true"></constructor-arg>
     </bean>
     <bean id="exchange" class="org.springframework.amqp.core.TopicExchange">
-        <constructor-arg name="name" value="order-exchange"></constructor-arg>
+        <constructor-arg name="name" value="order-exchange-2"></constructor-arg>
     </bean>
 
     <bean id="producer" class="com.mmall.rabbitmq.RmqProducer"></bean>

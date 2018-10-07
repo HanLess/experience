@@ -20,13 +20,14 @@ public class RmqProducer implements ConfirmCallback{
     /* (non-Javadoc)
      * @see com.stnts.tita.rm.api.mq.MQProducer#sendDataToQueue(java.lang.String, java.lang.Object)
      */
-    public void sendMessage(String content) {
+    public String sendMessage(String content) {
         try {
             CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
-            rabbitTemplate.convertAndSend("order-exchange", "one",content,correlationId);
+            return (String) rabbitTemplate.convertSendAndReceive("order-exchange-2", "one",content,correlationId);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
