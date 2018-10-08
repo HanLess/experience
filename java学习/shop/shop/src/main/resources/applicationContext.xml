@@ -43,7 +43,7 @@
     <bean id="binding" class="com.mmall.rabbitmq.MyBinding" init-method="createBinding">
         <constructor-arg index="0" ref="queue"></constructor-arg>
         <constructor-arg index="1" ref="exchange"></constructor-arg>
-        <constructor-arg index="2" value="one"></constructor-arg>
+        <constructor-arg index="2" value="two"></constructor-arg>
     </bean>
 
     <bean id="queueListener" class="com.mmall.rabbitmq.QueueListener"></bean>
@@ -51,17 +51,6 @@
     <rabbit:listener-container connection-factory="connectionFactory" acknowledge="manual" prefetch="1">
         <rabbit:listener queues="queue" ref="queueListener"  method="onMessage"/>
     </rabbit:listener-container>
-
-
-    <!--<bean id="messageContainer" class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">-->
-        <!--<property name="queues" ref="queue"></property>-->
-        <!--<property name="exposeListenerChannel" value="true"></property>-->
-        <!--<property name="maxConcurrentConsumers" value="10"></property>-->
-        <!--<property name="concurrentConsumers" value="2"></property>-->
-        <!--<property name="connectionFactory" ref="connectionFactory"></property>-->
-        <!--<property name="acknowledgeMode" value="MANUAL"></property>-->
-        <!--<property name="messageListener" ref="queueListenter"></property>-->
-    <!--</bean>-->
 
     <import resource="applicationContext-datasource.xml"/>
 

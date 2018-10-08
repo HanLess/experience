@@ -23,7 +23,7 @@ public class RmqProducer implements ConfirmCallback{
     public String sendMessage(String content) {
         try {
             CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
-            return (String) rabbitTemplate.convertSendAndReceive("order-exchange-2", "one",content,correlationId);
+            return (String) rabbitTemplate.convertSendAndReceive("order-exchange-2", "two",content,correlationId);
         } catch (Exception e) {
             e.printStackTrace();
         }
