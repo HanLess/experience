@@ -23,8 +23,9 @@ public class one {
     @ResponseBody
     public String sendMessage(HttpServletRequest request){
         String name = request.getParameter("name");
+        String key = request.getParameter("key");
         try {
-            return rmqProducer.sendMessage(name);
+            rmqProducer.sendMessage(name,key);
         }catch (Exception e){
 
         }

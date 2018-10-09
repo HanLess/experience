@@ -14,6 +14,8 @@
     <!--<context:annotation-config/>-->
     <aop:aspectj-autoproxy/>
 
+    <rabbit:annotation-driven />
+
     <bean id="connectionFactory" class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
         <property name="username" value="guest"></property>
         <property name="password" value="guest"></property>
@@ -24,33 +26,51 @@
 
     <rabbit:admin connection-factory="connectionFactory" />
 
+    <bean id="messageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter" />
+
     <bean id="rabbitTemplate"  class="org.springframework.amqp.rabbit.core.RabbitTemplate">
         <constructor-arg name="connectionFactory" ref="connectionFactory"/>
-        <property name="queue" value="order-queue-2" />
+        <!--<property name="queue" value="order-queue-2" />-->
         <!--消息确认回调 -->
         <property name="confirmCallback" ref="producer"/>
     </bean>
-    <bean id="queue" class="org.springframework.amqp.core.Queue">
-        <constructor-arg name="name" value="order-queue-2"></constructor-arg>
-        <constructor-arg name="durable" value="true"></constructor-arg>
-    </bean>
-    <bean id="exchange" class="org.springframework.amqp.core.TopicExchange">
-        <constructor-arg name="name" value="order-exchange-2"></constructor-arg>
-    </bean>
+    <!--<bean id="queue" class="org.springframework.amqp.core.Queue">-->
+        <!--<constructor-arg name="name" value="order-queue-2"></constructor-arg>-->
+        <!--<constructor-arg name="durable" value="true"></constructor-arg>-->
+    <!--</bean>-->
+    <!--<bean id="exchange" class="org.springframework.amqp.core.TopicExchange">-->
+        <!--<constructor-arg name="name" value="order-exchange-2"></constructor-arg>-->
+    <!--</bean>-->
+    <rabbit:queue name="order-queue" />
+    <rabbit:queue name="order-queue-2" />
+    <rabbit:topic-exchange name="order-exchange-2">
+        <rabbit:bindings>
+            <rabbit:binding queue="order-queue" pattern="one"/>
+            <rabbit:binding queue="order-queue-2" pattern="two"/>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
 
     <bean id="producer" class="com.mmall.rabbitmq.RmqProducer"></bean>
 
-    <bean id="binding" class="com.mmall.rabbitmq.MyBinding" init-method="createBinding">
-        <constructor-arg index="0" ref="queue"></constructor-arg>
-        <constructor-arg index="1" ref="exchange"></constructor-arg>
-        <constructor-arg index="2" value="two"></constructor-arg>
+    <!--<bean id="binding" class="com.mmall.rabbitmq.MyBinding" init-method="createBinding">-->
+        <!--<constructor-arg index="0" ref="queue"></constructor-arg>-->
+        <!--<constructor-arg index="1" ref="exchange"></constructor-arg>-->
+        <!--<constructor-arg index="2" value="two"></constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean id="queueListener" class="com.mmall.rabbitmq.QueueListener"></bean>-->
+
+    <!--<rabbit:listener-container connection-factory="connectionFactory" acknowledge="manual" prefetch="1">-->
+        <!--<rabbit:listener queues="queue" ref="queueListener"  method="onMessage"/>-->
+    <!--</rabbit:listener-container>-->
+
+    <bean id="rabbitListenerContainerFactory"
+          class="org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory">
+        <property name="messageConverter" ref="messageConverter" />
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="concurrentConsumers" value="20" />
+        <property name="maxConcurrentConsumers" value="50" />
     </bean>
-
-    <bean id="queueListener" class="com.mmall.rabbitmq.QueueListener"></bean>
-
-    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="manual" prefetch="1">
-        <rabbit:listener queues="queue" ref="queueListener"  method="onMessage"/>
-    </rabbit:listener-container>
 
     <import resource="applicationContext-datasource.xml"/>
 
