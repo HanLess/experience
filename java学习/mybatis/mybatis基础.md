@@ -93,3 +93,16 @@ try {
   session.close();
 }
 ```
+
+### mybatis注解
+
+https://blog.csdn.net/myNameIssls/article/details/21610249
+
+
+
+
+
+
+
+
+
