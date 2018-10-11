@@ -14,3 +14,5 @@ INSERT INTO
 
 ([列值],[列值]));
 ```
+
+### mybatis中可以使用 forEach 来循环数据集合
