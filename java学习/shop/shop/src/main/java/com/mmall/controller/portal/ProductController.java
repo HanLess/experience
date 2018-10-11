@@ -18,6 +18,15 @@ public class ProductController {
     @Autowired
     private IProductService iProductService;
 
+
+    @RequestMapping(value = "test")
+    public String test(){
+        iProductService.test();
+
+        return null;
+    }
+
+
     @RequestMapping(value = "detail",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<ProductDetailVo> detail(Integer productId){

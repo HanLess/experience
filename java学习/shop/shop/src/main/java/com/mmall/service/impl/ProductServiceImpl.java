@@ -7,6 +7,7 @@ import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.dao.CategoryMapper;
 import com.mmall.dao.ProductMapper;
+import com.mmall.dao.TestMapper;
 import com.mmall.pojo.Category;
 import com.mmall.pojo.Product;
 import com.mmall.service.ICategoryService;
@@ -32,6 +33,8 @@ public class ProductServiceImpl implements IProductService {
     private CategoryMapper categoryMapper;
     @Autowired
     private ICategoryService iCategoryService;
+    @Autowired
+    private TestMapper testMapper;
 
     @Override
     public ServerResponse<Product> addOrUpdateProduct(Product product) {
@@ -222,5 +225,11 @@ public class ProductServiceImpl implements IProductService {
         pageResult.setList(productListVos);
 
         return ServerResponse.createBySuccess(pageResult);
+    }
+
+    @Override
+    public void test(){
+        List<Product> list = testMapper.getList();
+        System.out.println(list.toString());
     }
 }
