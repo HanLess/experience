@@ -33,7 +33,7 @@ console.log("three")
 new Promise(function(resolve,reject){
 	console.log("one")
 	throw new Error();
-	reject()
+	
 	console.log('four')
 }).then(function(){
     console.log("two")
