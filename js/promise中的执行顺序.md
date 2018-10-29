@@ -1,4 +1,5 @@
 1）
+```
 new Promise(function(resolve,reject){
 	console.log("one")
 	resolve()
@@ -11,8 +12,9 @@ new Promise(function(resolve,reject){
 console.log("three")
 
 // one four three two
-
+```
 2)
+```
 new Promise(function(resolve,reject){
 	console.log("one")
 	reject()
@@ -25,8 +27,9 @@ new Promise(function(resolve,reject){
 console.log("three")
 
 // one four three err
-
+```
 3)
+```
 new Promise(function(resolve,reject){
 	console.log("one")
 	throw new Error();
@@ -40,3 +43,4 @@ new Promise(function(resolve,reject){
 console.log("three")
 
 // one three err
+```
