@@ -9,7 +9,12 @@
     
     /*
     chunkFilename 用来打包异步组件
-    import(/* webpackChunkName: "HelloWorld" */ "@/components/HelloWorld.vue")
+    异步组件用法：
+    {
+      components : {
+        HelloWorld : () => import(/* webpackChunkName: "HelloWorld" */ "@/components/HelloWorld.vue")
+      }
+    }
     加上 /* webpackChunkName: "HelloWorld" */ 打包出来的文件就是 HelloWorld ，类似注解
     */
     chunkFilename: utils.assetsPath('js/cf/[id].js')  
