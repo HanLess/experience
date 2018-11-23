@@ -30,6 +30,8 @@ vue项目build之后的 index.html 用到了 prefetch , preload , 这里记录�
 如果prefetch还没下载完之前，浏览器发现script标签也引用了同样的资源，浏览器会再次发起请求，这样会严重影响性能的，加载了两次，
 所以不要在当前页面马上就要用的资源上用prefetch，要用preload。
 
+注：prefetch 在 vue 异步组件中的作用很大
+
 ```
 <link href="main.js" rel="prefetch">
 ```
