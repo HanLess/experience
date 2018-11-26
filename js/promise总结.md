@@ -47,6 +47,43 @@ console.log("three")
 // one three err
 ```
 
+### promise catch用法的特别之处
+
+catch方法返回的还是一个 Promise 对象，因此后面还可以接着调用then方法。
+
+```
+const someAsyncThing = function() {
+  return new Promise(function(resolve, reject) {
+    // 下面一行会报错，因为x没有声明
+    resolve(x + 2);
+  });
+};
+
+someAsyncThing()
+.catch(function(error) {
+  console.log('oh no', error);
+})
+.then(function() {
+  console.log('carry on');
+});
+// oh no [ReferenceError: x is not defined]
+// carry on
+```
+
+如果没有报错，则会跳过catch方法。
+
+```
+Promise.resolve()
+.catch(function(error) {
+  console.log('oh no', error);
+})
+.then(function() {
+  console.log('carry on');
+});
+// carry on
+```
+
+
 ### 对于传统回调存在的问题：
 
 （1）回调函数执行的过早或过晚（可能同步，也可能异步）
