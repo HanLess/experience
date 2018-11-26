@@ -1,4 +1,5 @@
-Promise 执行顺序如下：
+### Promise 执行顺序如下：
+
 1）
 ```
 new Promise(function(resolve,reject){
@@ -46,7 +47,7 @@ console.log("three")
 // one three err
 ```
 
-对于传统回调存在的问题：
+### 对于传统回调存在的问题：
 
 （1）回调函数执行的过早或过晚（可能同步，也可能异步）
 
@@ -62,7 +63,7 @@ console.log("three")
 
 （5）无法链式调用，以保障顺序执行
 
-promise可以解决以上问题：
+### promise可以解决以上问题：
 
 resolve 执行一定是异步的
 
