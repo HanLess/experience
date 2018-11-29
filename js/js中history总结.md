@@ -19,6 +19,7 @@
 2）触发硬跳转，history变为如下：
 
 [ 1 , 2 , 3 ]
+
 当前位置为 3 ，url为硬跳转的链接
 
 页面：
@@ -30,11 +31,13 @@
 #### pushState：
 
 [ 1 , 2 , 3, ... , n , n+1 ]
+
 1）history 表如上，当前位置在 2 处，触发pushState方法
 
 2）history 表如下：
 
 [ 1 , 2 , 3 ]
+
 当前位置为 3 ，url为push进来的链接
 
 页面：
@@ -46,11 +49,13 @@
 #### replaceState：
 
 [ 1 , 2 , 3 , ... , n , n+1 ]
+
 1）history 表如上，当前位置在 2 处，触发 replaceState 方法
 
 2）history 表如下：
 
 [ 1 , 2 , 3 , ... , n , n+1 ]
+
 当前位置在 2 处，且 url 为 replace 进来的 新url
 
 页面：
