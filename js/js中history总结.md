@@ -1,3 +1,12 @@
+#### history的属性
+
+<ul>
+  <li>history.length(只读)：返回一个整数，表示arr的长度</li>
+  <li>history.scrollRestoration：是否允许在前进（forward）或后退（back）时恢复目标网页的滚动条位置。此属性可以是自动的（auto:自动scroll到之前的状态,触发scorll事件）或者手动的（manual:滚动条在最顶端）。</li>
+  <li>history.state(只读)：返回arr[index]存储的state值，注意这里arr中的每一项都有自己的state</li>
+</ul>
+
+
 在这里我们把history简化成一个链表来讨论 ， 以下红色数字为 url 当前位置
 
 #### 引起history变化的动作有三类：
