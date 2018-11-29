@@ -12,12 +12,13 @@
 
 #### 硬跳转：
 
-[ 1 ,2 ,3 , 4, ... , n , n+1 , n+2 ]
+[ 1 ,<span style="color:red">2</span> ,3 , 4, ... , n , n+1 , n+2 ]
+
 1）history 表如上，通过回退的方式使当前 url 在 2 处
 
 2）触发硬跳转，history变为如下：
 
-[ 1 , 2 , 3 ]
+[ 1 , 2 , <span style="color:red">3</span> ]
 当前位置为 3 ，url为硬跳转的链接
 
 页面：
