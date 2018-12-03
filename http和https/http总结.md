@@ -2,13 +2,13 @@ http相关内容繁杂，这里总结一下比较常用的：
 
 <a href="#cache">http缓存</a>
 
-<a href="status">常用的状态码</a>
+<a href="#status">常用的状态码</a>
 
-<a href="woshou">3次握手，4次挥手</a>
+<a href="#woshou">3次握手，4次挥手</a>
 
-<a href="message">http报文</a>
+<a href="#message">http报文</a>
 
-<a href="http2">http2</a>
+<a href="#http2">http2</a>
 
 <h2 id="cache">http缓存</h2>
 
