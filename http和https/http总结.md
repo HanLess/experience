@@ -10,15 +10,15 @@ http相关内容繁杂，这里总结一下比较常用的：
 
 客户端http请求流程：
 
-（1）首次请求：
+#### 首次请求：
 
 <img src="https://github.com/HanLess/experience/blob/master/http%E5%92%8Chttps/imgs/requestFirst.png" />
 
-（2）再次请求：
+#### 再次请求：
 
 <img src="https://github.com/HanLess/experience/blob/master/http%E5%92%8Chttps/imgs/requestAgain.png" />
 
-（3）状态码：
+#### 状态码：
 
 <img src="https://github.com/HanLess/experience/blob/master/http%E5%92%8Chttps/imgs/status.jpg" />
 
