@@ -2,8 +2,6 @@ http相关内容繁杂，这里总结一下比较常用的：
 
 <a href="#cache">http缓存</a>
 
-<a href="#status">常用的状态码</a>
-
 <a href="#woshou">3次握手，4次挥手</a>
 
 <a href="#message">http报文</a>
@@ -82,9 +80,6 @@ http相关内容繁杂，这里总结一下比较常用的：
 #### 状态码：
 
 <img src="https://github.com/HanLess/experience/blob/master/http%E5%92%8Chttps/imgs/status.jpg" />
-
-
-<h2 id="status">常用的状态码</h2>
 
 
 <h2 id="woshou">3次握手，4次挥手</h2>
