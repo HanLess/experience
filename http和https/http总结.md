@@ -10,8 +10,6 @@ http相关内容繁杂，这里总结一下比较常用的：
 
 <h2 id="cache">http缓存</h2>
 
-缓存内容参考：<a href="https://my.oschina.net/leejun2005/blog/369148">浏览器 HTTP 协议缓存机制详解</a>
-
 强制缓存：（1）expires （2）cache-control
 
 协商缓存：（1）Last-Modified （2）Etag
@@ -67,7 +65,7 @@ http相关内容繁杂，这里总结一下比较常用的：
 浏览器会有自己的算法来推算出一个时间缓存该文件多久，
 不同浏览器得出的时间不一样，所以 Last-modified 要记得配合 Expires/Cache-Control 使用。
 
-客户端http请求流程：
+客户端http请求流程，图片来源：<a href="https://my.oschina.net/leejun2005/blog/369148">浏览器 HTTP 协议缓存机制详解</a>：
 
 #### 首次请求：
 
