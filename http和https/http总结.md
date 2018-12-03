@@ -127,3 +127,30 @@ http相关内容繁杂，这里总结一下比较常用的：
 </ul>
 
 <h2 id="http2">http2</h2>
+
+#### http1 / http1.1 存在的问题
+
+<ul>
+  <li>TCP 连接数限制</li>
+  <li>每个 TCP 连接同时只能处理一个请求 - 响应</li>
+  <li>Header 内容多</li>
+  <li>明文传输不安全</li>
+</ul>
+
+#### http2的特点
+
+<ul>
+  <li>二进制传输，最小单位是 帧：（1）减小数据体积（2）不再明文</li>
+  <li>多路复用：多个请求共用一个 TCP 链接，每一个请求是一个流，有唯一的流标识（stream identifier），发送各自的帧（帧上携带 stream identifier），接收方接收多个流的帧数据，再根据 stream identifier 把每个流的帧拼起来</li>
+  <li></li>
+  <li></li>
+</ul>
+
+
+
+
+
+
+
+
+
