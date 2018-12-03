@@ -102,5 +102,28 @@ http相关内容繁杂，这里总结一下比较常用的：
 
 <h2 id="message">http报文</h2>
 
+#### 报文种类
+
+<ul>
+  <li>请求报文</li>
+  <li>响应报文</li>
+</ul>
+
+#### 报文结构
+
+<ul>
+  <li>起始行：http版本，请求方法，url等</li>
+  <li>报文首部：（1）通用首部字段（2）请求首部字段（3）响应首部字段（4）实体首部字段</li>
+  <li>报文实体</li>
+</ul>
+
+#### 常用的首部字段
+
+<ul>
+  <li>缓存相关内容</li>
+  <li>实体相关字段：content-type，content-encode 等</li>
+  <li>Date，host 等</li>
+  <li>内容很多，理解即可</li>
+</ul>
 
 <h2 id="http2">http2</h2>
