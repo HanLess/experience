@@ -79,9 +79,15 @@ http相关内容繁杂，这里总结一下比较常用的：
 
 <img src="https://github.com/HanLess/experience/blob/master/http%E5%92%8Chttps/imgs/status.jpg" />
 
-
 <h2 id="woshou">3次握手，4次挥手</h2>
 
+#### 三次握手
+
+<ul>
+  <li>客户端A向服务端B发送 SYN 包，并进入 SYN_SEND 状态，等待服务端的回应</li>
+  <li>服务端B收到SYN包后，需要回应，发送 ACK 包，同时发送自己的 SYN 包，即发送 ACK + SYN 包，并进入 SYN_RECV 状态</li>
+  <li>客户端收到 ACK+SYN 包后，回应服务端发送 ACK 包，随后客户端与服务端都进入 ESTABLISHED 状态，三次握手完成</li>
+</ul>
 
 <h2 id="message">http报文</h2>
 
