@@ -20,3 +20,11 @@ var animation = function(){
 }
 animation()
 ```
+
+也可以使用 cancelAnimationFrame 取消定时任务
+
+```
+var ani = requestAnimationFrame(animation)
+
+cancelAnimationFrame(ani)
+```
