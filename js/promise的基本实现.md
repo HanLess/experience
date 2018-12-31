@@ -29,6 +29,9 @@ var my = function(fn){
         注意这里返回的一个新对象（链式调用）
         
         注意：then 中的方法 cb，是在新对象创建的过程中执行的（在对象入参的方法中执行）
+        
+        then 返回一个新对象，新对象入参中的匿名函数，会用到 self 
+        这个 self 是当前的（旧对象的）self，而不是新对象中创建的 self，作用域决定的
     */
     
     self.then = function(cb){
