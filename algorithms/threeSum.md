@@ -5,7 +5,6 @@ var sum = function(arr,target,three){
     var start = 0;
     var end = arr.length - 1;
     var result = []
-   
     while(start < end){
         if(start == three){
             start ++
