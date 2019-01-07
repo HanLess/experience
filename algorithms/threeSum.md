@@ -1,0 +1,69 @@
+`
+var sum = function(arr,target,three){
+    var start = 0;
+    var end = arr.length - 1;
+    var result = []
+   
+    while(start < end){
+        if(start == three){
+            start ++
+            continue
+        }
+        if(end == three){
+            end --
+            continue
+        }                
+
+        if(arr[start] + arr[end] == target){
+            let temp = []
+            temp.push(arr[start])
+            temp.push(arr[end])
+            temp.push(arr[three])
+            temp.sort(function(a,b){
+                return a - b
+            })
+            result.push(temp)
+            start ++
+        }
+        if(arr[start] + arr[end] < target){
+            start ++
+        }
+        if(arr[start] + arr[end] > target){
+            end --
+        }
+    }
+
+    return result
+}
+
+var threeSum = function(nums){
+    nums.sort(function(a,b){
+        return a - b
+    })
+    var target = 0
+    var result = []
+    var obj = {}
+    if(nums.length < 3){
+        return result
+    }
+    for(let i = 0;i < nums.length;i ++){
+        let _targ = target - nums[i]
+        var re = sum(nums,_targ,i)
+        if(re && re.length > 0){
+            re.forEach(function(val){
+                obj[val.toString()] = val
+            })
+        }
+    }
+    for(var key in obj){
+        result.push(obj[key])
+    }
+
+    return result
+}
+
+
+
+var arr = [-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6] , target = 10
+console.log(threeSum(arr))
+`
