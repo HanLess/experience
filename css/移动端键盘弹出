@@ -3,6 +3,10 @@
 Android：
 键盘弹出后触发resize事件，window变小，所有内容上移，如果有固定高度元素，有可能会被遮挡，需要看情况处理
 
+问题：不同浏览器对弹出键盘的高度，计算规则不同。比如小米浏览器，键盘实际总高 292px,但计算出来的高度只有 290px
+（resize 前的 window.innerHeight - resize 后的 window.innerHeight），键盘最上面一栏没有计算进去；
+微信浏览器会计算总高度。这导致无法根据屏幕变化尺寸来调整 input 位置，还是有可能被遮挡
+
 ios：
 键盘弹出后触发scroll事件，屏变小，但是window的scrollHeight不变，内容区域出现滚动条，样式不会变乱，但是键盘会遮挡p屏幕下部的元素。
 早期ios中的处理类似Android
