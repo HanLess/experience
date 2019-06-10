@@ -10,3 +10,5 @@ Android：
 ios：
 键盘弹出后触发scroll事件，屏变小，但是window的scrollHeight不变，内容区域出现滚动条，样式不会变乱，但是键盘会遮挡p屏幕下部的元素。
 早期ios中的处理类似Android
+
+且 ios 中，软键盘弹起后 fixed 的元素失效，position 变成 absolute
