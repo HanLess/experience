@@ -1,5 +1,6 @@
 js继承参考文章：http://www.jianshu.com/p/dee9f8b14771
 
+```
 class parent{
 
   constructor(){
@@ -17,6 +18,7 @@ class parent{
 }
 
 class kid extends parent{}
+```
 
 通过观察 new kid() , kid.prototype , new parent() , parent.prototype 可以发现：
 
