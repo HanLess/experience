@@ -9,7 +9,15 @@ MES技术需要使用 fmp4 格式的视频文件，与 mp4 的区别在于：文
 #### http 相关报文
 
 ```
+response：
+
 Content-Range: bytes 6079549-6603773/20633151
 
 Content-Length: 524225
+
+request：
+
+Range: bytes=645879-1478445
 ```
+
+在请求时设置 Range 请求头报文，可以实现分片请求视频资源
