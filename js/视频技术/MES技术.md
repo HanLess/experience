@@ -39,7 +39,9 @@ Range: bytes=645879-1478445
 <a href="https://github.com/HanLess/experience/blob/master/js/%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/%E4%BD%8D%E8%BF%90%E7%AE%97_%E6%8A%BD%E5%8F%96%E6%9F%90%E4%B8%AA%E5%AD%97%E8%8A%82.md">读取某几个字节</a>
 
 
-Box由 header 和 body 组成，以 32 位的 4 字节整数存储方式存储到内存，开头4个字节（32位）为box size，后面紧跟的4位为box的类型。Box body可以由数据组成，也可以由子box组成。
+Box由 header 和 body 组成，以 32 位的 4 字节整数存储方式存储到内存，开头4个字节（32位）为box size，后面紧跟的 4 个字节为 box 的类型（ftyp moov ...）。
+
+Box body可以由数据组成，也可以由子box组成。
 
 <a href="https://www.google.com.hk/search?newwindow=1&safe=strict&ei=n_MqXYyUG4nn-AaXzIbgBQ&q=mp4%E8%A7%86%E9%A2%91+box+%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90+arrayBuffer+Uint8Array&oq=mp4%E8%A7%86%E9%A2%91+box+%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90+arrayBuffer+Uint8Array&gs_l=psy-ab.3...7209.8753..9343...0.0..0.273.795.0j2j2......0....1..gws-wiz.jVFkLN_Mw9w">mp4视频 box 结构分析 arrayBuffer Uint8Array</a>
 
