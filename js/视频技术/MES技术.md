@@ -2,6 +2,8 @@
 
 <a href="https://juejin.im/entry/5aa64acb6fb9a028b6172adf">Media Source 系列 - 播放 m3u8 文件</a>
 
+<a href="https://juejin.im/post/5b016ca36fb9a07aad17cd13">js实现封装MP4格式文件并下载</a>
+
 
 MES技术需要使用 fmp4 格式的视频文件，与 mp4 的区别在于：文件 box 中新增了 segment index box 信息，可以根据字节位置来分片，前端视频中的分片下载播放也是基于这个
 
@@ -40,8 +42,5 @@ Box由 header 和 body 组成，以 32 位的 4 字节整数存储方式存储�
 
 Box body可以由数据组成，也可以由子box组成。
 
-<a href="https://juejin.im/post/5b016ca36fb9a07aad17cd13">js实现封装MP4格式文件并下载</a>
-
-<a href="https://www.google.com.hk/search?newwindow=1&safe=strict&ei=n_MqXYyUG4nn-AaXzIbgBQ&q=mp4%E8%A7%86%E9%A2%91+box+%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90+arrayBuffer+Uint8Array&oq=mp4%E8%A7%86%E9%A2%91+box+%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90+arrayBuffer+Uint8Array&gs_l=psy-ab.3...7209.8753..9343...0.0..0.273.795.0j2j2......0....1..gws-wiz.jVFkLN_Mw9w">mp4视频 box 结构分析 arrayBuffer Uint8Array</a>
 
 
