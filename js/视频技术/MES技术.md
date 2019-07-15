@@ -54,3 +54,17 @@ Mdat box数据格式单一，无子box。主要分为box header 和box body，bo
 
 Mdat box中，可能会使用到box的large size，当数据足够大，无法用4个字节来描述时，便会使用到large size。在读取MP4文件时，当mdat box的size位为1时，真正的box size在large size中
 
+#### Moov box
+
+Moov box中存放着媒体信息，Moov box 主要包含 mvhd、trak、mvex三种子box。
+
+#### Mvhd box
+
+Mvhd box定义了整个文件的特性，尺寸、类型、版本、生成时间等信息。
+
+#### trak box
+
+一个Track box定义了movie中的一个track。一部movie可以包含一个或多个tracks，它们之间相互独立，各自有各自的时间和空间信息。每个track box 都有与之关联的mdat box。
+
+
+
