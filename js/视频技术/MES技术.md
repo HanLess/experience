@@ -56,7 +56,7 @@ Mdat box中，可能会使用到box的large size，当数据足够大，无法�
 
 #### Moov box
 
-Moov box中存放着媒体信息，Moov box 主要包含 mvhd、trak、mvex三种子box。
+只能有一个 Moov box，存放着媒体信息，Moov box 主要包含 mvhd、trak、mvex三种子box。
 
 #### Mvhd box
 
