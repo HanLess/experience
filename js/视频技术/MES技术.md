@@ -38,9 +38,13 @@ Range: bytes=645879-1478445
 
 <a href="https://github.com/HanLess/experience/blob/master/js/%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/%E4%BD%8D%E8%BF%90%E7%AE%97_%E6%8A%BD%E5%8F%96%E6%9F%90%E4%B8%AA%E5%AD%97%E8%8A%82.md">读取某几个字节</a>
 
-Box由 header 和 body 组成，以 32 位的 4 字节整数存储方式存储到内存，开头4个字节（32位）为box size，后面紧跟的 4 个字节为 box 的类型（ftyp moov ...）。
+#### box
 
-Box body可以由数据组成，也可以由子box组成。
+Box 由 header 和 body 组成，以 32 位的 4 字节整数存储方式存储到内存。
+
+header 前4个字节（32位）为 box size，后面紧跟的 4 个字节为 box type（ftyp moov ...）。
+
+body可以由数据组成，也可以由子box组成。
 
 
 
