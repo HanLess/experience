@@ -48,7 +48,5 @@ body可以由数据组成，也可以由子box组成。
 
 #### Mdat box
 
-Mdat box数据格式单一，无子box。主要分为box header 和box body，box header中存放box size 和box type（mdat），box body中存放所有媒体数据，媒体数据以sample为数据单元。
-
 
 
