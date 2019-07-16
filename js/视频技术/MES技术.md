@@ -46,6 +46,10 @@ header 前4个字节（32位）为 box size，后面紧跟的 4 个字节为 box
 
 body可以由数据组成，也可以由子box组成。
 
+一个 box 的 size 只可能大于等于 8
+
+如果从 readSize 中解析出来的 mdat size 为 1，则表明此视频比较大，需要 type 后的 8 个字节来计算实际大小
+
 #### Mdat box
 
 Mdat box数据格式单一，无子box。主要分为box header 和box body，box header中存放box size 和box type（mdat），box body中存放所有媒体数据，媒体数据以sample为数据单元。
