@@ -76,6 +76,12 @@ duration / timescale = 可播放时长（s）。
 
 一个Track box定义了movie中的一个track。一部movie可以包含一个或多个tracks，它们之间相互独立，各自有各自的时间和空间信息。每个track box 都有与之关联的 mdat box。
 
-使用 mdia.hdlr.handlerType 来判断是音频还是视频 trak， vide 代表视频，soun 代表音频
+使用 mdia.hdlr.handlerType 来判断是音频还是视频 trak。
+
+vide：视频
+
+soun：音频
+
+hint：这个特殊的track并不包含媒体数据，而是包含了一些将其他数据track打包成流媒体的指示信息。
 
 
