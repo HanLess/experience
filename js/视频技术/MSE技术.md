@@ -4,6 +4,8 @@
 
 <a href="https://juejin.im/post/5b016ca36fb9a07aad17cd13">js实现封装MP4格式文件并下载</a>
 
+<a href="https://lucius0.github.io/2018/02/23/archivers/media-study-010/">音视频学习-MSE基础原理篇</a>
+
 
 MES技术需要使用 fmp4 格式的视频文件，与 mp4 的区别在于：文件 box 中新增了 segment index box 信息，可以根据字节位置来分片，前端视频中的分片下载播放也是基于这个
 
