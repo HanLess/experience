@@ -9,6 +9,15 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+app.all('*', function(req, res, next) {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Credentials",true)   // 允许传递 cookie
+  res.set("Access-Control-Allow-Headers", "*");      // 这里允许了所有的 Access-Control-Request-Headers
+  res.set("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+  if(req.method=="OPTIONS") res.send(200);      /*让options请求快速返回*/
+  else  next();
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
