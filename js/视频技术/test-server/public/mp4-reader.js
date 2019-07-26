@@ -4693,6 +4693,8 @@
         _this.sourceBuffers.video.addEventListener('updateend', function () {
           var buffer = _this.videoQueue.shift();
 
+          console.log('video', _this.mediaSource.readyState);
+
           if (buffer && _this.mediaSource.readyState === 'open') {
             _this.handleAppendBuffer(buffer, 'video');
           }
@@ -4714,9 +4716,12 @@
       });
 
       _defineProperty(this, "handleAppendBuffer", function (buffer, type) {
+        // console.log(type , this.mediaSource.readyState )
         if (_this.mediaSource.readyState === 'open') {
           _this.sourceBuffers[type].appendBuffer(buffer);
         } else {
+          console.log(type);
+
           _this["".concat(type, "Queue")].push(buffer);
         }
       });
@@ -4737,8 +4742,6 @@
       });
 
       _defineProperty(this, "seek", function (time) {
-        FragmentFetch.clear();
-
         var _this$mp4Probe$getFra = _this.mp4Probe.getFragmentPosition(time),
             _this$mp4Probe$getFra2 = _slicedToArray(_this$mp4Probe$getFra, 2),
             start = _this$mp4Probe$getFra2[0],
@@ -4808,7 +4811,7 @@
 
       _defineProperty(this, "handleReplayCase", function () {
         if (_this.mediaSource.readyState === 'ended') {
-          _this.sourceBuffers.video.appendBuffer(new Uint8Array(0));
+          _this.sourceBuffers.video.timestampOffset = 0;
         }
       });
 
@@ -4900,12 +4903,20 @@
           var audioRawData = concatTypedArray(FMP4Generator.ftyp(), FMP4Generator.moov(_this2.mp4Probe.mp4Data, 'audio')); // 如果是切换清晰度，mediaSource 的 readyState 已经 open 了，可以直接 append 数据。
           // mediaSource is already open when we switch video quality.
 
+          console.log("点位1");
+
           if (_this2.qualityChangeFlag) {
             _this2.handleAppendBuffer(videoRawData, 'video');
 
             _this2.handleAppendBuffer(audioRawData, 'audio');
           } else {
+            _this2.handleAppendBuffer(videoRawData, 'video');
+
+            _this2.handleAppendBuffer(audioRawData, 'audio');
+
             _this2.mediaSource.addEventListener('sourceopen', function () {
+              console.log("点位2");
+
               _this2.handleAppendBuffer(videoRawData, 'video');
 
               _this2.handleAppendBuffer(audioRawData, 'audio');
@@ -4953,9 +4964,69 @@
 
   var assetURL = 'http://localhost:8080/zhihu2018_sd.mp4';
   var video = document.querySelector('video');
+  var mse = null;
+  var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  var handleTimeUpdate = function handleTimeUpdate(e) {
+    mse.handleTimeUpdate();
+  };
+
+  var handleVideoSeeking = function handleVideoSeeking(e) {
+    var currentTime = video.currentTime;
+    var buffered = video.buffered;
+
+    if (isSafari) {
+      if (currentTime - 0.1 > buffered.start(0)) {
+        mse.seek(video.currentTime);
+      } else if (currentTime < buffered.start(0)) {
+        handleSafariBug();
+        return;
+      }
+    } else {
+      mse.seek(video.currentTime);
+    }
+  };
+
+  var handlePlay = function handlePlay(e) {
+    var currentTime = video.currentTime;
+
+    if (currentTime === 0) {
+      mse.seek(0);
+    }
+  };
+
+  var handleVideoProgress = function handleVideoProgress(e) {
+    var buffered = video.buffered;
+    var currentTime = video.currentTime;
+
+    if (isSafari && buffered.length > 0 && currentTime < buffered.start(0)) {
+      handleVideoSeeking();
+    }
+  }; // 如果当前时间为 0，safari 浏览器需要把 currentTime 设置成 buffered.start(0) 右边一点点的位置
+  // 否则 MSE 无法正常播放，会卡在 loading 状态。
+
+
+  var handleSafariBug = function handleSafariBug() {
+    var start = video.buffered.start(0);
+    video.currentTime = start + 0.1;
+  };
+
   function index () {
-    var mse = new MSE(video, assetURL);
-    mse.init();
+    video.setAttribute('preload', 'metadata');
+    video.setAttribute('sources', [{
+      format: "mp4",
+      quality: "sd",
+      source: "http://localhost:8080/zhihu2018_sd.mp4"
+    }]);
+    video.setAttribute('src', "http://localhost:8080/zhihu2018_sd.mp4");
+    video.addEventListener('seeking', handleVideoSeeking);
+    video.addEventListener('progress', handleVideoProgress);
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    mse = new MSE(video, assetURL);
+    mse.init().then(function () {
+      handlePlay();
+    });
   }
 
   return index;

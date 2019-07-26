@@ -52,21 +52,8 @@
         <div id="player"></div>
         <script src="myFetch.js"></script>
         <script src="mp4-reader.js"></script>
-        <script src="https://unpkg.com/griffith-standalone/dist/index.umd.min.js"></script>
         <script>
-            const target = document.getElementById('player')
-            const sources = {
-                hd: {
-                    play_url: 'http://localhost:8080/zhihu2018_sd.mp4',
-                },
-                sd: {
-                    play_url: 'http://localhost:8080/zhihu2018_sd.mp4',
-                },
-            }
-            const player = Griffith.createPlayer(target)
-            player.render({sources,useMSE: true})
-
-            // mp4Reader()
+            mp4Reader()
         </script>
     </body>
 </html>
