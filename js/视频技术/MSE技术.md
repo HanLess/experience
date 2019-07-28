@@ -86,4 +86,15 @@ soun：音频
 
 hint：这个特殊的track并不包含媒体数据，而是包含了一些将其他数据track打包成流媒体的指示信息。
 
+## 方案
+
+在初始化阶段，把视频信息 box（fype , moov）添加到 sourceBuffer 中
+
+通过 timeUpdate 事件驱动加载视频数据片
+
+把 mp4 格式转为 fmp4
+
+
+
+
 
