@@ -94,7 +94,9 @@ hint：这个特殊的track并不包含媒体数据，而是包含了一些将�
 
 把 mp4 格式转为 fmp4
 
+视频在分段加载播放的时候，快进可能导致 mediaSource.readyState 变为 end，sourceBuffers.video.timestampOffset = 0 可从新开启
 
+但防止某些极端情况，还是要在 appendBuffer 时判断 mediaSource.readyState 状态，如果是 end，要通过栈结构暂存视频数据 buffer
 
 
 
