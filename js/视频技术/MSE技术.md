@@ -58,7 +58,14 @@ Mdat box数据格式单一，无子box。主要分为box header 和box body，bo
 
 这里使用时，视频数据中，每一个sample是一个视频帧，存放sample时，需要根据帧数据类型进行拼帧处理后存放。
 
-Mdat box中，可能会使用到box的large size，当数据足够大，无法用4个字节来描述时，便会使用到large size。在读取MP4文件时，当mdat box的size位为1时，真正的box size在large size中
+### Mdat box中，可能会使用到box的large size，当数据足够大，无法用4个字节来描述时，便会使用到large size。在读取MP4文件时，当mdat box的size位为1时，真正的box size在large size中
+
+```
+if (this.size === 1) {
+  this.size = stream.readByte(4) << 32
+  this.size |= stream.readByte(4)
+}
+```
 
 #### Moov box
 
