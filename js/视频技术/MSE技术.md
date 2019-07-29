@@ -98,5 +98,5 @@ hint：这个特殊的track并不包含媒体数据，而是包含了一些将�
 
 但防止某些极端情况，还是要在 appendBuffer 时判断 mediaSource.readyState 状态，如果是 end，要通过栈结构暂存视频数据 buffer
 
-
+切换清晰度，通过 video.currentTime 来记录当前播放时间，在切换前要清除旧的 buffer 数据。
 
