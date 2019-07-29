@@ -95,7 +95,7 @@ hint：这个特殊的track并不包含媒体数据，而是包含了一些将�
 
 ## 方案
 
-在初始化阶段，把视频信息 box（fype , moov）添加到 sourceBuffer 中
+在初始化阶段，把视频信息 box（fype , moov）添加到 sourceBuffer 中，这里的关键是 mp4 box 剥离。<a href='https://github.com/HanLess/mp4-reader'>mp4-reader</a>
 
 通过 timeUpdate 事件驱动加载视频数据片
 
