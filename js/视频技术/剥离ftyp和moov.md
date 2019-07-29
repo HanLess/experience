@@ -1,4 +1,4 @@
-### ftyp box buffer
+## ftyp box buffer
 
 这里的内容被固定，是 Uint8Array 类型
 
@@ -28,3 +28,71 @@ return concatTypedArray(
 <a href="https://github.com/HanLess/experience/blob/master/js/%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/%E6%8B%BC%E6%8E%A5%20Uint8Array.md">concatTypedArray</a>
 
 至此，ftype box 就拼好了
+
+## MP4Probe 
+
+```
+{
+  duration,                                   // mvhd box 中的 duration
+  timescale,                                  // mvhd box 中的 timescale
+  channelCount,                               // audio track 中 stsd box mp4a 中的内容，音频的一些信息 
+  sampleRate,                                 // audio track 中 stsd box mp4a 中的内容，音频的一些信息
+  audioConfig,                                // audio track 中 stsd box mp4a 中的内容，音频的一些信息
+  audioDuration,                              // audio track Mdhd box 中的 duration
+  audioTimescale,                             // audio track Mdhd box 中的 timescale
+  width,                                      // video track tkhd 中的 width
+  height,                                     // video track tkhd 中的 height
+  SPS,                                        // 视频编码相关的参数，不是很懂
+  PPS,                                        // 视频编码相关的参数，不是很懂
+  videoDuration,                              // video track Mdhd box 中的 duration
+  videoTimescale,                             // video track Mdhd box 中的 timescale
+  videoSamplesLength: samples.length,         // samples 的数量，samples数组存在 Stsz 中
+}
+```
+
+生成代码
+
+```
+const {duration, timescale} = findBox(this.mp4BoxTree, 'mvhd')
+const {width, height} = findBox(this.mp4BoxTree, 'videoTkhd')
+const {samples} = findBox(this.mp4BoxTree, 'videoStsz')
+const {SPS, PPS} = findBox(this.mp4BoxTree, 'avcC')
+const {channelCount, sampleRate} = findBox(this.mp4BoxTree, 'mp4a')
+const {timescale: audioTimescale, duration: audioDuration} = findBox(
+  this.mp4BoxTree,
+  'audioMdhd'
+)
+const {timescale: videoTimescale, duration: videoDuration} = findBox(
+  this.mp4BoxTree,
+  'videoMdhd'
+)
+const {
+  ESDescrTag: {
+    DecSpecificDescrTag: {audioConfig},
+  },
+} = findBox(this.mp4BoxTree, 'esds')
+
+this.mp4Data = {
+  duration,
+  timescale,
+  width,
+  height,
+  SPS,
+  PPS,
+  channelCount,
+  sampleRate,
+  audioConfig,
+  audioDuration,
+  videoDuration,
+  audioTimescale,
+  videoTimescale,
+  videoSamplesLength: samples.length,
+}
+```
+
+## moov box buffer
+
+
+
+
+
