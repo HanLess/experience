@@ -96,7 +96,18 @@ this.mp4Data = {
 
 ## moov box buffer
 
+video 和 audio 的 moov 会分开组装，最后通过各自的 sourceBuffer.appendBuffer ，加入各自的 sourceBuffer 中
 
+```
+const content = concatTypedArray(
+  mvhd(data),
+  trak({...data, type}),
+  mvex(data)
+)
+return generateBox('moov', content)
+```
+
+mvex 是转为 fmp4 格式的关键内容之一
 
 
 
