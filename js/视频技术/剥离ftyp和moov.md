@@ -31,6 +31,8 @@ return concatTypedArray(
 
 ## MP4Probe 
 
+这里封装了 mp4 文件的一些基本信息
+
 ```
 {
   duration,                                   // mvhd box 中的 duration
