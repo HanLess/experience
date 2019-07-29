@@ -25,4 +25,6 @@ return concatTypedArray(
 
 <a href="https://github.com/HanLess/experience/blob/master/js/%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%20Uint8Array.md">str2TypedArray</a>
 
+<a href="https://github.com/HanLess/experience/blob/master/js/%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/%E6%8B%BC%E6%8E%A5%20Uint8Array.md">concatTypedArray</a>
+
 至此，ftype box 就拼好了
