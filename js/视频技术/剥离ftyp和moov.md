@@ -14,11 +14,13 @@ const content = new Uint8Array([
 然后再拼上 8 个字节，分别是 size 和 type
 
 ```
-return concatTypedArray(
-  num2FourBytes(content.length + 8),  
-  str2TypedArray(type),
-  content
-)
+function generateBox(type, content) {
+  return concatTypedArray(
+    num2FourBytes(content.length + 8),
+    str2TypedArray(type),
+    content
+  )
+}
 ```
 
 <a href="https://github.com/HanLess/experience/blob/master/js/%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/%E4%BD%8D%E8%BF%90%E7%AE%97_%E6%95%B0%E5%AD%97%E8%BD%AC%E5%9B%9B%E4%B8%AA%E5%AD%97%E8%8A%82%E4%BA%8C%E8%BF%9B%E5%88%B6.md">num2FourBytes</a>
