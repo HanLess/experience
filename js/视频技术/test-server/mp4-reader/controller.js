@@ -39,7 +39,7 @@ export default class MSE {
     )
     this.sourceBuffers.video.addEventListener('updateend', () => {
       const buffer = this.videoQueue.shift()
-
+      console.log('video', this.mediaSource.readyState)
       if (buffer && this.mediaSource.readyState === 'open') {
         this.handleAppendBuffer(buffer, 'video')
       }
@@ -59,9 +59,11 @@ export default class MSE {
   }
 
   handleAppendBuffer = (buffer, type) => {
+    // console.log(type , this.mediaSource.readyState )
     if (this.mediaSource.readyState === 'open') {
       this.sourceBuffers[type].appendBuffer(buffer)
     } else {
+      console.log(type)
       this[`${type}Queue`].push(buffer)
     }
   }
@@ -104,6 +106,7 @@ export default class MSE {
         return mp4BoxTreeObject
       })
       .then(mp4BoxTreeObject => {
+        console.log(mp4BoxTreeObject)
         this.mp4Probe = new MP4Probe(mp4BoxTreeObject)
         this.mp4BoxTreeObject = mp4BoxTreeObject
         const videoRawData = concatTypedArray(
@@ -117,15 +120,8 @@ export default class MSE {
         )
         // 如果是切换清晰度，mediaSource 的 readyState 已经 open 了，可以直接 append 数据。
         // mediaSource is already open when we switch video quality.
-        if (this.qualityChangeFlag) {
-          this.handleAppendBuffer(videoRawData, 'video')
-          this.handleAppendBuffer(audioRawData, 'audio')
-        } else {
-          this.mediaSource.addEventListener('sourceopen', () => {
-            this.handleAppendBuffer(videoRawData, 'video')
-            this.handleAppendBuffer(audioRawData, 'audio')
-          })
-        }
+        this.handleAppendBuffer(videoRawData, 'video')
+        this.handleAppendBuffer(audioRawData, 'audio')
       })
   }
 
@@ -144,10 +140,7 @@ export default class MSE {
   }
 
   seek = time => {
-    FragmentFetch.clear()
-
     const [start, end] = this.mp4Probe.getFragmentPosition(time)
-
     // 对于已经请求的数据不再重复请求
     // No need to repeat request video data
     if (
@@ -158,7 +151,6 @@ export default class MSE {
       return
     }
     this.handleReplayCase()
-
     this.loadData(start, end).then(mdatBuffer => {
       if (!mdatBuffer) {
         return
@@ -173,7 +165,6 @@ export default class MSE {
         FMP4.moof(videoTrackInfo, videoBaseMediaDecodeTime),
         FMP4.mdat(videoTrackInfo)
       )
-
       // maybe the last GOP dont have audio track
       // 最后一个 GOP 序列可能没有音频轨
       if (audioTrackInfo.samples.length !== 0) {
@@ -183,7 +174,6 @@ export default class MSE {
         )
         this.handleAppendBuffer(audioRawData, 'audio')
       }
-
       this.handleAppendBuffer(videoRawData, 'video')
 
       if (time) {
@@ -241,7 +231,7 @@ export default class MSE {
 
   handleReplayCase = () => {
     if (this.mediaSource.readyState === 'ended') {
-      this.sourceBuffers.video.appendBuffer(new Uint8Array(0))
+      this.sourceBuffers.video.timestampOffset = 0
     }
   }
 
