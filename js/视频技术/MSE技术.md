@@ -2,10 +2,6 @@
 
 <a href="https://juejin.im/entry/5aa64acb6fb9a028b6172adf">Media Source 系列 - 播放 m3u8 文件</a>
 
-<a href="https://juejin.im/post/5b016ca36fb9a07aad17cd13">js实现封装MP4格式文件并下载</a>
-
-<a href="https://lucius0.github.io/2018/02/23/archivers/media-study-010/">音视频学习-MSE基础原理篇</a>
-
 <a href="https://blog.csdn.net/baozi520cc/article/details/27832019">MP4解析,包含moof</a>
 
 
