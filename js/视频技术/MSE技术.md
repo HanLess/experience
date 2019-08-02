@@ -58,7 +58,14 @@ Mdat box数据格式单一，无子box。主要分为box header 和box body，bo
 
 这里使用时，视频数据中，每一个sample是一个视频帧，存放sample时，需要根据帧数据类型进行拼帧处理后存放。
 
-Mdat box中，可能会使用到box的large size，当数据足够大，无法用4个字节来描述时，便会使用到large size。在读取MP4文件时，当mdat box的size位为1时，真正的box size在large size中
+### Mdat box中，可能会使用到box的large size，当数据足够大，无法用4个字节来描述时，便会使用到large size。在读取MP4文件时，当mdat box的size位为1时，真正的box size在large size中
+
+```
+if (this.size === 1) {
+  this.size = stream.readByte(4) << 32
+  this.size |= stream.readByte(4)
+}
+```
 
 #### Moov box
 
@@ -86,4 +93,19 @@ soun：音频
 
 hint：这个特殊的track并不包含媒体数据，而是包含了一些将其他数据track打包成流媒体的指示信息。
 
+<img src="" />
+
+## 方案
+
+在初始化阶段，把视频信息 box（fype , moov）添加到 sourceBuffer 中，这里的关键是 mp4 box 剥离。<a href='https://github.com/HanLess/mp4-reader'>mp4-reader</a>
+
+通过 timeUpdate 事件驱动加载视频数据片
+
+把 mp4 格式转为 fmp4
+
+视频在分段加载播放的时候，快进可能导致 mediaSource.readyState 变为 end，sourceBuffers.video.timestampOffset = 0 可从新开启
+
+但防止某些极端情况，还是要在 appendBuffer 时判断 mediaSource.readyState 状态，如果是 end，要通过栈结构暂存视频数据 buffer
+
+切换清晰度，通过 video.currentTime 来记录当前播放时间，在切换前要清除旧的 buffer 数据。
 
