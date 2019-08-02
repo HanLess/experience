@@ -93,6 +93,8 @@ soun：音频
 
 hint：这个特殊的track并不包含媒体数据，而是包含了一些将其他数据track打包成流媒体的指示信息。
 
+<img src="" />
+
 ## 方案
 
 在初始化阶段，把视频信息 box（fype , moov）添加到 sourceBuffer 中，这里的关键是 mp4 box 剥离。<a href='https://github.com/HanLess/mp4-reader'>mp4-reader</a>
