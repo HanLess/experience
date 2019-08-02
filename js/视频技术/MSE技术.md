@@ -93,7 +93,7 @@ soun：音频
 
 hint：这个特殊的track并不包含媒体数据，而是包含了一些将其他数据track打包成流媒体的指示信息。
 
-<img src="" />
+<img src="https://raw.githubusercontent.com/HanLess/experience/master/js/%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/img/chunk.webp" />
 
 ## 方案
 
