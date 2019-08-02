@@ -149,6 +149,10 @@ box header和version字段后会有一个entry count字段，根据entry的个�
 
 “stco”定义了每个chunk在媒体流中的位置。位置有两种可能，32位的和64位的，后者对非常大的电影很有用。在一个表中只会有一种可能，这个位置是在整个文件中的，而不是在任何box中的，这样做就可以直接在文件中找到媒体数据，而不用解释box。需要注意的是一旦前面的box有了任何改变，这张表都要重新建立，因为位置信息已经改变了。
 
+#### mp4 box 结构图
+
+<img src="https://raw.githubusercontent.com/HanLess/experience/master/js/%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/img/%E7%BB%93%E6%9E%84.jpg%40932w_1380h.webp" />
+
 作者：小林家的垃圾王R
 https://www.bilibili.com/read/cv980333/
 出处： bilibili
