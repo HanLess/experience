@@ -6,6 +6,8 @@
 
 <a href="https://lucius0.github.io/2018/02/23/archivers/media-study-010/">音视频学习-MSE基础原理篇</a>
 
+<a href="https://blog.csdn.net/baozi520cc/article/details/27832019">MP4解析,包含moof</a>
+
 
 MES技术需要使用 fmp4 格式的视频文件，与 mp4 的区别在于：文件 box 中新增了 segment index box 信息，可以根据字节位置来分片，前端视频中的分片下载播放也是基于这个
 
