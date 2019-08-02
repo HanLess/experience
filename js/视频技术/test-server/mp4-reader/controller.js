@@ -106,6 +106,7 @@ export default class MSE {
         return mp4BoxTreeObject
       })
       .then(mp4BoxTreeObject => {
+        console.log(mp4BoxTreeObject)
         this.mp4Probe = new MP4Probe(mp4BoxTreeObject)
         this.mp4BoxTreeObject = mp4BoxTreeObject
         const videoRawData = concatTypedArray(
@@ -119,20 +120,8 @@ export default class MSE {
         )
         // 如果是切换清晰度，mediaSource 的 readyState 已经 open 了，可以直接 append 数据。
         // mediaSource is already open when we switch video quality.
-        console.log("点位1")
-        if (this.qualityChangeFlag) {
-          this.handleAppendBuffer(videoRawData, 'video')
-          this.handleAppendBuffer(audioRawData, 'audio')
-        } else {
-          this.handleAppendBuffer(videoRawData, 'video')
-          this.handleAppendBuffer(audioRawData, 'audio')
-          
-          this.mediaSource.addEventListener('sourceopen', () => {
-            console.log("点位2")
-            this.handleAppendBuffer(videoRawData, 'video')
-            this.handleAppendBuffer(audioRawData, 'audio')
-          })
-        }
+        this.handleAppendBuffer(videoRawData, 'video')
+        this.handleAppendBuffer(audioRawData, 'audio')
       })
   }
 

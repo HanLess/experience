@@ -2467,7 +2467,7 @@
 
   var isBuffer_1 = createCommonjsModule(function (module, exports) {
   /** Detect free variable `exports`. */
-  var freeExports =  exports && !exports.nodeType && exports;
+  var freeExports = exports && !exports.nodeType && exports;
 
   /** Detect free variable `module`. */
   var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
@@ -2639,7 +2639,7 @@
 
   var _nodeUtil = createCommonjsModule(function (module, exports) {
   /** Detect free variable `exports`. */
-  var freeExports =  exports && !exports.nodeType && exports;
+  var freeExports = exports && !exports.nodeType && exports;
 
   /** Detect free variable `module`. */
   var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
@@ -2980,7 +2980,7 @@
 
   var _cloneBuffer = createCommonjsModule(function (module, exports) {
   /** Detect free variable `exports`. */
-  var freeExports =  exports && !exports.nodeType && exports;
+  var freeExports = exports && !exports.nodeType && exports;
 
   /** Detect free variable `module`. */
   var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
@@ -4897,31 +4897,16 @@
 
           return mp4BoxTreeObject;
         }).then(function (mp4BoxTreeObject) {
+          console.log(mp4BoxTreeObject);
           _this2.mp4Probe = new MP4Probe(mp4BoxTreeObject);
           _this2.mp4BoxTreeObject = mp4BoxTreeObject;
           var videoRawData = concatTypedArray(FMP4Generator.ftyp(), FMP4Generator.moov(_this2.mp4Probe.mp4Data, 'video'));
           var audioRawData = concatTypedArray(FMP4Generator.ftyp(), FMP4Generator.moov(_this2.mp4Probe.mp4Data, 'audio')); // 如果是切换清晰度，mediaSource 的 readyState 已经 open 了，可以直接 append 数据。
           // mediaSource is already open when we switch video quality.
 
-          console.log("点位1");
+          _this2.handleAppendBuffer(videoRawData, 'video');
 
-          if (_this2.qualityChangeFlag) {
-            _this2.handleAppendBuffer(videoRawData, 'video');
-
-            _this2.handleAppendBuffer(audioRawData, 'audio');
-          } else {
-            _this2.handleAppendBuffer(videoRawData, 'video');
-
-            _this2.handleAppendBuffer(audioRawData, 'audio');
-
-            _this2.mediaSource.addEventListener('sourceopen', function () {
-              console.log("点位2");
-
-              _this2.handleAppendBuffer(videoRawData, 'video');
-
-              _this2.handleAppendBuffer(audioRawData, 'audio');
-            });
-          }
+          _this2.handleAppendBuffer(audioRawData, 'audio');
         });
       }
     }, {
