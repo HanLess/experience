@@ -1,0 +1,101 @@
+{
+  "name": "griffith",
+  "description": "Zhihu Video Player",
+  "homepage": "https://github.com/zhihu/griffith#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhihu/griffith.git"
+  },
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "example",
+    "website"
+  ],
+  "keywords": [
+    "zhihu",
+    "mp4",
+    "fmp4",
+    "hls",
+    "react",
+    "video",
+    "dash",
+    "player",
+    "mp4box",
+    "component",
+    "hls-player",
+    "html5-video",
+    "html5-video-player",
+    "react-component",
+    "zhihu-video-player"
+  ],
+  "scripts": {
+    "format": "prettier --check \"packages/**/*.{js,json,md}\" \"*.{js,json,md}\"",
+    "format:fix": "prettier --write \"packages/**/*.{js,json,md}\" \"*.{js,json,md}\"",
+    "lint": "eslint 'packages/*/src/**/*.js' '*.js'",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch --notify",
+    "build:lib": "lerna run build --parallel --ignore example --ignore website --ignore griffith-standalone",
+    "build:standalone": "lerna run --scope griffith-standalone build",
+    "deploy:website": "lerna run --scope website deploy",
+    "build": "yarn build:lib && yarn build:standalone",
+    "build:watch": "lerna run build:watch --stream --parallel",
+    "release": "yarn build && lerna publish",
+    "start": "yarn workspace example run start"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "@commitlint/config-conventional": "^7.5.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.6.0",
+    "commitlint": "^7.5.2",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "enzyme-to-json": "^3.3.5",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "husky": "^1.3.1",
+    "jest": "^24.6.0",
+    "lerna": "^3.13.1",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.16.4",
+    "rollup": "^1.8.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-node-resolve": "^4.0.1",
+
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{json,md,css}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}
