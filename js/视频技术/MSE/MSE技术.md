@@ -2,9 +2,7 @@
 
 <a href="https://juejin.im/entry/5aa64acb6fb9a028b6172adf">Media Source 系列 - 播放 m3u8 文件</a>
 
-<a href="https://juejin.im/post/5b016ca36fb9a07aad17cd13">js实现封装MP4格式文件并下载</a>
-
-<a href="https://lucius0.github.io/2018/02/23/archivers/media-study-010/">音视频学习-MSE基础原理篇</a>
+<a href="https://blog.csdn.net/baozi520cc/article/details/27832019">MP4解析,包含moof</a>
 
 
 MES技术需要使用 fmp4 格式的视频文件，与 mp4 的区别在于：文件 box 中新增了 segment index box 信息，可以根据字节位置来分片，前端视频中的分片下载播放也是基于这个
@@ -148,6 +146,10 @@ box header和version字段后会有一个entry count字段，根据entry的个�
 #### Chunk Offset Box（stco）
 
 “stco”定义了每个chunk在媒体流中的位置。位置有两种可能，32位的和64位的，后者对非常大的电影很有用。在一个表中只会有一种可能，这个位置是在整个文件中的，而不是在任何box中的，这样做就可以直接在文件中找到媒体数据，而不用解释box。需要注意的是一旦前面的box有了任何改变，这张表都要重新建立，因为位置信息已经改变了。
+
+#### mp4 box 结构图
+
+<img src="https://raw.githubusercontent.com/HanLess/experience/master/js/%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/img/%E7%BB%93%E6%9E%84.jpg%40932w_1380h.webp" />
 
 作者：小林家的垃圾王R
 https://www.bilibili.com/read/cv980333/
