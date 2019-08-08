@@ -35,7 +35,7 @@ Range: bytes=645879-1478445
 
 在初始化阶段，把视频信息 box（fype , moov）添加到 sourceBuffer 中，这里的关键是 mp4 box 剥离。<a href='https://github.com/HanLess/mp4-reader'>mp4-reader</a>
 
-通过 timeUpdate 事件驱动加载视频数据片
+通过 timeUpdate 事件驱动加载视频数据片 <a href="https://github.com/HanLess/experience/blob/master/js/%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/MSE/%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%AF%B7%E6%B1%82%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E7%89%87.md">什么时候请求下一个数据片</a>
 
 把 mp4 格式转为 fmp4
 
