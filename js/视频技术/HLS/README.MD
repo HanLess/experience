@@ -37,9 +37,30 @@ index5.ts
 
 在 pc 上需要把 m3u8 文件转码，目前成熟的转码工具有：
 
-hls.js
+<a href="https://github.com/video-dev/hls.js">hls.js</a>
 
 <a href="https://github.com/videojs/videojs-contrib-hls">videojs-contrib-hls.js</a>
 
 
+```
+<video id="hls-video" width="300" height="200" class="video-js vjs-default-skin"
+       playsinline webkit-playsinline
+       autoplay controls preload="auto"
+       x-webkit-airplay="true" x5-video-player-fullscreen="true" x5-video-player-typ="h5">
+    <!-- 直播的视频源 -->
+    <source src="http://live.zzbtv.com:80/live/live123/800K/tzwj_video.m3u8" type="application/x-mpegURL">
+    <!-- 点播的视频源 -->
+    <!--<source src="http://devstreaming.apple.com/videos/wwdc/2015/413eflf3lrh1tyo/413/hls_vod_mvp.m3u8" type="application/x-mpegURL">-->
+</video>
+
+<script src="http://cdn.bootcss.com/video.js/6.0.0-RC.5/video.js"></script>
+<!-- PC 端浏览器不支持播放 hls 文件(m3u8), 需要 videojs-contrib-hls 来给我们解码 -->
+<script src="http://cdn.bootcss.com/videojs-contrib-hls/5.3.3/videojs-contrib-hls.js"></script>
+<script>
+    // XMLHttpRequest cannot load http://xxx/video.m3u8. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://192.168.198.98:8000' is therefore not allowed access.
+    // 由于 videojs-contrib-hls 需要通过 XHR 来获取解析 m3u8 文件, 因此会遭遇跨域问题, 请设置浏览器运行跨域
+    var player = videojs('hls-video');
+    player.play();
+</script>
+```
 
