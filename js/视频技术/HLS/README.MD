@@ -23,22 +23,6 @@ index5.ts
 
 请求 ts 资源会返回视频内容
 
-```
-<video id="hls_player" width="600" height="400" controls></video>
-<script src="//cdn.bootcss.com/hls.js/8.0.0-beta.3/hls.min.js"></script>
-<script>
-  const hlsVideo = document.getElementById('hls_player');
-  if (Hls.isSupported()) {
-    const hls = new Hls();
-    hls.loadSource('xxx.m3u8');
-    hls.attachMedia(hlsVideo);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      hlsVideo.play();
-    });
-  }
-</script>
-```
-
 在移动端可以直接播放 m3u8 格式文件，如下
 
 ```
