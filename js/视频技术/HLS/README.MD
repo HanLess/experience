@@ -39,6 +39,23 @@ index5.ts
 
 <a href="https://github.com/video-dev/hls.js">hls.js</a>
 
+
+```
+<video id="hls_player" width="600" height="400" controls></video>
+<script src="//cdn.bootcss.com/hls.js/8.0.0-beta.3/hls.min.js"></script>
+<script>
+  const hlsVideo = document.getElementById('hls_player');
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource('xxx.m3u8');
+    hls.attachMedia(hlsVideo);
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      hlsVideo.play();
+    });
+  }
+</script>
+```
+
 <a href="https://github.com/videojs/videojs-contrib-hls">videojs-contrib-hls.js</a>
 
 
