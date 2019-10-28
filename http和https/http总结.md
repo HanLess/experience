@@ -89,6 +89,10 @@ http相关内容繁杂，这里总结一下比较常用的：
   <li>客户端收到 ACK+SYN 包后，回应服务端发送 ACK 包，随后客户端与服务端都进入 ESTABLISHED 状态，三次握手完成</li>
 </ul>
 
+### 三次握手的目的是为了让 A 和 B 都确认一件事：A、B 的 接收 和 发送 功能都没有问题
+
+<img src="https://github.com/HanLess/experience/blob/master/http%E5%92%8Chttps/imgs/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" />
+
 #### 四次挥手（断开链接）
 
 <ul>
