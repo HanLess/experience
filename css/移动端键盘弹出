@@ -7,6 +7,8 @@ Android：
 （resize 前的 window.innerHeight - resize 后的 window.innerHeight），键盘最上面一栏没有计算进去；
 微信浏览器会计算总高度。这导致无法根据屏幕变化尺寸来调整 input 位置，还是有可能被遮挡
 
+解决方案：可以通过 element.getBoundingClientRect() 方法来获取 input 在屏幕上的位置，来计算 window 需要滚动的距离
+
 ios：
 键盘弹出后触发scroll事件，屏变小，但是window的scrollHeight不变，内容区域出现滚动条，样式不会变乱，但是键盘会遮挡p屏幕下部的元素。
 早期ios中的处理类似Android
