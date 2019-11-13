@@ -1,3 +1,5 @@
+这一版功能实现了，但是违背了 promise 的思想
+
 ```
 var my = function(fn){
     var self = this
