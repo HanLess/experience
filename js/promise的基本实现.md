@@ -79,9 +79,10 @@ new my(function(resolve){
 })
 ```
 
-修复版本：then 里用来注册 resolve 后的回调
+修复版本：then 里用来注册 resolve 后的回调，then 方法会立即执行，注册 cb，只有当前 then 方法的 promise 对象 resolve 执行了，cb 执行
 
 ```
+var g = 0
 var my = function (fn) {
     var status = 'pendding';
     var callback = null;
@@ -96,6 +97,7 @@ var my = function (fn) {
     }
 
     this.then = function (cb) {
+        console.log(++g)    
         return (new my(function(_resolve){
             callback = function (_data) {
                 let d = cb(_data);
