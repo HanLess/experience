@@ -11,7 +11,7 @@
 
 异常分类
 
-<img src="" />
+<img src="https://github.com/HanLess/experience/blob/master/js/imgs/%E5%89%8D%E7%AB%AF%E5%BC%82%E5%B8%B8%E5%88%86%E7%B1%BB.png" />
 
 ## 异常捕获方法
 
@@ -41,7 +41,7 @@
 
 不可能所有的用户动作都上报，需要在本地存储、处理、筛选，以下是本地存储的解决方案
 
-<img src="" />
+<img src="https://github.com/HanLess/experience/blob/master/js/imgs/%E5%89%8D%E7%AB%AF%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E6%A1%88.png" />
 
 本地存储后，使用 web worker 处理数据、上报异常，但要注意 web worker 的浏览器兼容性，并做好兼容处理
 
