@@ -65,3 +65,10 @@ FetchAll(list, 3).then((res) => {
     console.log(res)
 })
 ```
+
+### Promise.all 的实现
+
+以此类推可以实现 Promise.all ，只需要去掉 limit 限制即可
+
+
+
