@@ -33,30 +33,29 @@ function FetchAll (plist, limit) {
     let finish = 0;
     let listLen = plist.length;
     return new Promise((resolve) => {
-        if (plist.length > limit) {
-            for (let i = 0;i < limit;i ++) {
-                count ++;
-                (function(ind){
-                    let item = plist.shift();
+        let len = Math.min(plist.length, limit);
+        for (let i = 0;i < len;i ++) {
+            count ++;
+            (function(ind){
+                let item = plist.shift();
 
-                    fetch(item).then((data) => {
-                        finish++;
-                        result[ind] = data;
-                        console.log(data,ind)
-                        let nitem = plist.shift();
-                        if (nitem) {
-                            FetchNext(nitem, count).then(() => {
-                                finish++
-                                if (finish == listLen) {
-                                    resolve(result)
-                                }
-                            });
-                            count++
-                        }
-                    })
+                fetch(item).then((data) => {
+                    finish++;
+                    result[ind] = data;
+                    console.log(data,ind)
+                    let nitem = plist.shift();
+                    if (nitem) {
+                        FetchNext(nitem, count).then(() => {
+                            finish++
+                            if (finish == listLen) {
+                                resolve(result)
+                            }
+                        });
+                        count++
+                    }
+                })
 
-                })(i)
-            }
+            })(i)
         }
     })
 }
