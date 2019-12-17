@@ -17,61 +17,51 @@ let b = 'b'
 let c = 'c'
 let d = 'd'
 let e = 'e'
+let f = 'f'
+let g = 'g'
+let h = 'h'
 
-const list = [a,b,c,d,e]
-const result = []
-
-function FetchNext (item, ind) {
-    return fetch(item).then((data) => {
-        console.log(data, ind)
-        result[ind] = data;
-    }).catch((data) => {
-        console.log('error ----', data, ind)
-        result[ind] = data;
-    })
-}
+const list = [a,b,c,d,e,f,g,h]
 
 function FetchAll (plist, limit) {
     let count = 0;
     let finish = 0;
-    let listLen = plist.length;
+    let listLen = list.length;
+    const result = []
+
+    function FetchNext (index, resolve) {
+        let nitem = plist.shift();
+        if (nitem) {
+            fetch(nitem).then((data) => {
+                console.log(data, index)
+                finish++
+                result[index] = data;
+                if (finish == listLen) {
+                    resolve(result)
+                } else {
+                    FetchNext(count, resolve)
+                }
+            })
+            count++;
+        }
+    }
+
     return new Promise((resolve) => {
         let len = Math.min(plist.length, limit);
         for (let i = 0;i < len;i ++) {
             count ++;
             (function(ind){
                 let item = plist.shift();
-
                 fetch(item).then((data) => {
-                    finish++;
+                    console.log(data, ind)
                     result[ind] = data;
-                    console.log(data,ind)
-                    let nitem = plist.shift();
-                    if (nitem) {
-                        FetchNext(nitem, count).then(() => {
-                            finish++
-                            if (finish == listLen) {
-                                resolve(result)
-                            }
-                        });
-                        count++
-                    }
-                }).catch((data) => {
-                    finish++;
-                    result[ind] = data;
-                    console.log('error ----', data, ind)
-                    let nitem = plist.shift();
-                    if (nitem) {
-                        FetchNext(nitem, count).then(() => {
-                            finish++
-                            if (finish == listLen) {
-                                resolve(result)
-                            }
-                        });
-                        count++
+                    finish++
+                    if (finish == listLen) {
+                        resolve(result)
+                    } else {
+                        FetchNext(count, resolve);
                     }
                 })
-
             })(i)
         }
     })
