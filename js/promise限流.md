@@ -25,6 +25,9 @@ function FetchNext (item, ind) {
     return fetch(item).then((data) => {
         console.log(data, ind)
         result[ind] = data;
+    }).catch((data) => {
+        console.log('error ----', data, ind)
+        result[ind] = data;
     })
 }
 
@@ -43,6 +46,20 @@ function FetchAll (plist, limit) {
                     finish++;
                     result[ind] = data;
                     console.log(data,ind)
+                    let nitem = plist.shift();
+                    if (nitem) {
+                        FetchNext(nitem, count).then(() => {
+                            finish++
+                            if (finish == listLen) {
+                                resolve(result)
+                            }
+                        });
+                        count++
+                    }
+                }).catch((data) => {
+                    finish++;
+                    result[ind] = data;
+                    console.log('error ----', data, ind)
                     let nitem = plist.shift();
                     if (nitem) {
                         FetchNext(nitem, count).then(() => {
