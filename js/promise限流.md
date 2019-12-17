@@ -50,19 +50,17 @@ function FetchAll (plist, limit) {
         let len = Math.min(plist.length, limit);
         for (let i = 0;i < len;i ++) {
             count ++;
-            (function(ind){
-                let item = plist.shift();
-                fetch(item).then((data) => {
-                    console.log(data, ind)
-                    result[ind] = data;
-                    finish++
-                    if (finish == listLen) {
-                        resolve(result)
-                    } else {
-                        FetchNext(count, resolve);
-                    }
-                })
-            })(i)
+            let item = plist.shift();
+            fetch(item).then((data) => {
+                console.log(data, i)
+                result[i] = data;
+                finish++
+                if (finish == listLen) {
+                    resolve(result)
+                } else {
+                    FetchNext(count, resolve);
+                }
+            })
         }
     })
 }
