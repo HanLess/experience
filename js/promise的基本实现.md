@@ -1,3 +1,7 @@
+then 有两个作用：注册回调 、 返回一个新的 promise
+
+这一版功能实现了，但是违背了 promise 的思想，在同步的过程中，then 执行也应该与异步过程一样，注册回调，而不是立即执行
+
 ```
 var my = function(fn){
     var self = this
@@ -74,3 +78,47 @@ new my(function(resolve){
     console.log(_data)
 })
 ```
+
+修复版本：then 里用来注册 resolve 后的回调，then 方法会立即执行，注册 cb，只有当前 then 方法的 promise 对象 resolve 执行了，cb 执行
+
+```
+var g = 0
+var my = function (fn) {
+    var status = 'pendding';
+    var callback = null;
+
+    var resolve = function (data) {
+        setTimeout(function(){
+            status = 'resolved'
+            if (callback) {
+                callback(data);
+            }
+        },0);
+    }
+
+    this.then = function (cb) {
+        console.log(++g)    
+        return (new my(function(_resolve){
+            callback = function (_data) {
+                let d = cb(_data);
+                _resolve(d);
+            }
+        }));
+    }
+
+    fn(resolve);
+}
+
+var a = new my(function(resolve){
+    resolve(10);
+    console.log(1)
+}).then(function(num){
+    console.log(num)
+    return 100
+}).then(function(num2){
+    console.log(num2)
+})
+```
+
+
+
