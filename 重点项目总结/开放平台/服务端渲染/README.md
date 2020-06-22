@@ -14,7 +14,7 @@
 
 ### 改动内容
 
-client-entry / server-entry
+- client-entry / server-entry
 
 - html
 
