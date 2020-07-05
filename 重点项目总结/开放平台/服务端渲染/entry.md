@@ -37,3 +37,10 @@ const Routers: FC<any> = (props) => {
   )
 }
 ```
+
+location 就是匹配到的 path，不可变，context 是服务端传过来的参数，下面的各个组件可以通过 this.props.staticContext 来获取里面的内容
+
+
+
+
+
