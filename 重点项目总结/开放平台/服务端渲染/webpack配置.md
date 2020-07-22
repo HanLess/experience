@@ -106,3 +106,14 @@ serverAppBuild: resolveApp('../ke-open-platform-server/src/statics/client')
 
 ```
 
+打包结束后，要将最终生成的 html 文件复制一份到 server 端，当做 server 生成最终 html 结构时的模板 html，这个 html 有客户端渲染阶段需要的所有 js 引用，这一步非常重要
+
+```
+let htmlPath = path.resolve(paths.appBuild, 'index.html')
+let serverHtmlPath = path.resolve(paths.serverAppBuild, 'index.htm')
+fs.copyFileSync(htmlPath, serverHtmlPath)
+```
+
+
+
+
