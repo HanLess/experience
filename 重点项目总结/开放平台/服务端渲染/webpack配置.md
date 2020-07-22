@@ -47,6 +47,34 @@ class Home extends Component<CommonProps> {
 }
 ```
 
+### 要将样式通过模块的方式引入，配置如下
+
+webpack
+
+```
+
+{
+  test: lessModuleRegex,
+  use: [...getStyleLoaders(
+    {
+      importLoaders: 2,
+      sourceMap: (isEnvTest  ||  isEnvProduction) && shouldUseSourceMap,
+      modules: { 
+        getLocalIdent: getCSSModuleLocalIdent
+      },
+    },
+  ),{
+    loader: "less-loader",
+    options: {
+        javascriptEnabled: true
+    }
+  }],
+},
+```
+
+其中 modules 是关键，具体用法可以参考文档，除了 webpack，也要配置 ts，否则 ts 会报错
+
+<a href="https://github.com/HanLess/experience/blob/master/js/%E5%A6%82%E4%BD%95%E5%9C%A8react%E9%A1%B9%E7%9B%AEtsx%E4%B8%AD%E5%BC%95%E7%94%A8less.md">如何在react项目tsx中引用less</a>
 
 
 
