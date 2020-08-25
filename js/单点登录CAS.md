@@ -19,9 +19,13 @@
 
 这种模式，一定会跳登录页去验证一下，如果其他业务域名登录过了就直接跳回，否则直接留在这登录
 
-（3）通过 iframe 共享 cookie，淘宝、天猫的登录是这么实现的
+（3）通过 iframe 共享 cookie
 
 所有需要单点登录的域名下，都带着 iframe，且 iframe 是同一个域名（cas url），一个业务登录后，在自己的域名下种 cookie，同时通过 postMessage 把登录信息传给 iframe 的 
 cas url，cas url 把登录信息种在自己的域名下 -> 另一个业务域名被访问后，先从 iframe 找登录cookie（也通过 postMessage ），如果有，就种在自己的域名下
 
 这种模式，可以无视域名
+
+（4）三方 cookie，淘宝天猫是这种模式，但未来三方 cookie 会被禁用
+
+三方 cookie 的写入和正常 cookie 一样
