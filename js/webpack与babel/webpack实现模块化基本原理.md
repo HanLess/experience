@@ -63,4 +63,4 @@ bundle 最终生成的代码大概如下
 
 ```
 
-生成的最终代码中，核心方法就是 require，module.exports 符合
+#### 生成的最终代码中，核心方法就是 require，module.exports 符合 commonJS 规范，这样，通过 require 与 exports 实现了模块化
