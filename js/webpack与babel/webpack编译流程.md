@@ -14,10 +14,13 @@ webpack 的编译过程由这两个对象控制。
  - 初始化 webpack，创建 compiler 实例
  - 执行 compiler.run 启动编译，并构建 compilation 对象
  - 编译主体流程，细节在后面
- - 根据处理后的 AST 生成处理后的 js 代码
+ - 根据处理后的 AST 生成处理后的 js 代码，这一步 seal 方法时核心
  - 输出
 
-option 初始化 -> compile -> build module -> after compiler -> emit -> after emit
+option 初始化 -> compile -> build module -> after compiler -> seal -> emit -> after emit
+
+seal 输出资源
+根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk，再把每个 Chunk 转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会
 
 #### 编译主体
 
