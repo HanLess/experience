@@ -204,7 +204,7 @@ module.exports = function(webpackEnv) {
         /* 只在 production 环境使用
           压缩、混淆代码配置
           去掉 console 输出
-          开启多进程构建配置
+          开启多进程压缩
         */
         new TerserPlugin({
           terserOptions: {
