@@ -22,26 +22,25 @@ marking 是 gc 中重要的一个阶段，v8 的标记策略叫 tri-color markin
 
 第一种模式，暂停主线程 js 执行，多线程 marking，相当于 （1）的升级版
                 
-<div>                 marking    js                              </div>                 
+                     marking    js                                          
 <div>main thread    ---------->------------->-------------------></div>
 
-<div>                marking                                    </div>
+                      marking                                   
 <div>worker thread  ---------->--------------------------------></div>
 
-<div>                marking                                    </div>
+                     marking                                    
 <div>worker thread  ---------->--------------------------------></div>
 
 
 第二种模式
 
-
-<div>                     js                                       </div>
+                         js                                       
 <div>main thread    ------------------>---------------------------></div>
 
-<div>                marking                                        </div>
+                     marking                                        
 <div>worker thread  -------------->--------------------------------></div>
 
-<div>                marking                                        </div>
+                      marking                                        
 <div>worker thread  -------------->--------------------------------></div>
 
 
