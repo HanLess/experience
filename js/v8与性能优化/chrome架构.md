@@ -12,3 +12,42 @@
 （1）浏览器进程通过 safeBrowsing 判断是否是恶意站点，如站点内是否有恶意数据，ip 是否在谷歌黑名单中
 
 （2）网络进程通过 IPC 管道将数据交给渲染进程开始渲染
+
+（3）渲染进程收到 html ，主线程 开始解析 dom tree，收到 css 开始解析 css tree（样式的加载、解析不会阻塞主进程解析 dom tree，但是会阻塞渲染 dom，同时样式也会阻塞 js 的加载和执行）
+
+（4）dom tree 和 css tree 是并行解析的，但是需要全部解析完成后，合成 render tree，render tree 用于渲染，所以样式的加载、解析会阻塞页面的渲染，但不会阻塞 dom 的解析，要分清区别
+
+（5）主线程通过 dom tree 和 css tree 合成 render tree，并计算每个 render tree 节点在页面中的布局、大小、排版，这个阶段称为 layout，render tree 的每个节点，都记录了x，y坐标和尺寸
+
+（6）dom tree 和 render tree 并不是一一对应的，比如 dom 节点 设置 display：none，则 render tree 上就没有这个节点，render tree 对应的是浏览器上展示的元素节点
+
+（7）完成 layout 阶段，知道了每个节点的大小、位置，但是还需要知道以什么顺序来绘制（paint）这棵 render tree
+
+（8）因为 z-index 会影响节点绘制的顺序层级，所以主线程会遍历 render tree，生成一个绘制记录表（paint record），这个表记录了绘制的顺序，这个阶段就是绘制（paint）
+
+（5）render tree 创建完成后，主线程的工作就完成了，下一步就是 栅格化，此时会将 render tree 发送给 合成器线程
+
+（6）合成器线程按规则分图层，把图层分割成更小的图块，交给栅格线程，进行栅格化
+
+（7）图块的栅格化完成后，栅格线程会生成 draw quads（图块信息），交给 合成器线程
+
+（8）合成器线程根据图块信息生成一个合成器帧，并将此合成器帧通过 IPC 通道交给浏览器进程，浏览器进程传到 GPU 进程，进行 GPU 渲染，整个页面就渲染完成了
+
+
+主线程工作：dom tree，css tree，render tree 的解析
+
+合成器线程：分图层，分割图块，合成器帧
+
+栅格线程：图块栅格化，生成图块信息
+
+重排：触发布局的变化，layout，paint 以及后面的流程重新执行；重绘：触发颜色等属性变化，不会触发重新布局，但还是会进行样式的重新计算
+
+#### 优化手段
+
+ - 利用 requestAnimationFrame，把 js 任务分割成小的任务块放在其中执行，react fiber 就是用了这种方法，这样就不会阻塞每一帧中的渲染任务
+ - 利用 css 中的 transform 改变节点样式，不会触发重排重绘，只会重新进程栅格化，即不会占用主线程，只会占用 合成器线程 和 栅格线程，所以可以利用 transform 实现动画
+
+
+
+
+
