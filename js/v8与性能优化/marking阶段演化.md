@@ -22,26 +22,12 @@ marking 是 gc 中重要的一个阶段，v8 的标记策略叫 tri-color markin
 
 第一种模式，暂停主线程 js 执行，多线程 marking，相当于 （1）的升级版
                 
-                     marking        js                                          
-<div>main thread    ---------->------------->-------------------></div>
-
-                      marking                                   
-<div>worker thread  ---------->--------------------------------></div>
-
-                     marking                                    
-<div>worker thread  ---------->--------------------------------></div>
+<img src="https://github.com/HanLess/experience/blob/master/js/v8%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/1.png" />
 
 
 第二种模式，主线程执行 js ，工作线程同时 marking，不会阻塞 js 执行
 
-                         js                                       
-<div>main thread    ------------------>---------------------------></div>
-
-                     marking                                        
-<div>worker thread  -------------->--------------------------------></div>
-
-                      marking                                        
-<div>worker thread  -------------->--------------------------------></div>
+<img src="https://github.com/HanLess/experience/blob/master/js/v8%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/2.png" />
 
 
 第二种模式面临一个问题，当主线程与工作线程同时操作一个对象，就会发生冲突。解决冲突的方法如下：
@@ -53,10 +39,12 @@ marking 是 gc 中重要的一个阶段，v8 的标记策略叫 tri-color markin
 
 多线程 + 渐进式
 
+<img src="https://github.com/HanLess/experience/blob/master/js/v8%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/3.png" />
 
-
-
-
+ - 主线程从 根 开始遍历对象树，将遍历到的对象变成灰色，即把遍历到的对象放进 worklist
+ - 工作线程接手 worklist，将遍历到的所有对象变成黑色，并清空 worklist
+ - 主线程在空闲的时候，会参与到 marking 中
+ - 当 worklist 被清空后，即所有被遍历到的对象变成黑色，主线程与工作线程同时从根
 
 
 
