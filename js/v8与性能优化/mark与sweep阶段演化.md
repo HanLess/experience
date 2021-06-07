@@ -66,6 +66,6 @@ marking 阶段完成后，主线程暂停 js 执行，开始销毁无用对象�
 c++ 严重依赖作为 finalizer 的析构函数（destructors），Oilpan 强制 finalizer 在主线程执行，以避免数据冲突。
 ```
 
-对于
+对于有 finalizer 的对象，在 sweep 阶段会把 finalizer 放进 finalization qeueu 里，然后在 finalization 阶段，在主线程中统一执行，对于没有 finalier 的对象，直接把内存释放
 
 
