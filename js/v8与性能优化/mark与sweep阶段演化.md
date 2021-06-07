@@ -53,3 +53,19 @@ marking 阶段完成后，主线程暂停 js 执行，开始销毁无用对象�
 
 最终的 marking 策略，提速 65% - 70%
 
+
+### sweep 阶段
+
+跟 mark 一样，多线程执行，但 finalize 阶段必须在主线程执行
+
+<img src="https://github.com/HanLess/experience/blob/master/js/v8%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/img/sweeping.png" />
+
+以下是原文 v8 blog 原文：
+
+```
+c++ 严重依赖作为 finalizer 的析构函数（destructors），Oilpan 强制 finalizer 在主线程执行，以避免数据冲突。
+```
+
+对于
+
+
