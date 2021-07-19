@@ -10,7 +10,7 @@ marking 是 gc 中重要的一个阶段，v8 的标记策略叫 tri-color markin
 
 对象被声明后，都是 white，意味着未被引用；当收集器发现此对象，并push进 marking worklist，此对象被标记为 grey；当收集器将此对象从 marking worklist 中推出，并遍历它所有的属性，此对象被标记为 black
 
-当遍历树种没有 grey 的对象，则 marking 阶段结束，此时所有 white 对象都可以被回收
+当遍历树中没有 grey 的对象，则 marking 阶段结束，此时所有 white 对象都可以被回收
 
 ### marking 的演化
 
